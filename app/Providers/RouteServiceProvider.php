@@ -46,6 +46,14 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            // Все остальное обрабатываем с помощью Vue Router на фронтенде
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(function () {
+                    Route::view('/{any}', 'vue')
+                        ->where('any', '.*');
+                });
         });
     }
 
