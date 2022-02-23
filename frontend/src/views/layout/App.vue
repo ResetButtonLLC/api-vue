@@ -37,8 +37,6 @@ import AppFooter from "./AppFooter.vue";
 export default {
   created() {
     this.$store.dispatch("updateUserInfo");
-    this.$store.dispatch("updateProjectList");
-    this.$store.dispatch("updateNotificationList");
   },
 
   data() {
