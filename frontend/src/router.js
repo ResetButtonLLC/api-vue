@@ -11,6 +11,48 @@ const routes = [
         name: 'ProjectList',
         component: () => import('@/views/IndexPage.vue'),
     },
+
+    {
+        path: '/test',
+        name: 'test',
+        props: true,
+        component: () => import('@/views/Test.vue'),
+    },
+
+    {
+        path: '/profile/:id',
+        name: 'Profile',
+        props: true,
+        component: () => import('@/views/pages/CreateUpdateProfile.vue'),
+    },
+
+    {
+        path: '/new/profile/:clientId',
+        name: 'CreateProfile',
+        props: true,
+        component: () => import('@/views/pages/CreateUpdateProfile.vue'),
+    },
+
+    {
+        path: '/client/:id',
+        name: 'Client',
+        props: true,
+        component: () => import('@/views/pages/CreateUpdateClient.vue'),
+    },
+
+    {
+        path: '/new/client',
+        name: 'CreateClient',
+        component: () => import('@/views/pages/CreateUpdateClient.vue'),
+    },
+
+    {
+        path: '/profile/:id',
+        name: 'Profile',
+        props: true,
+        component: () => import('@/views/pages/CreateUpdateProfile.vue'),
+    },
+
     {
         path: "/:pathMatch(.*)*",
         name: 'ErrorPage',

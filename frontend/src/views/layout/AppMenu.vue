@@ -1,4 +1,5 @@
 <template>
+  <!--
   <div class="layout-menu-container">
     <router-link class="link" to="/"
       ><i class="pi pi-fw pi-home"></i> Главная страница
@@ -12,9 +13,21 @@
       ><i class="pi pi-fw pi-folder"></i> {{ route.name }}
     </router-link>
   </div>
+  -->
+
+  <div class="layout-menu-container">
+    <AppSubmenu
+      :items="model"
+      class="layout-menu"
+      :root="true"
+      @menuitem-click="onMenuItemClick"
+    />
+  </div>
 </template>
 
 <script>
+import AppSubmenu from "./AppSubmenu";
+
 export default {
   data() {
     return {};
@@ -41,6 +54,10 @@ export default {
     darkTheme() {
       return this.$appState.darkTheme;
     },
+  },
+
+  components: {
+    AppSubmenu: AppSubmenu,
   },
 };
 </script>

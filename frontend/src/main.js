@@ -21,7 +21,7 @@ const app = createApp(App)
     .use(ConfirmationService)
     .use(ToastService);
 
-app.config.globalProperties.$appState = reactive({theme: 'lara-light-indigo', darkTheme: false});
+app.config.globalProperties.$appState = reactive({ theme: 'lara-light-indigo', darkTheme: false });
 
 for (let name in theme.directives) {
     app.directive(name, theme.directives[name])

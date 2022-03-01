@@ -2,7 +2,6 @@ import axios from 'axios';
 import store from '@/store/store';
 
 const apiService = axios.create({
-    withCredentials: true,
     baseURL: '/',
     headers: {
         Accept: 'application/json',

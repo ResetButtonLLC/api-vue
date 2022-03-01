@@ -1,9 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\API\ClientController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\API\UserController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return Auth::user();
-});
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::get('/user', [UserController::class, 'info']);
+
+        Route::get('/clients', [ClientController::class, 'index']);
+    }
+);
