@@ -20,37 +20,23 @@ const routes = [
     },
 
     {
-        path: '/profile/:id',
-        name: 'Profile',
-        props: true,
-        component: () => import('@/views/pages/CreateUpdateProfile.vue'),
+        path: '/new/client',
+        name: 'CreateClient',
+        component: () => import('@/views/pages/CreateClient.vue'),
     },
 
     {
         path: '/new/profile/:clientId',
         name: 'CreateProfile',
         props: true,
-        component: () => import('@/views/pages/CreateUpdateProfile.vue'),
-    },
-
-    {
-        path: '/client/:id',
-        name: 'Client',
-        props: true,
-        component: () => import('@/views/pages/CreateUpdateClient.vue'),
-    },
-
-    {
-        path: '/new/client',
-        name: 'CreateClient',
-        component: () => import('@/views/pages/CreateUpdateClient.vue'),
+        component: () => import('@/views/pages/CreateProfile.vue'),
     },
 
     {
         path: '/profile/:id',
         name: 'Profile',
         props: true,
-        component: () => import('@/views/pages/CreateUpdateProfile.vue'),
+        component: () => import('@/views/pages/UpdateProfile.vue'),
     },
 
     {

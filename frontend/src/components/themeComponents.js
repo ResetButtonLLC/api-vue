@@ -30,7 +30,7 @@ import Dialog from 'primevue/dialog';
 import Divider from 'primevue/divider';
 import Dropdown from 'primevue/dropdown';
 import Fieldset from 'primevue/fieldset';
-// import FileUpload from 'primevue/fileupload';
+import FileUpload from 'primevue/fileupload';
 // import InlineMessage from 'primevue/inlinemessage';
 // import Inplace from 'primevue/inplace';
 // import InputMask from 'primevue/inputmask';
@@ -73,8 +73,8 @@ import Slider from 'primevue/slider';
 // import Timeline from 'primevue/timeline';
 import Toast from 'primevue/toast';
 // import Toolbar from 'primevue/toolbar';
-// import TabView from 'primevue/tabview';
-// import TabPanel from 'primevue/tabpanel';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
 // import ToggleButton from 'primevue/togglebutton';
 // import Tree from 'primevue/tree';
 // import TreeSelect from 'primevue/treeselect';
@@ -116,7 +116,7 @@ export default {
         Divider: Divider,
         Dropdown: Dropdown,
         Fieldset: Fieldset,
-        // FileUpload: FileUpload,
+        FileUpload: FileUpload,
         // InlineMessage: InlineMessage,
         // Inplace: Inplace,
         // InputMask: InputMask,
@@ -153,8 +153,8 @@ export default {
         // SplitterPanel: SplitterPanel,
         // Steps: Steps,
         // TabMenu: TabMenu,
-        // TabView: TabView,
-        // TabPanel: TabPanel,
+        TabView: TabView,
+        TabPanel: TabPanel,
         // Tag: Tag,
         // Textarea: Textarea,
         // TieredMenu: TieredMenu,

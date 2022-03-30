@@ -46,44 +46,6 @@ export default {
       staticMenuInactive: false,
       overlayMenuActive: false,
       mobileMenuActive: false,
-
-      menu: [
-        {
-          label: "Home",
-          items: [
-            {
-              label: "Dashboard",
-              icon: "pi pi-fw pi-home",
-              to: "/",
-            },
-          ],
-        },
-        {
-          label: "Accounts",
-          icon: "pi pi-fw pi-search",
-          items: [
-            {
-              label: "Submenu 1",
-              icon: "pi pi-fw pi-bookmark",
-              items: [
-                {
-                  label: "Submenu 1.1",
-                  icon: "pi pi-fw pi-bookmark",
-                },
-                {
-                  label: "Submenu 1.2",
-                  icon: "pi pi-fw pi-bookmark",
-                },
-                {
-                  label: "Добавить профиль",
-                  icon: "pi pi-fw pi-plus",
-                  to: { name: "test", params: { id: 123 } },
-                },
-              ],
-            },
-          ],
-        },
-      ],
     };
   },
   watch: {
