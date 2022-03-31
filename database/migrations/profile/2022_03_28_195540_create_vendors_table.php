@@ -16,6 +16,7 @@ class CreateVendorsTable extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
             $table->integer('category_id')->unsigned();
+            $table->integer('campaign_id')->unsigned();
             $table->string('name');
             $table->boolean('is_active')->default(false);
             $table->boolean('is_exist')->default(false);

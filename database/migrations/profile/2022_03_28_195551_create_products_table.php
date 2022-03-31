@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('uid');
             $table->integer('category_id')->unsigned();
             $table->integer('vendor_id')->unsigned();
             $table->boolean('is_available')->default(false);

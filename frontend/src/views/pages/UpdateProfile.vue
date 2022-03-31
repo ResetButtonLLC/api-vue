@@ -6,7 +6,7 @@
       <h3>Профиль {{ profile.name }} ({{ clientName }})</h3>
 
       <TabView scrollable>
-        <TabPanel header="Основное">
+        <TabPanel header="Настройки">
           <ProfileMain :profileLink="profile" />
         </TabPanel>
         <TabPanel header="Фид">

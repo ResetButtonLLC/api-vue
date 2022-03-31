@@ -17,6 +17,7 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->integer('client_id')->unsigned();
+            $table->bigInteger('google_id')->unsigned()->default(0);
             $table->string('db');
             $table->string('name');
             $table->string('feed_url')->nullable();
@@ -24,6 +25,7 @@ class CreateProfilesTable extends Migration
             $table->enum('feed_type', ['unset', 'file', 'url'])->default('unset');
             $table->text('template')->nullable();
             $table->text('settings')->nullable();
+            $table->text('replacement')->nullable();
             $table->text('autoupdates')->nullable();
             $table->timestamps();
         });

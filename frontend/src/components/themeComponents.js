@@ -11,7 +11,7 @@ import AutoComplete from 'primevue/autocomplete';
 import Badge from 'primevue/badge';
 import Button from 'primevue/button';
 // import Breadcrumb from 'primevue/breadcrumb';
-// import Calendar from 'primevue/calendar';
+import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
 // import Carousel from 'primevue/carousel';
 // import Chart from 'primevue/chart';
@@ -97,7 +97,7 @@ export default {
         Badge: Badge,
         // Breadcrumb: Breadcrumb,
         Button: Button,
-        // Calendar: Calendar,
+        Calendar: Calendar,
         Card: Card,
         // Carousel: Carousel,
         // Chart: Chart,

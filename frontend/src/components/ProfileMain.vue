@@ -1,15 +1,42 @@
 <template>
   <div>
-    <!--
     <h5>Основное:</h5>
 
     <span class="p-float-label mt-4">
-      <InputText class="w-full" type="text" id="name" v-model="profile.name" />
-      <label for="name">Имя</label>
+      <InputText
+        class="w-full"
+        type="text"
+        id="google_id"
+        v-model="profile.google_id"
+      />
+      <label for="google_id">Google Ads ID</label>
     </span>
--->
-    <h5>Настройки:</h5>
-    <div class="box">
+
+    <h5>Импорт:</h5>
+
+    <span class="p-float-label mt-4">
+      <InputText
+        class="w-full"
+        type="text"
+        id="min_price"
+        v-model="profile.min_price"
+      />
+      <label for="min_price">Минимальная цена продукта</label>
+    </span>
+
+    <span class="p-float-label mt-4">
+      <InputText
+        class="w-full"
+        type="text"
+        id="max_price"
+        v-model="profile.max_price"
+      />
+      <label for="max_price">Максимальная цена продукта</label>
+    </span>
+
+    <h5>Генерация:</h5>
+
+    <div class="box mt-4">
       <div class="el">
         <InputSwitch
           id="no_category_in_model"

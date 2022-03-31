@@ -94,7 +94,7 @@ export default {
     },
 
     deleteDescription(index) {
-      if (this.headlinesCount <= MINIMAL_DESCRIPTIONS) {
+      if (this.descriptionsCount <= MINIMAL_DESCRIPTIONS) {
         this.showWarning(
           "Минимальное количество описаний = " + MINIMAL_DESCRIPTIONS
         );
