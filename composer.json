@@ -49,6 +49,22 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "deploy-dev": [
+            "@composer install",
+            "@php artisan storage:link",
+            "@php artisan migrate --force",
+            "@php artisan optimize:clear",
+            "cd ./frontend && npm install",
+            "npm --prefix ./frontend run build"
+        ],
+        "deploy": [
+            "@composer install --classmap-authoritative --no-dev",
+            "@php artisan storage:link",
+            "@php artisan migrate --force",
+            "@php artisan optimize:clear",
+            "cd ./frontend && npm install",
+            "npm --prefix ./frontend run build"
         ]
     },
     "extra": {
