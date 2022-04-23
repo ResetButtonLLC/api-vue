@@ -31,3 +31,9 @@ cd ./frontend
 npm run build # компиляция файлов фронтенда для production
 npm run watch # компиляция файлов фронтенда сразу после изменения
 ```
+### Установка в docker
+#### Сборка ресурсов в контейнере node (версию контейнера лучше не поднимать)
+```
+cd ./frontend && npm install --include=dev
+npm run build или npm run watch в зависимости от окружения
+```
