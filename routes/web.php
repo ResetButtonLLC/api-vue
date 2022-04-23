@@ -14,6 +14,3 @@ Route::get('/logout', function () {
     }
     return redirect('/guest');
 })->name('logout');
-Route::fallback(function () {
-    abort(404);
-});;
