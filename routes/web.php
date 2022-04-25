@@ -6,8 +6,13 @@ use Promodo\LaravelAzureAuth\Azure;
 
 Route::get('/test0', [TestController::class, 'test']);
 
-Route::get('/login', [Azure::class, 'azure'])->name('login');
-Route::get('/login/azurecallback', [Azure::class, 'azurecallback']);
+if (env('APP_DEBUG', false) && env('APP_ENV', null) == 'local') {
+    Route::get('/login', [TestController::class, 'login'])->name('login');
+} else {
+    Route::get('/login', [Azure::class, 'azure'])->name('login');
+    Route::get('/login/azurecallback', [Azure::class, 'azurecallback']);
+}
+
 Route::get('/logout', function () {
     if (auth()->check()) {
         auth()->logout();
