@@ -8,8 +8,8 @@ const routes = [
     },
     {
         path: '/',
-        name: 'ProjectList',
-        component: () => import('@/views/IndexPage.vue'),
+        name: 'ClientList',
+        component: () => import('@/views/pages/ClientList.vue'),
     },
 
     {
@@ -33,10 +33,17 @@ const routes = [
     },
 
     {
-        path: '/profile/:id',
+        path: '/client/:id',
+        name: 'ClientProfileList',
+        props: true,
+        component: () => import('@/views/pages/ClientProfileList.vue'),
+    },
+
+    {
+        path: '/client/:clientId/profile/:id',
         name: 'Profile',
         props: true,
-        component: () => import('@/views/pages/UpdateProfile.vue'),
+        component: () => import('@/views/pages/Profile.vue'),
     },
 
     {
@@ -62,7 +69,9 @@ const router = createRouter({
         } else {
             return { left: 0, top: 0 };
         }
-    }
+    },
+
+
 });
 
 export default router;

@@ -1,23 +1,7 @@
 <template>
-  <!--
-  <div class="layout-menu-container">
-    <router-link class="link" to="/"
-      ><i class="pi pi-fw pi-home"></i> Главная страница
-    </router-link>
-
-    <router-link
-      v-for="route in projectList"
-      :key="route.id"
-      class="link"
-      :to="{ name: 'FeedList', params: { id: route.id } }"
-      ><i class="pi pi-fw pi-folder"></i> {{ route.name }}
-    </router-link>
-  </div>
-  -->
-
   <div class="layout-menu-container">
     <AppSubmenu
-      :items="model"
+      :items="menuItems"
       class="layout-menu"
       :root="true"
       @menuitem-click="onMenuItemClick"
@@ -33,9 +17,6 @@ export default {
     return {};
   },
 
-  props: {
-    model: Array,
-  },
   methods: {
     onMenuItemClick(event) {
       this.$emit("menuitem-click", event);
@@ -47,8 +28,79 @@ export default {
     },
   },
   computed: {
-    projectList() {
-      return this.$store.getters.getProjectList;
+    menuItems() {
+      return [
+        {
+          label: "Профиль",
+          items: [
+            {
+              id: 11,
+              label: "Информация",
+              icon: "pi pi-fw pi-info-circle",
+            },
+
+            {
+              id: 12,
+              label: "Настройки",
+              icon: "pi pi-fw pi-cog",
+            },
+
+            {
+              id: 13,
+              label: "Автообновления",
+              icon: "pi pi-fw pi-cloud-upload",
+            },
+          ],
+        },
+        {
+          label: "Управление",
+          items: [
+            {
+              id: 21,
+              label: "Фид",
+              icon: "pi pi-fw pi-copy",
+            },
+            {
+              id: 22,
+              label: "Кампании",
+              icon: "pi pi-fw pi-wallet",
+            },
+            {
+              id: 23,
+              label: "Категории",
+              icon: "pi pi-fw pi-qrcode",
+            },
+            {
+              id: 24,
+              label: "Локальная база",
+              icon: "pi pi-fw pi-database",
+            },
+          ],
+        },
+
+        {
+          label: "Другое",
+          items: [
+            {
+              id: 31,
+              label: "Шаблоны",
+              icon: "pi pi-fw pi-sliders-h",
+            },
+
+            {
+              id: 32,
+              label: "Статистика",
+              icon: "pi pi-fw pi-chart-bar",
+            },
+
+            {
+              id: 33,
+              label: "Логи",
+              icon: "pi pi-fw pi-envelope",
+            },
+          ],
+        },
+      ];
     },
 
     darkTheme() {

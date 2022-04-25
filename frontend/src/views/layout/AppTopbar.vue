@@ -4,7 +4,7 @@
       <img alt="Logo" src="@/assets/images/logo.png" />
     </router-link>
     <button
-      v-if="isAuthorized"
+      v-if="isAuthorized && isCanToggleMenu"
       class="p-link layout-menu-button layout-topbar-button"
       @click="onMenuToggle"
     >
@@ -117,13 +117,21 @@ export default {
     },
 
     onMenuToggle(event) {
-      this.$emit("menu-toggle", event);
+      if (this.isCanToggleMenu) {
+        this.$emit("menu-toggle", event);
+      } else {
+        event.preventDefault();
+      }
     },
     onTopbarMenuToggle(event) {
       this.$emit("topbar-menu-toggle", event);
     },
   },
   computed: {
+    isCanToggleMenu() {
+      return this.$store.getters.isShowMenu;
+    },
+
     isAuthorized() {
       return this.$store.getters.isAuthorized;
     },

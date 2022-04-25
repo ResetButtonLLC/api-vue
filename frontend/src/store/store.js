@@ -4,6 +4,10 @@ import clientModule from '@/store/modules/clients';
 import profileModule from '@/store/modules/profiles';
 import router from '@/router'
 
+const WHERE_SHOW_MENU = [
+  'Profile'
+];
+
 export default createStore({
   modules: {
     user: userModule,
@@ -24,6 +28,14 @@ export default createStore({
         name: name,
         params: params,
       });
-    }
+    },
+
+
+  },
+
+  getters: {
+    isShowMenu() {
+      return WHERE_SHOW_MENU.includes(router.currentRoute.value.name);
+    },
   }
 })

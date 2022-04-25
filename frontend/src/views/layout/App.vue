@@ -1,9 +1,6 @@
 <template>
   <div :class="containerClass" @click="onWrapperClick" v-if="!isLoginProcess">
     <AppTopBar @menu-toggle="onMenuToggle" />
-    <div class="layout-sidebar" @click="onSidebarClick">
-      <AppMenu :model="clientsForMenu" @menuitem-click="onMenuItemClick" />
-    </div>
 
     <div class="layout-main-container">
       <div class="layout-main">
@@ -31,7 +28,6 @@
 
 <script>
 import AppTopBar from "./AppTopbar.vue";
-import AppMenu from "./AppMenu.vue";
 import AppFooter from "./AppFooter.vue";
 
 export default {
@@ -83,9 +79,7 @@ export default {
 
       event.preventDefault();
     },
-    onSidebarClick() {
-      this.menuClick = true;
-    },
+
     onMenuItemClick(event) {
       if (event.item && !event.item.items) {
         this.overlayMenuActive = false;
@@ -123,8 +117,8 @@ export default {
     },
   },
   computed: {
-    clientsForMenu() {
-      return this.$store.getters.getClientsForMenu;
+    isCanToggleMenu() {
+      return this.$store.getters.isShowMenu;
     },
 
     isLoginProcess() {
@@ -143,6 +137,7 @@ export default {
           "layout-static": this.layoutMode === "static",
           "layout-static-sidebar-inactive":
             !this.isAuthorized ||
+            !this.isCanToggleMenu ||
             (this.staticMenuInactive && this.layoutMode === "static"),
           "layout-overlay-sidebar-active":
             this.overlayMenuActive && this.layoutMode === "overlay",
@@ -166,7 +161,6 @@ export default {
   },
   components: {
     AppTopBar: AppTopBar,
-    AppMenu: AppMenu,
     AppFooter: AppFooter,
   },
 };
