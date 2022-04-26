@@ -6,7 +6,7 @@ use Promodo\LaravelAzureAuth\Azure;
 
 Route::get('/test0', [TestController::class, 'test']);
 
-if (env('APP_DEBUG', false) && env('APP_ENV', null) == 'local') {
+if (app()->environment() == 'local') {
     Route::get('/login', [TestController::class, 'login'])->name('login');
 } else {
     Route::get('/login', [Azure::class, 'azure'])->name('login');

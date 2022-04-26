@@ -11,14 +11,30 @@ class TestController extends Controller
 {
     public function login()
     {
-        $user = User::firstOrCreate([
-            'name' => 'Test',
-            'email' => 'test@test',
-            'avatar' => '/img/test.png',
-            'role' => User::ROLE_ROOT
-        ]);
 
-        Auth::loginUsingId($user->id);
+        error_log("База данных Oracle недоступна!", 0);
+
+        $user = User::where('email','test@test')->first();
+
+        if(!$user) {
+            $user = User::factory([
+                'name' => 'Test',
+                'email' => 'test@test',
+                'avatar' => '/img/test.png',
+                'role' => User::ROLE_ROOT
+            ])->create();
+        }
+
+        auth()->login($user,true);
+
+        //dd(auth()->user(), auth()->check());
+        if (!request()->session()->get('key')) {
+            session(['key' => 'value']);
+        } else {
+            request()->session()->get('key');
+        };
+
+
 
         return redirect()->intended("/");
     }
