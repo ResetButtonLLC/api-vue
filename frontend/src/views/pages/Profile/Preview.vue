@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>preview</p>
+    <h4>Предпросмотр</h4>
   </div>
 </template>
 

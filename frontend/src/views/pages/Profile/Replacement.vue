@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h4>Замены</h4>
+
     <div class="box">
       <div class="el">
         <InputSwitch
@@ -16,6 +18,8 @@
         "
       ></i>
     </div>
+
+    <h6 style="margin-bottom: 0px">Замены для профиля:</h6>
 
     <div
       v-for="(change, index) in profile.replacement"
@@ -44,9 +48,23 @@
     <Button
       label="Добавить"
       icon="pi pi-plus"
-      class="mt-2"
+      class="mt-4"
       @click="addReplacement"
     ></Button>
+
+    <div class="buttons">
+      <Button
+        label="Добавить замены с файла"
+        icon="pi pi-cloud-upload"
+        class="mt-4 mr-2"
+      ></Button>
+
+      <Button
+        label="Скачать замены"
+        icon="pi pi-cloud-download"
+        class="mt-4"
+      ></Button>
+    </div>
   </div>
 </template>
 
@@ -89,6 +107,11 @@ export default {
 </script>
 
 <style scoped>
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .group {
   display: flex;
 }

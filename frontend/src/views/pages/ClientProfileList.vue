@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="btnlist">
-      <h2>Профили {{ clientName }}</h2>
+      <h2>Клиент {{ clientName }}</h2>
 
       <Button
         label="Создать профиль"
@@ -9,10 +9,6 @@
         class="p-button-success"
         @click="navigateToCreate"
       ></Button>
-    </div>
-
-    <div>
-      {{ client }}
     </div>
 
     <div v-if="!profiles.length">
@@ -75,13 +71,26 @@
         </Column>
       </DataTable>
     </div>
+
+    <CreateProfileDialog
+      :clientId="id"
+      v-if="isShowCreateDialog"
+      v-on:cancel="isShowCreateDialog = false"
+    />
   </div>
 </template>
 
 <script>
+import CreateProfileDialog from "@/components/CreateProfileDialog";
+
 export default {
+  components: {
+    CreateProfileDialog,
+  },
+
   data() {
     return {
+      isShowCreateDialog: false,
       filter: "",
     };
   },
@@ -94,12 +103,15 @@ export default {
 
   methods: {
     navigateToCreate() {
+      this.isShowCreateDialog = true;
+      /*
       this.$store.dispatch("route", {
         name: "CreateProfile",
         params: {
           clientId: this.client.id,
         },
       });
+      */
     },
 
     navigateToProfile(id) {

@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h4>Кампании</h4>
+
     <p><i class="pi pi-info-circle"></i> Нет загруженных данных о кампаниях</p>
 
     <Button

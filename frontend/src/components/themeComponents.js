@@ -14,7 +14,7 @@ import Button from 'primevue/button';
 import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
 // import Carousel from 'primevue/carousel';
-// import Chart from 'primevue/chart';
+import Chart from 'primevue/chart';
 import Checkbox from 'primevue/checkbox';
 // import Chip from 'primevue/chip';
 import Chips from 'primevue/chips';
@@ -34,7 +34,7 @@ import FileUpload from 'primevue/fileupload';
 // import InlineMessage from 'primevue/inlinemessage';
 // import Inplace from 'primevue/inplace';
 // import InputMask from 'primevue/inputmask';
-// import InputNumber from 'primevue/inputnumber';
+import InputNumber from 'primevue/inputnumber';
 import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputtext';
 // import Knob from 'primevue/knob';
@@ -100,7 +100,7 @@ export default {
         Calendar: Calendar,
         Card: Card,
         // Carousel: Carousel,
-        // Chart: Chart,
+        Chart: Chart,
         Checkbox: Checkbox,
         // Chip: Chip,
         Chips: Chips,
@@ -120,7 +120,7 @@ export default {
         // InlineMessage: InlineMessage,
         // Inplace: Inplace,
         // InputMask: InputMask,
-        // InputNumber: InputNumber,
+        InputNumber: InputNumber,
         InputSwitch: InputSwitch,
         InputText: InputText,
         // Galleria: Galleria,

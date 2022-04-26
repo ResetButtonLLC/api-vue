@@ -11,10 +11,102 @@
 
 <script>
 import AppSubmenu from "./AppSubmenu";
+import {
+  PAGE_AUTOUPDATE,
+  PAGE_CAMPAIGN,
+  PAGE_CATEGORIES,
+  PAGE_FEED,
+  PAGE_INFO,
+  PAGE_LOGS,
+  PAGE_PREVIEW,
+  PAGE_REPLACEMENT,
+  PAGE_SETTINGS,
+  PAGE_STATISTIC,
+  PAGE_TEMPLATES,
+} from "../pages/Profile/const";
 
 export default {
   data() {
-    return {};
+    return {
+      menuItems: [
+        {
+          label: "Профиль",
+          items: [
+            {
+              id: PAGE_INFO,
+              label: "Информация",
+              icon: "pi pi-fw pi-info-circle",
+            },
+
+            {
+              id: PAGE_SETTINGS,
+              label: "Настройки",
+              icon: "pi pi-fw pi-cog",
+            },
+
+            {
+              id: PAGE_AUTOUPDATE,
+              label: "Автообновления",
+              icon: "pi pi-fw pi-cloud-upload",
+            },
+          ],
+        },
+        {
+          label: "Управление",
+          items: [
+            {
+              id: PAGE_FEED,
+              label: "Фид",
+              icon: "pi pi-fw pi-copy",
+            },
+            {
+              id: PAGE_CAMPAIGN,
+              label: "Кампании",
+              icon: "pi pi-fw pi-wallet",
+            },
+            {
+              id: PAGE_CATEGORIES,
+              label: "Категории",
+              icon: "pi pi-fw pi-qrcode",
+            },
+            {
+              id: PAGE_PREVIEW,
+              label: "Локальная база",
+              icon: "pi pi-fw pi-database",
+            },
+
+            {
+              id: PAGE_TEMPLATES,
+              label: "Шаблоны",
+              icon: "pi pi-fw pi-sliders-h",
+            },
+
+            {
+              id: PAGE_REPLACEMENT,
+              label: "Замены",
+              icon: "pi pi-fw pi-sync",
+            },
+          ],
+        },
+
+        {
+          label: "Другое",
+          items: [
+            {
+              id: PAGE_STATISTIC,
+              label: "Статистика",
+              icon: "pi pi-fw pi-chart-bar",
+            },
+
+            {
+              id: PAGE_LOGS,
+              label: "Логи",
+              icon: "pi pi-fw pi-envelope",
+            },
+          ],
+        },
+      ],
+    };
   },
 
   methods: {
@@ -28,81 +120,6 @@ export default {
     },
   },
   computed: {
-    menuItems() {
-      return [
-        {
-          label: "Профиль",
-          items: [
-            {
-              id: 11,
-              label: "Информация",
-              icon: "pi pi-fw pi-info-circle",
-            },
-
-            {
-              id: 12,
-              label: "Настройки",
-              icon: "pi pi-fw pi-cog",
-            },
-
-            {
-              id: 13,
-              label: "Автообновления",
-              icon: "pi pi-fw pi-cloud-upload",
-            },
-          ],
-        },
-        {
-          label: "Управление",
-          items: [
-            {
-              id: 21,
-              label: "Фид",
-              icon: "pi pi-fw pi-copy",
-            },
-            {
-              id: 22,
-              label: "Кампании",
-              icon: "pi pi-fw pi-wallet",
-            },
-            {
-              id: 23,
-              label: "Категории",
-              icon: "pi pi-fw pi-qrcode",
-            },
-            {
-              id: 24,
-              label: "Локальная база",
-              icon: "pi pi-fw pi-database",
-            },
-          ],
-        },
-
-        {
-          label: "Другое",
-          items: [
-            {
-              id: 31,
-              label: "Шаблоны",
-              icon: "pi pi-fw pi-sliders-h",
-            },
-
-            {
-              id: 32,
-              label: "Статистика",
-              icon: "pi pi-fw pi-chart-bar",
-            },
-
-            {
-              id: 33,
-              label: "Логи",
-              icon: "pi pi-fw pi-envelope",
-            },
-          ],
-        },
-      ];
-    },
-
     darkTheme() {
       return this.$appState.darkTheme;
     },

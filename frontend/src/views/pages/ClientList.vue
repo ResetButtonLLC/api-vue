@@ -68,20 +68,33 @@
         </Column>
       </DataTable>
     </div>
+
+    <CreateClientDialog
+      v-if="isShowCreateDialog"
+      v-on:cancel="isShowCreateDialog = false"
+    />
   </div>
 </template>
 
 <script>
+import CreateClientDialog from "@/components/CreateClientDialog";
+
 export default {
+  components: {
+    CreateClientDialog,
+  },
+
   data() {
     return {
+      isShowCreateDialog: false,
       filter: "",
     };
   },
 
   methods: {
     navigateToCreate() {
-      this.$store.dispatch("route", { name: "CreateClient", params: {} });
+      this.isShowCreateDialog = true;
+      //this.$store.dispatch("route", { name: "CreateClient", params: {} });
     },
 
     navigateToClient(id) {

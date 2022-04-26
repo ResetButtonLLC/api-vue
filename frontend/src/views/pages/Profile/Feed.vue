@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h5>Статус</h5>
+    <h4>Настройка источника</h4>
+
+    <h6>Статус</h6>
     <p v-if="isTypeUnset">
       <i class="pi pi-info-circle"></i> На данный момент фид еще не выбран
     </p>
@@ -13,7 +15,7 @@
       загрузили
     </p>
 
-    <h5>Ссылка на фид</h5>
+    <h6>Ссылка на фид</h6>
     <div class="p-float-label mt-4">
       <InputText
         class="w-full"
@@ -24,7 +26,7 @@
       <label for="feed_url">Ссылка на фид</label>
     </div>
 
-    <h5>Файл фида</h5>
+    <h6>Файл фида</h6>
     <FileUpload
       chooseLabel="Загрузить файл фида"
       :auto="true"

@@ -17,6 +17,18 @@
           <p>{{ category.name }}</p>
         </div>
 
+        <div class="keywords">
+          <MultiSelect
+            @change="onChangeKeywordTypes(category.id, $event.value)"
+            class="w-full"
+            v-model="category.keyword_types"
+            :options="keywordTypes"
+            optionLabel="name"
+            optionValue="id"
+            :filter="true"
+          />
+        </div>
+
         <div class="campaign">
           <Dropdown
             @change="onChangeCategoryDropdown(category.id, $event.value)"
@@ -54,6 +66,17 @@
             <p>{{ vendor.name }}</p>
           </div>
 
+          <div class="keywords">
+            <MultiSelect
+              class="w-full"
+              v-model="vendor.keyword_types"
+              :options="keywordTypes"
+              optionLabel="name"
+              optionValue="id"
+              :filter="true"
+            />
+          </div>
+
           <div class="campaign">
             <Dropdown
               class="w-full"
@@ -82,6 +105,18 @@ export default {
 
       category.vendors.forEach((el) => {
         el.campaign = newValue;
+      });
+    },
+
+    onChangeKeywordTypes(categoryId, newValue) {
+      let category = this.categories.find((el) => el.id == categoryId);
+
+      if (!category) {
+        return;
+      }
+
+      category.vendors.forEach((el) => {
+        el.keyword_types = newValue;
       });
     },
 
@@ -122,12 +157,28 @@ export default {
 
   data() {
     return {
+      keywordTypes: [
+        {
+          id: 1,
+          name: "BROAD",
+        },
+        {
+          id: 2,
+          name: "PHRASE",
+        },
+        {
+          id: 3,
+          name: "EXACT",
+        },
+      ],
+
       categories: [
         {
           id: 1,
           name: "category1",
           is_active: false,
           campaign: null,
+          keyword_types: [1],
           vendors: [],
         },
         {
@@ -135,18 +186,21 @@ export default {
           name: "category2",
           is_active: true,
           campaign: null,
+          keyword_types: [1, 2],
           vendors: [
             {
               id: 1,
               name: "vendor1",
               is_active: true,
               campaign: null,
+              keyword_types: [1],
             },
             {
               id: 2,
               name: "vendor2",
               is_active: false,
               campaign: null,
+              keyword_types: [1, 2],
             },
           ],
         },
@@ -178,13 +232,22 @@ export default {
 
 .row .name {
   display: flex;
-  width: 55%;
+  width: 35%;
   align-items: center;
+}
+
+.row .keywords {
+  display: flex;
+  width: 30%;
+  align-items: center;
+
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .row .campaign {
   display: flex;
-  width: 45%;
+  width: 35%;
   align-items: center;
 }
 

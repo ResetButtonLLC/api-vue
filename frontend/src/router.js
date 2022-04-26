@@ -20,19 +20,6 @@ const routes = [
     },
 
     {
-        path: '/new/client',
-        name: 'CreateClient',
-        component: () => import('@/views/pages/CreateClient.vue'),
-    },
-
-    {
-        path: '/new/profile/:clientId',
-        name: 'CreateProfile',
-        props: true,
-        component: () => import('@/views/pages/CreateProfile.vue'),
-    },
-
-    {
         path: '/client/:id',
         name: 'ClientProfileList',
         props: true,
@@ -70,8 +57,6 @@ const router = createRouter({
             return { left: 0, top: 0 };
         }
     },
-
-
 });
 
 export default router;
