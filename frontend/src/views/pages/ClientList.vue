@@ -52,11 +52,13 @@
           bodyStyle="text-align: center"
         >
           <template #body="slotProps">
+            <!--
             <Button
               v-tooltip.top="'Редактировать'"
               icon="pi pi-pencil"
               class="p-button-rounded p-button-primary mr-2"
             />
+            -->
 
             <Button
               v-tooltip.top="'Просмотр профилей'"
@@ -94,7 +96,6 @@ export default {
   methods: {
     navigateToCreate() {
       this.isShowCreateDialog = true;
-      //this.$store.dispatch("route", { name: "CreateClient", params: {} });
     },
 
     navigateToClient(id) {

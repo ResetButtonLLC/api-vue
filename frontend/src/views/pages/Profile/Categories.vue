@@ -7,7 +7,13 @@
       загрузки фида
     </p>
 
-    <TableCategories />
+    <p v-if="isCategoriesLoading || isCampaignsLoading">Загрузка...</p>
+    <TableCategories
+      v-else
+      :categoriesLink="categories"
+      :campaignsLink="campaigns"
+      :key="categories"
+    />
   </div>
 </template>
 
@@ -34,8 +40,38 @@ export default {
 
   created() {
     this.profile = this.profileLink;
+
+    this.$store.dispatch("getProfileCategories", this.profile.id);
+    this.$store.dispatch("getProfileCampaigns", {
+      type: "imported",
+      profileId: this.profile.id,
+    });
   },
 
   methods: {},
+
+  computed: {
+    isCategoriesLoading() {
+      return this.$store.getters.isCategoryLoadings(this.profile.id);
+    },
+
+    categories() {
+      return this.$store.getters.getProfileCategories(this.profile.id);
+    },
+
+    campaigns() {
+      return this.$store.getters.getProfileCampaigns(
+        this.profile.id,
+        "imported"
+      );
+    },
+
+    isCampaignsLoading() {
+      return this.$store.getters.isCampaignsLoadings(
+        this.profile.id,
+        "imported"
+      );
+    },
+  },
 };
 </script>

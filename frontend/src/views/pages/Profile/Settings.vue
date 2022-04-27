@@ -44,8 +44,7 @@
         v-model="profile.min_price"
         mode="currency"
         locale="ua-UA"
-        :minFractionDigits="2"
-        :maxFractionDigits="2"
+        :maxFractionDigits="0"
         :step="1"
         currency="UAH"
       />
@@ -60,8 +59,7 @@
         v-model="profile.max_price"
         mode="currency"
         locale="ua-UA"
-        :minFractionDigits="2"
-        :maxFractionDigits="2"
+        :maxFractionDigits="0"
         :step="1"
         currency="UAH"
       />

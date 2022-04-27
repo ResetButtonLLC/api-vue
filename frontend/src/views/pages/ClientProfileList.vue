@@ -58,7 +58,7 @@
             <Button
               v-tooltip.top="'Клонировать'"
               icon="pi pi-link"
-              class="p-button-rounded p-button-primary mr-2"
+              class="p-button-rounded p-button-warning mr-2"
             />
 
             <Button
@@ -104,14 +104,6 @@ export default {
   methods: {
     navigateToCreate() {
       this.isShowCreateDialog = true;
-      /*
-      this.$store.dispatch("route", {
-        name: "CreateProfile",
-        params: {
-          clientId: this.client.id,
-        },
-      });
-      */
     },
 
     navigateToProfile(id) {

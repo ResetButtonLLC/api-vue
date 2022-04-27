@@ -26,6 +26,7 @@
             optionLabel="name"
             optionValue="id"
             :filter="true"
+            placeholder="Без ключевых слов"
           />
         </div>
 
@@ -37,7 +38,7 @@
             :options="campaignList"
             optionLabel="name"
             optionValue="id"
-            placeholder="Select"
+            placeholder="Кампания не выбрана"
           />
         </div>
       </div>
@@ -74,6 +75,7 @@
               optionLabel="name"
               optionValue="id"
               :filter="true"
+              placeholder="Без ключевых слов"
             />
           </div>
 
@@ -84,7 +86,7 @@
               :options="campaignList"
               optionLabel="name"
               optionValue="id"
-              placeholder="Select"
+              placeholder="Кампания не выбрана"
             />
           </div>
         </div>
@@ -95,6 +97,13 @@
 
 <script>
 export default {
+  props: ["categoriesLink", "campaignsLink"],
+
+  created() {
+    this.categories = this.categoriesLink;
+    this.campaignList = this.campaignsLink;
+  },
+
   methods: {
     onChangeCategoryDropdown(categoryId, newValue) {
       let category = this.categories.find((el) => el.id == categoryId);
@@ -172,47 +181,7 @@ export default {
         },
       ],
 
-      categories: [
-        {
-          id: 1,
-          name: "category1",
-          is_active: false,
-          campaign: null,
-          keyword_types: [1],
-          vendors: [],
-        },
-        {
-          id: 2,
-          name: "category2",
-          is_active: true,
-          campaign: null,
-          keyword_types: [1, 2],
-          vendors: [
-            {
-              id: 1,
-              name: "vendor1",
-              is_active: true,
-              campaign: null,
-              keyword_types: [1],
-            },
-            {
-              id: 2,
-              name: "vendor2",
-              is_active: false,
-              campaign: null,
-              keyword_types: [1, 2],
-            },
-          ],
-        },
-      ],
-
-      campaignList: [
-        { name: "Кампания №1", id: 1 },
-        { name: "Кампания №2", id: 2 },
-        { name: "Кампания №3", id: 3 },
-        { name: "Кампания №4", id: 4 },
-        { name: "Кампания №5", id: 5 },
-      ],
+      campaignList: [],
     };
   },
 };

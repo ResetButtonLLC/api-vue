@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\CampaignController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,5 +18,12 @@ Route::middleware('auth:sanctum')->group(
         /** PROFILES */
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
+
+        /** CAMPAIGNS */
+        Route::get('/campaigns/{profile}/imported', [CampaignController::class, 'getImported']);
+        Route::get('/campaigns/{profile}/all', [CampaignController::class, 'getAll']);
+
+        /** CATEGORIES */
+        Route::get('/categories/{profile}', [CategoryController::class, 'get']);
     }
 );
