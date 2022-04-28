@@ -19,7 +19,7 @@ class CategoryController extends Controller
             'data' => [
                 [
                     'id' => 1,
-                    'name' => "category1",
+                    'name' => "шапки",
                     'is_active' => false,
                     'campaign' => null,
                     'keyword_types' => [self::BROAD, self::PHRASE, self::EXACT],
@@ -27,21 +27,21 @@ class CategoryController extends Controller
                 ],
                 [
                     'id' => 2,
-                    'name' => "category2",
+                    'name' => "трусы",
                     'is_active' => true,
                     'campaign' => null,
                     'keyword_types' => [self::BROAD, self::PHRASE],
                     'vendors' => [
                         [
                             'id' => 1,
-                            'name' => "vendor1",
+                            'name' => "найк",
                             'is_active' => true,
                             'campaign' => null,
                             'keyword_types' => [self::BROAD],
                         ],
                         [
                             'id' => 2,
-                            'name' => "vendor2",
+                            'name' => "адидас",
                             'is_active' => false,
                             'campaign' => null,
                             'keyword_types' => [self::BROAD, self::PHRASE],

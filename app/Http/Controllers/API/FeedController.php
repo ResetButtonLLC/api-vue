@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class FeedController extends Controller
 {
-    public function upload()
+    public function upload(Request $request, Profile $profile)
     {
+        return response('ok');
     }
 }

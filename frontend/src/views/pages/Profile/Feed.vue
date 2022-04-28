@@ -28,11 +28,12 @@
 
     <h6>Файл фида</h6>
     <FileUpload
-      chooseLabel="Загрузить файл фида"
-      :auto="true"
-      mode="basic"
+      chooseLabel="Выбрать"
+      uploadLabel="Загрузить"
+      cancelLabel="Отменить"
+      :fileLimit="1"
       name="feed"
-      url="/upload.php"
+      :url="'/api/feed/upload/' + profile.id"
       @upload="onUpload"
     />
   </div>

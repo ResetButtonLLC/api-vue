@@ -2,16 +2,24 @@
   <div>
     <h4>Шаблоны</h4>
 
-    <!-- 
-   -->
+    <p v-if="isTemplatesLoading || isCategoriesLoading">Загрузка...</p>
 
-    <TabView v-model:activeIndex="activeIndex" @tab-click="addTab" scrollable>
+    <TabView
+      v-else
+      v-model:activeIndex="activeIndex"
+      @tab-click="addTab"
+      scrollable
+    >
       <TabPanel
-        v-for="(tab, tabIndex) in profile.template"
+        v-for="(tab, tabIndex) in templateList"
         :key="tab"
         :header="tabIndex + 1"
       >
-        <Template :templateLink="tab" @delete="deleteTab(tabIndex)" />
+        <Template
+          :templateLink="tab"
+          :categoriesList="categories"
+          @delete="deleteTab(tabIndex)"
+        />
       </TabPanel>
 
       <TabPanel header="+">
@@ -31,15 +39,22 @@ export default {
 
   methods: {
     addTab() {
-      if (this.activeIndex != this.profile.template.length) {
+      if (this.activeIndex != this.templateCount) {
         return;
       }
 
-      this.profile.template.push({});
+      this.$store.dispatch("addEmptyTemplate", this.profile.id);
     },
 
     deleteTab(index) {
-      this.profile.template.splice(index, 1);
+      this.$store.dispatch("deleteTemplate", {
+        profileId: this.profile.id,
+        index: index,
+      });
+
+      if (this.templateCount && this.activeIndex >= this.templateCount) {
+        this.activeIndex -= 1;
+      }
     },
   },
 
@@ -60,13 +75,30 @@ export default {
   created() {
     this.profile = this.profileLink;
 
-    if (!this.profile.template) {
-      this.profile.template = [{}];
-    }
+    this.$store.dispatch("getProfileCategories", this.profile.id);
+    this.$store.dispatch("getProfileTemplates", this.profile.id);
+  },
 
-    if (!this.profile.template.length) {
-      this.profile.template.push({});
-    }
+  computed: {
+    templateList() {
+      return this.$store.getters.getProfileTemplates(this.profile.id);
+    },
+
+    templateCount() {
+      return this.$store.getters.getTemplateCount(this.profile.id);
+    },
+
+    isTemplatesLoading() {
+      return this.$store.getters.isTemplatesLoadings(this.profile.id);
+    },
+
+    isCategoriesLoading() {
+      return this.$store.getters.isCategoryLoadings(this.profile.id);
+    },
+
+    categories() {
+      return this.$store.getters.getProfileCategories(this.profile.id);
+    },
   },
 };
 </script>

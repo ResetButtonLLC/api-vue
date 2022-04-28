@@ -19,6 +19,20 @@
       placeholder="Когда нужно использовать шаблон"
     />
 
+    <div class="mt-2" v-if="template.type == 'category'">
+      <h6>Категории</h6>
+
+      <MultiSelect
+        class="w-full"
+        :filter="true"
+        v-model="template.categories"
+        :options="categoriesList"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Для каких категорий использовать"
+      />
+    </div>
+
     <h6>Заголовок</h6>
 
     <div
@@ -182,6 +196,11 @@ export default {
       type: Object,
       required: true,
     },
+
+    categoriesList: {
+      type: Array,
+      required: true,
+    },
   },
 
   data() {
@@ -234,11 +253,15 @@ export default {
     }
 
     if (this.template.name === undefined) {
-      this.template.name = "unknown";
+      this.template.name = "";
     }
 
     if (this.template.type === undefined) {
       this.template.type = null;
+    }
+
+    if (this.template.categories === undefined) {
+      this.template.categories = [];
     }
 
     if (this.template.headlines === undefined) {

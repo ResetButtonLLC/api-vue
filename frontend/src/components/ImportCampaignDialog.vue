@@ -19,16 +19,13 @@
         </template>
 
         <Column
-          style="max-width: 10rem"
+          style="max-width: 12rem"
           field="import"
           :sortable="true"
-          header="Активность"
+          header="Импортировать"
         >
           <template #body="slotProps">
-            <InputSwitch
-              :disabled="slotProps.data.imported"
-              v-model="slotProps.data.import"
-            />
+            <InputSwitch v-model="slotProps.data.import" />
           </template>
         </Column>
 
@@ -60,8 +57,6 @@ export default {
   props: ["profileId", "importedCampaigns"],
 
   created() {
-    //this.markImportedCampaigns();
-
     this.$store.dispatch("getProfileCampaigns", {
       type: "all",
       profileId: this.profileId,
@@ -73,24 +68,12 @@ export default {
       let campaigns = [];
 
       this.campaignList.forEach((el) => {
-        if (el.import && !el.imported) {
+        if (el.import) {
           campaigns.push({ name: el.name, googleId: el.googleId });
         }
       });
 
       this.$emit("import", campaigns);
-    },
-
-    markImportedCampaigns() {
-      this.campaignList.forEach((el) => {
-        el.import = el.imported = false;
-
-        this.importedCampaigns.forEach((already) => {
-          if (el.name == already.name && el.googleId == already.googleId) {
-            el.imported = el.import = true;
-          }
-        });
-      });
     },
   },
 
@@ -110,11 +93,23 @@ export default {
     },
 
     filteredCampaignList() {
+      let campaignWithoutImported = this.campaignList.filter((el) => {
+        let notImported = true;
+
+        this.importedCampaigns.forEach((imported) => {
+          if (el.name == imported.name && el.googleId == imported.googleId) {
+            notImported = false;
+          }
+        });
+
+        return notImported;
+      });
+
       if (!this.filter) {
-        return this.campaignList;
+        return campaignWithoutImported;
       }
 
-      return this.campaignList.filter((el) => {
+      return campaignWithoutImported.filter((el) => {
         return (
           el.googleId.toString().indexOf(this.filter) !== -1 ||
           el.name.toString().indexOf(this.filter) !== -1
