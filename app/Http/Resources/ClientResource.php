@@ -14,7 +14,7 @@ class ClientResource extends JsonResource
         return [
             'id'        => $client->id,
             'name'      => $client->name,
-            'profiles'  => ProfileResource::collection($client->profiles)
+            'profiles'  => ProfileResource::collection($this->whenLoaded('profiles'))
         ];
     }
 }

@@ -21,20 +21,11 @@ class TestController extends Controller
                 'name' => 'Test',
                 'email' => 'test@test',
                 'avatar' => '/img/test.png',
-                'role' => User::ROLE_ROOT
+                'role' => USER::ROLE_ADMIN
             ])->create();
         }
 
         auth()->login($user,true);
-
-        //dd(auth()->user(), auth()->check());
-        if (!request()->session()->get('key')) {
-            session(['key' => 'value']);
-        } else {
-            request()->session()->get('key');
-        };
-
-
 
         return redirect()->intended("/");
     }

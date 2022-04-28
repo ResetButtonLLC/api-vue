@@ -18,3 +18,11 @@ Route::middleware('auth:sanctum')->group(
         Route::post('/profile/create', [ProfileController::class, 'create']);
     }
 );
+
+/** USERS */
+//Route::middleware('can:admin1')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/user/{user}', [UserController::class, 'view'])->name('user.view');
+    Route::patch('/user/{user}', [UserController::class, 'update'])->name('user.update');
+//});
+
