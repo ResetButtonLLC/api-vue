@@ -37,6 +37,6 @@ class UserController extends Controller
 
         $user->clients()->sync($clients);
 
-        return new UserResource($user);
+        return new UserResource($user->load('clients'));
     }
 }

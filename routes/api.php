@@ -26,3 +26,5 @@ Route::middleware('auth:sanctum')->group(
     Route::patch('/user/{user}', [UserController::class, 'update'])->name('user.update');
 //});
 
+    Route::delete('/client/{client}', [ClientController::class, 'delete']);
+

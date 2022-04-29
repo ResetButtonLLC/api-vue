@@ -6,12 +6,8 @@ use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileCreateRequest extends FormRequest
+class ProfileCreateRequest extends ApiRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
 
     public function rules()
     {
