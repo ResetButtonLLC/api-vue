@@ -2,75 +2,95 @@
 
 namespace App\Services\Import\DTO;
 
-class Product
+class FeedItem
 {
-    protected $id;
-    protected $available;
-    protected $url;
-    protected $mobileUrl;
-    protected $price;
-    protected $currency;
-    protected $category;
-    protected $vendor;
-    protected $model;
-    protected $description;
-    protected $salesNotes;
-    protected $rassrochka;
-    protected $param;
+    protected $data;
 
-    public function __construct($id, $available, $url,  $mobileUrl, $price, $currency, $category, $vendor, $model, $description, $salesNotes, $rassrochka, $param)
+    function __get($property)
     {
-        $this->id = $id;
-        $this->available = $available;
-        $this->url = $url;
-        $this->mobileUrl = $mobileUrl;
-        $this->price = $price;
-        $this->currency = $currency;
-        $this->category = $category;
-        $this->vendor = $vendor;
-        $this->model = $model;
-        $this->description = $description;
-        $this->salesNotes = $salesNotes;
-        $this->rassrochka = $rassrochka;
-        $this->param = $param;
+        return $this->data[$property] ?? null;
+    }
+
+    function __set($property, $value)
+    {
+        $this->data[$property] = $this->normalizeData($value);
+    }
+
+    public function __construct()
+    {
+        $this->data = [];
     }
 
     public static function fromArray($array)
     {
-        return new self(
-            data_get($array, 'id', 0),
-            data_get($array, 'available', false),
-            data_get($array, 'url', ''),
-            data_get($array, 'mobileUrl', ''),
-            data_get($array, 'price', 0),
-            data_get($array, 'currency', 'UAH'),
-            data_get($array, 'category', 'unknown'),
-            data_get($array, 'vendor', ''),
-            data_get($array, 'model', ''),
-            data_get($array, 'description', ''),
-            data_get($array, 'salesNotes', ''),
-            data_get($array, 'rassrochka', ''),
-            data_get($array, 'param', '')
-        );
+        $result = new self;
+
+        foreach ($array as $key => $value) {
+            $result->{$key} = $value;
+        }
+
+        return $result;
+    }
+
+    public static function fromArrayWithPattern($array, $pattern)
+    {
+        $result = new self;
+
+        foreach ($pattern as $patternTo => $patternFrom) {
+            $result->{$patternTo} = $result->valueFromPattern($array, $patternFrom, null);
+        }
+
+        return $result;
     }
 
     public function toArray(): array
     {
-        return [
-            'id' => $this->id,
-            'available' => $this->isAvailable() ? 'Есть' : 'Нет',
-            'url' => $this->url,
-            'mobileUrl' => $this->mobileUrl,
-            'price' => $this->getPrice(),
-            'currency' => $this->getCurrency(),
-            'category' => $this->category,
-            'vendor' => $this->vendor,
-            'model' => $this->model,
-            'description' => $this->description,
-            'salesNotes' => $this->salesNotes,
-            'rassrochka' => $this->rassrochka,
-            'param' => $this->getParamJson()
-        ];
+        return $this->data;
+    }
+
+    protected function valueFromPattern($array, $searchedValue, $defaultValue)
+    {
+        if (!is_array($searchedValue)) {
+            $searchedValue = [$searchedValue];
+        }
+
+        foreach ($searchedValue as $value) {
+            $findedValue = data_get($array, $value, null);
+
+            if ($findedValue !== null) {
+                return $findedValue;
+            }
+        }
+
+        return $defaultValue;
+    }
+
+    protected function normalizeString($string)
+    {
+        return trim($string);
+    }
+
+    protected function normalizeArray($array)
+    {
+        $result = [];
+        foreach ($array as $key => $value) {
+            $result[$key] = $this->normalizeData($value);
+        }
+
+        return $result;
+    }
+
+    protected function normalizeData($items)
+    {
+        if (is_array($items)) {
+            return $this->normalizeArray($items);
+        }
+
+        if (is_string($items)) {
+            return $this->normalizeString($items);
+        }
+
+        return $items;
     }
 
     /**

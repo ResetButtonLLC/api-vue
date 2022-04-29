@@ -37,9 +37,8 @@ class GoogleXML extends ConverterXML
         $xml = new SimpleXMLElement($productText, LIBXML_NOCDATA | LIBXML_NOERROR | LIBXML_NOWARNING | 1, false, 'http://base.google.com/ns/1.0');
 
         $attributes = (array)$xml->attributes();
-
         $inputData = (array)$xml + $attributes;
 
-        return $this->makeProduct($inputData);
+        return $this->makeProduct($inputData, $this->defaultPatterns);
     }
 }

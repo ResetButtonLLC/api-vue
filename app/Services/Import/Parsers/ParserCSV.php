@@ -7,7 +7,6 @@ use App\Services\Import\Converter;
 
 class ParserCSV extends Parser
 {
-    const NUMBER_PARAM_SETTING = 'use_number_fields';
     const BUFFER_SIZE = 5000;
 
     protected $file;
@@ -157,6 +156,6 @@ class ParserCSV extends Parser
 
     public function getUniqueElementsList(): array
     {
-        return $this->titleNames;
+        return $this->titleNames ?? [];
     }
 }
