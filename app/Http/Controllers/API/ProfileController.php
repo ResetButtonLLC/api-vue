@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use App\Helpers\DBHelper;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Profile\CreateRequest;
+use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\ProfileResource;
-use App\Http\Requests\ProfileCreateRequest;
 
 class ProfileController extends Controller
 {
+    //bind to user
     public function index(Request $request)
     {
         return ProfileResource::collection(
@@ -19,7 +20,7 @@ class ProfileController extends Controller
         );
     }
 
-    public function create(ProfileCreateRequest $request)
+    public function create(CreateRequest $request)
     {
         $client = $request->getClient();
 

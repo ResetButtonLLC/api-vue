@@ -12,8 +12,6 @@ class TestController extends Controller
     public function login()
     {
 
-        error_log("База данных Oracle недоступна!", 0);
-
         $user = User::where('email','test@test')->first();
 
         if(!$user) {

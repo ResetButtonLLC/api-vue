@@ -15,7 +15,7 @@ class Client extends Model
 
     public function profiles()
     {
-        return $this->hasMany(Profile::class, 'client_id', 'id');
+        return $this->hasMany(Profile::class);
     }
 
     public function users()

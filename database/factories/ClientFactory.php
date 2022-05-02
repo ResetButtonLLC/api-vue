@@ -18,4 +18,7 @@ class ClientFactory extends Factory
             'name' => $this->faker->company(),
         ];
     }
+
+    
+
 }

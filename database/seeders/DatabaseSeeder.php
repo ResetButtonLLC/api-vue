@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\{Client, Profile, User};
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(20)->create();
-        \App\Models\Client::factory(10)->create();
+
+        User::factory([
+            'name' => 'Test',
+            'email' => 'test@test',
+            'avatar' => '/img/test.png',
+            'role' => USER::ROLE_ADMIN
+        ])->create();
+
+        User::factory(20)->create();
+        Client::factory(10)
+            ->has(Profile::factory()->count(3))
+            ->afterCreating(function (Client $client) {
+                $client->users()->sync(User::select('id')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray());
+            })
+            ->create();
     }
 }

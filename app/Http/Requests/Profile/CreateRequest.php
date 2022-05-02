@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile;
 
+use App\Http\Requests\ApiRequest;
 use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileCreateRequest extends ApiRequest
+class CreateRequest extends ApiRequest
 {
 
     public function rules()

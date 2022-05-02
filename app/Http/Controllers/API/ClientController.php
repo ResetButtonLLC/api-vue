@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        //auth()->user()->load('clients')->clients
         //todo решить с ответом, неправильно обрабатывается
         return ClientResource::collection(
-           []
+            User::auth()->user()->load('clients.profiles')->clients
         );
     }
 
@@ -34,11 +33,10 @@ class ClientController extends Controller
     public function delete(Client $client)
     {
         /* @var Client $client */
-        $client->users()->sync([]);
+        $client->profiles()->delete();
+        $client->users()->detach();
         $client->delete();
 
         return new Delete();
     }
-
-
 }
