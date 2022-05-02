@@ -43,4 +43,9 @@ class TemplateController extends Controller
             'data' => self::TEMPLATE_LIST
         ];
     }
+
+    public function set(Request $request, Profile $profile)
+    {
+        return response('ok', 200);
+    }
 }

@@ -4,33 +4,38 @@
 
     <p v-if="isTemplatesLoading || isCategoriesLoading">Загрузка...</p>
 
-    <TabView
-      v-else
-      v-model:activeIndex="activeIndex"
-      @tab-click="addTab"
-      scrollable
-    >
-      <TabPanel
-        v-for="(tab, tabIndex) in templateList"
-        :key="tab"
-        :header="tabIndex + 1"
-      >
-        <Template
-          :templateLink="tab"
-          :categoriesList="categories"
-          @delete="deleteTab(tabIndex)"
-        />
-      </TabPanel>
+    <div v-else>
+      <TabView v-model:activeIndex="activeIndex" @tab-click="addTab" scrollable>
+        <TabPanel
+          v-for="(tab, tabIndex) in templateList"
+          :key="tab"
+          :header="tabIndex + 1"
+        >
+          <Template
+            :templateLink="tab"
+            :categoriesList="categories"
+            @delete="deleteTab(tabIndex)"
+          />
+        </TabPanel>
 
-      <TabPanel header="+">
-        <p class="text-center">Нет ни 1 шаблона</p>
-      </TabPanel>
-    </TabView>
+        <TabPanel header="+">
+          <p class="text-center">Нет ни 1 шаблона</p>
+        </TabPanel>
+      </TabView>
+
+      <Button
+        class="mt-4 mb-2"
+        label="Сохранить изменения"
+        icon="pi pi-save"
+        @click="saveChanges"
+      ></Button>
+    </div>
   </div>
 </template>
 
 <script>
 import Template from "@/components/Template";
+import apiTemplates from "@/api/apiTemplates";
 
 export default {
   components: {
@@ -55,6 +60,34 @@ export default {
       if (this.templateCount && this.activeIndex >= this.templateCount) {
         this.activeIndex -= 1;
       }
+    },
+
+    saveChanges() {
+      this.$toast.add({
+        severity: "info",
+        summary: "В процессе",
+        detail: "Отправляю запрос...",
+        life: 3000,
+      });
+
+      apiTemplates
+        .setTemplates(this.profile.id, this.templateList)
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Сохранено",
+            detail: "Успешно сохранено",
+            life: 3000,
+          });
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Ошибка",
+            detail: "Не удалось сохранить",
+            life: 3000,
+          });
+        });
     },
   },
 

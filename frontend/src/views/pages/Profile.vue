@@ -9,10 +9,15 @@
         <AppMenu @menuitem-click="onMenuItemClick" />
       </div>
 
-      <ProfileAutoupdate
-        v-if="isCurrentPageAutoupdate"
+      <ProfileAutoupdateLogs
+        v-if="isCurrentPageAutoupdateLogs"
         :profileLink="profile"
       />
+      <ProfileAutoupdateSettings
+        v-if="isCurrentPageAutoupdateSettings"
+        :profileLink="profile"
+      />
+
       <ProfileCampaign v-if="isCurrentPageCampaign" :profileLink="profile" />
       <ProfileCategories
         v-if="isCurrentPageCategories"
@@ -39,7 +44,9 @@
 
 <script>
 import {
-  PAGE_AUTOUPDATE,
+  PAGE_NONE,
+  PAGE_AUTOUPDATE_LOGS,
+  PAGE_AUTOUPDATE_SETTINGS,
   PAGE_CAMPAIGN,
   PAGE_CATEGORIES,
   PAGE_FEED,
@@ -54,7 +61,8 @@ import {
 
 import AppMenu from "../layout/AppMenu.vue";
 
-import ProfileAutoupdate from "./Profile/Autoupdate";
+import ProfileAutoupdateLogs from "./Profile/AutoupdateLogs";
+import ProfileAutoupdateSettings from "./Profile/AutoupdateSettings";
 import ProfileCampaign from "./Profile/Campaign";
 import ProfileCategories from "./Profile/Categories";
 import ProfileFeed from "./Profile/Feed";
@@ -69,7 +77,8 @@ import ProfileTemplates from "./Profile/Templates";
 export default {
   components: {
     AppMenu,
-    ProfileAutoupdate,
+    ProfileAutoupdateLogs,
+    ProfileAutoupdateSettings,
     ProfileCampaign,
     ProfileCategories,
     ProfileFeed,
@@ -90,6 +99,10 @@ export default {
 
   methods: {
     onMenuItemClick(event) {
+      if (event.item.id == PAGE_NONE) {
+        return;
+      }
+
       this.currentPage = event.item.id;
     },
   },
@@ -103,8 +116,12 @@ export default {
     },
   },
   computed: {
-    isCurrentPageAutoupdate() {
-      return this.currentPage == PAGE_AUTOUPDATE;
+    isCurrentPageAutoupdateLogs() {
+      return this.currentPage == PAGE_AUTOUPDATE_LOGS;
+    },
+
+    isCurrentPageAutoupdateSettings() {
+      return this.currentPage == PAGE_AUTOUPDATE_SETTINGS;
     },
 
     isCurrentPageCampaign() {

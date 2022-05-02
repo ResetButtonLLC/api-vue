@@ -51,4 +51,9 @@ class CategoryController extends Controller
             ]
         ];
     }
+
+    public function set(Request $request, Profile $profile)
+    {
+        return response('ok', 200);
+    }
 }

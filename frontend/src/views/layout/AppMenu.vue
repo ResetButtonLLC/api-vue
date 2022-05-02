@@ -12,7 +12,9 @@
 <script>
 import AppSubmenu from "./AppSubmenu";
 import {
-  PAGE_AUTOUPDATE,
+  PAGE_NONE,
+  PAGE_AUTOUPDATE_LOGS,
+  PAGE_AUTOUPDATE_SETTINGS,
   PAGE_CAMPAIGN,
   PAGE_CATEGORIES,
   PAGE_FEED,
@@ -45,9 +47,22 @@ export default {
             },
 
             {
-              id: PAGE_AUTOUPDATE,
+              id: PAGE_NONE,
               label: "Автообновления",
               icon: "pi pi-fw pi-cloud-upload",
+              items: [
+                {
+                  id: PAGE_AUTOUPDATE_LOGS,
+                  label: "История",
+                  icon: "pi pi-fw pi-calendar",
+                },
+
+                {
+                  id: PAGE_AUTOUPDATE_SETTINGS,
+                  label: "Настройки",
+                  icon: "pi pi-fw pi-filter",
+                },
+              ],
             },
           ],
         },

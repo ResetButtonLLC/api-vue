@@ -1,11 +1,14 @@
-export const PAGE_AUTOUPDATE = 1;
-export const PAGE_CAMPAIGN = 2;
-export const PAGE_CATEGORIES = 3;
-export const PAGE_FEED = 4;
-export const PAGE_INFO = 5;
-export const PAGE_LOGS = 6;
-export const PAGE_PREVIEW = 7;
-export const PAGE_REPLACEMENT = 8;
-export const PAGE_SETTINGS = 9;
-export const PAGE_STATISTIC = 10;
-export const PAGE_TEMPLATES = 11;
+export const PAGE_NONE = 0;
+
+export const PAGE_AUTOUPDATE_LOGS = 2;
+export const PAGE_AUTOUPDATE_SETTINGS = 3;
+export const PAGE_CAMPAIGN = 4;
+export const PAGE_CATEGORIES = 5;
+export const PAGE_FEED = 6;
+export const PAGE_INFO = 7;
+export const PAGE_LOGS = 8;
+export const PAGE_PREVIEW = 9;
+export const PAGE_REPLACEMENT = 10;
+export const PAGE_SETTINGS = 11;
+export const PAGE_STATISTIC = 12;
+export const PAGE_TEMPLATES = 13;

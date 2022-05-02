@@ -7,6 +7,23 @@
       для этого нужно указать ссылку источника
     </p>
 
+    <div class="group mt-4 mb-2">
+      <InputSwitch id="autoupdate" v-model="profile.settings.autoupdate" />
+      <label class="ml-2" for="autoupdate">Автообновление</label>
+    </div>
+
+    <span class="p-float-label mt-4">
+      <Calendar
+        id="last_date"
+        class="w-full"
+        v-model="profile.settings.autoupdate_last"
+        dateFormat="dd-mm-yy"
+        :showButtonBar="true"
+      />
+
+      <label for="last_date">Конечная дата автообновления</label>
+    </span>
+
     <div
       v-for="(update, index) in profile.autoupdates"
       class="group w-full my-1"
@@ -79,6 +96,10 @@ export default {
 <style scoped>
 .group {
   display: flex;
+}
+
+.group label {
+  align-self: center;
 }
 
 .group span {

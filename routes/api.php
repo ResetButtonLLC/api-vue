@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\FeedController;
 use App\Http\Controllers\API\PreviewController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\ReplaceController;
 use App\Http\Controllers\API\TemplateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
@@ -21,23 +22,32 @@ Route::middleware('auth:sanctum')->group(
         /** PROFILES */
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
+        Route::post('/profile/{profile}/settings', [ProfileController::class, 'settings']);
 
         /** CAMPAIGNS */
         Route::get('/campaigns/{profile}/imported', [CampaignController::class, 'getImported']);
         Route::get('/campaigns/{profile}/all', [CampaignController::class, 'getAll']);
+        Route::post('/campaigns/{profile}/set', [CampaignController::class, 'set']);
 
         /** CATEGORIES */
-        Route::get('/categories/{profile}', [CategoryController::class, 'get']);
+        Route::get('/categories/{profile}/get', [CategoryController::class, 'get']);
+        Route::post('/categories/{profile}/set', [CategoryController::class, 'set']);
 
         /** TEMPLATES */
-        Route::get('/templates/{profile}', [TemplateController::class, 'get']);
+        Route::get('/templates/{profile}/get', [TemplateController::class, 'get']);
+        Route::post('/templates/{profile}/set', [TemplateController::class, 'set']);
 
         /** FEED */
-        Route::post('/feed/upload/{profile}', [FeedController::class, 'upload']);
+        Route::post('/feed/{profile}/upload', [FeedController::class, 'upload']);
+        Route::post('/feed/{profile}/set', [FeedController::class, 'set']);
+
+        /** REPLACEMENTS */
+        Route::get('/replacements/{profile}/get', [ReplaceController::class, 'get']);
+        Route::post('/replacements/{profile}/set', [ReplaceController::class, 'set']);
 
         /** PREVIEW */
-        Route::post('/preview/groups/{profile}', [PreviewController::class, 'getGroups']);
-        Route::post('/preview/ads/{profile}', [PreviewController::class, 'getAds']);
-        Route::post('/preview/keywords/{profile}', [PreviewController::class, 'getKeywords']);
+        Route::post('/preview/{profile}/groups', [PreviewController::class, 'getGroups']);
+        Route::post('/preview/{profile}/ads', [PreviewController::class, 'getAds']);
+        Route::post('/preview/{profile}/keywords', [PreviewController::class, 'getKeywords']);
     }
 );

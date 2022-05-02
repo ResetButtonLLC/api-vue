@@ -12,4 +12,9 @@ class FeedController extends Controller
     {
         return response('ok');
     }
+
+    public function set(Request $request, Profile $profile)
+    {
+        return response('ok', 200);
+    }
 }

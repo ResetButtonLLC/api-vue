@@ -14,10 +14,18 @@
       :campaignsLink="campaigns"
       :key="categories"
     />
+
+    <Button
+      label="Сохранить изменения"
+      icon="pi pi-save"
+      class="mt-2 mb-4"
+      @click="saveChanges"
+    ></Button>
   </div>
 </template>
 
 <script>
+import apiCategory from "@/api/apiCategory";
 import TableCategories from "@/components/TableCategories";
 
 export default {
@@ -48,7 +56,35 @@ export default {
     });
   },
 
-  methods: {},
+  methods: {
+    saveChanges() {
+      this.$toast.add({
+        severity: "info",
+        summary: "В процессе",
+        detail: "Отправляю запрос...",
+        life: 3000,
+      });
+
+      apiCategory
+        .setCategories(this.profile.id, this.categories)
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Сохранено",
+            detail: "Успешно сохранено",
+            life: 3000,
+          });
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Ошибка",
+            detail: "Не удалось сохранить",
+            life: 3000,
+          });
+        });
+    },
+  },
 
   computed: {
     isCategoriesLoading() {

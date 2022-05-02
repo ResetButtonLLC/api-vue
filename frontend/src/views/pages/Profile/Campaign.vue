@@ -32,10 +32,18 @@
       :profileId="profile.id"
       v-if="isShowImportDialog"
     />
+
+    <Button
+      label="Сохранить изменения"
+      icon="pi pi-save"
+      class="mt-4 mb-4"
+      @click="saveChanges"
+    ></Button>
   </div>
 </template>
 
 <script>
+import apiCampaign from "@/api/apiCampaign";
 import ImportCampaignDialog from "@/components/ImportCampaignDialog";
 
 export default {
@@ -67,6 +75,34 @@ export default {
   },
 
   methods: {
+    saveChanges() {
+      this.$toast.add({
+        severity: "info",
+        summary: "В процессе",
+        detail: "Отправляю запрос...",
+        life: 3000,
+      });
+
+      apiCampaign
+        .setCampaigns(this.profile.id, this.campaignList)
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Сохранено",
+            detail: "Успешно сохранено",
+            life: 3000,
+          });
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Ошибка",
+            detail: "Не удалось сохранить",
+            life: 3000,
+          });
+        });
+    },
+
     hideImportDialog() {
       this.isShowImportDialog = false;
     },

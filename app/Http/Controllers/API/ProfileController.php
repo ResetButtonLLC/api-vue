@@ -40,4 +40,9 @@ class ProfileController extends Controller
 
         return new ProfileResource($profile);
     }
+
+    public function settings()
+    {
+        return response('ok', 200);
+    }
 }

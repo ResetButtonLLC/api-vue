@@ -15,7 +15,7 @@
       загрузили
     </p>
 
-    <h6>Ссылка на фид</h6>
+    <h6>Фид с внешнего источника</h6>
     <div class="p-float-label mt-4">
       <InputText
         class="w-full"
@@ -25,6 +25,26 @@
       />
       <label for="feed_url">Ссылка на фид</label>
     </div>
+
+    <span class="p-float-label mt-4">
+      <InputText
+        class="w-full"
+        type="text"
+        id="google_id"
+        v-model="profile.google_id"
+      />
+      <label for="google_id">Логин</label>
+    </span>
+
+    <span class="p-float-label mt-4">
+      <InputText
+        class="w-full"
+        type="text"
+        id="google_id"
+        v-model="profile.google_id"
+      />
+      <label for="google_id">Пароль</label>
+    </span>
 
     <h6>Файл фида</h6>
     <FileUpload

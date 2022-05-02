@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
 import userModule from '@/store/modules/user';
 import clientModule from '@/store/modules/clients';
-import profileModule from '@/store/modules/profiles';
 import categoryModule from '@/store/modules/categories';
 import campaignModule from '@/store/modules/campaigns';
 import templateModule from '@/store/modules/templates';
+import replacementModule from '@/store/modules/replacements';
 import router from '@/router'
 
 const WHERE_SHOW_MENU = [
@@ -15,10 +15,10 @@ export default createStore({
   modules: {
     user: userModule,
     clients: clientModule,
-    profiles: profileModule,
     categories: categoryModule,
     campaigns: campaignModule,
-    templates: templateModule
+    templates: templateModule,
+    replacements: replacementModule
   },
 
   actions: {

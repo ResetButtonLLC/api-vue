@@ -1,8 +1,8 @@
 import apiService from "@/api/apiService";
 
-const getPreviewGroupsPath = '/api/preview/groups/{profileId}';
-const getPreviewAdsPath = '/api/preview/ads/{profileId}';
-const getPreviewKeywordsPath = '/api/preview/keywords/{profileId}';
+const getPreviewGroupsPath = '/api/preview/{profileId}/groups';
+const getPreviewAdsPath = '/api/preview/{profileId}/ads';
+const getPreviewKeywordsPath = '/api/preview/{profileId}/keywords';
 
 export default {
     getPreviewGroups(profileId, filters, page) {

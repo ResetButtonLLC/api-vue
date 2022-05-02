@@ -2,8 +2,6 @@
   <div>
     <h4>Предпросмотр</h4>
 
-    {{ previewFilters }}
-
     <DataTable
       :value="previewList"
       :paginator="true"

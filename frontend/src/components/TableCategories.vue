@@ -1,14 +1,12 @@
 <template>
   <div class="table">
-    <div v-for="category in categories" :key="'category' + category.id">
+    <p v-if="!categories.length">
+      <i class="pi pi-info-circle"></i> Нет категорий
+    </p>
+
+    <div v-else v-for="category in categories" :key="'category' + category.id">
       <div class="row">
         <div class="name">
-          <i
-            class="pi px-2 py-3 mr-2"
-            :class="category.opened ? 'pi-chevron-down' : 'pi-chevron-right'"
-            @click="category.opened = !category.opened ? true : false"
-          ></i>
-
           <Checkbox
             @input="onChangeCategoryCheckbox(category.id, $event)"
             v-model="category.is_active"
@@ -41,62 +39,35 @@
             placeholder="Кампания не выбрана"
           />
         </div>
-      </div>
 
-      <div class="table" v-if="category.opened">
-        <!-- NO VENDORS -->
-        <div class="w-full text-center" v-if="!category.vendors.length">
-          <p class="my-1">
-            <i class="pi pi-info-circle"></i> В этой категории нет
-            производителей
-          </p>
-        </div>
-
-        <!-- VENDOR LIST -->
-        <div
-          class="row"
-          v-for="vendor in category.vendors"
-          :key="'category' + category.id + '_vendor' + vendor.id"
-        >
-          <div class="name vendor">
-            <Checkbox
-              @input="onChangeVendorCheckbox(category.id, $event)"
-              v-model="vendor.is_active"
-              :binary="true"
-            />
-            <p>{{ vendor.name }}</p>
-          </div>
-
-          <div class="keywords">
-            <MultiSelect
-              class="w-full"
-              v-model="vendor.keyword_types"
-              :options="keywordTypes"
-              optionLabel="name"
-              optionValue="id"
-              :filter="true"
-              placeholder="Без ключевых слов"
-            />
-          </div>
-
-          <div class="campaign">
-            <Dropdown
-              class="w-full"
-              v-model="vendor.campaign"
-              :options="campaignList"
-              optionLabel="name"
-              optionValue="id"
-              placeholder="Кампания не выбрана"
-            />
-          </div>
+        <div class="btn ml-2">
+          <Button
+            icon="pi pi-sliders-h"
+            class="p-button-success"
+            @click="openVendorDialog(category)"
+          />
         </div>
       </div>
     </div>
+
+    <CategoryVendorsDialog
+      v-if="selectedCategory"
+      @close="selectedCategory = null"
+      @changeCheckbox="onChangeVendorCheckbox"
+      :keywordTypes="keywordTypes"
+      :campaignList="campaignList"
+      :categoryId="selectedCategory.id"
+      :vendorList="selectedCategory.vendors"
+    />
   </div>
 </template>
 
 <script>
+import CategoryVendorsDialog from "./CategoryVendorsDialog";
+
 export default {
+  components: { CategoryVendorsDialog },
+
   props: ["categoriesLink", "campaignsLink"],
 
   created() {
@@ -105,6 +76,10 @@ export default {
   },
 
   methods: {
+    openVendorDialog(category) {
+      this.selectedCategory = category;
+    },
+
     onChangeCategoryDropdown(categoryId, newValue) {
       let category = this.categories.find((el) => el.id == categoryId);
 
@@ -141,7 +116,7 @@ export default {
       });
     },
 
-    onChangeVendorCheckbox(categoryId, newValue) {
+    onChangeVendorCheckbox({ categoryId, newValue }) {
       let category = this.categories.find((el) => el.id == categoryId);
 
       if (!category) {
@@ -182,12 +157,14 @@ export default {
       ],
 
       campaignList: [],
+
+      selectedCategory: null,
     };
   },
 };
 </script>
 
-<style scoped>
+<style>
 .table {
   display: flex;
   flex-direction: column;
@@ -201,13 +178,14 @@ export default {
 
 .row .name {
   display: flex;
-  width: 35%;
+  flex: 1 0 250px;
+  overflow-wrap: anywhere;
   align-items: center;
 }
 
 .row .keywords {
   display: flex;
-  width: 30%;
+  flex: 1 0 250px;
   align-items: center;
 
   padding-left: 0.5rem;
@@ -216,15 +194,17 @@ export default {
 
 .row .campaign {
   display: flex;
-  width: 35%;
+  flex: 1 0 200px;
+  align-items: center;
+}
+
+.row .btn {
+  display: flex;
+  flex: 0 0 50px;
   align-items: center;
 }
 
 .name .p-checkbox {
   margin-right: 10px;
-}
-
-.vendor {
-  padding-left: 36px;
 }
 </style>
