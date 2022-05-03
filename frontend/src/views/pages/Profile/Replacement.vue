@@ -22,6 +22,14 @@
         ></i>
       </div>
 
+      <div class="el">
+        <InputSwitch
+          id="global_replacement"
+          v-model="profile.settings.global_replacement"
+        />
+        <label for="global_replacement">Использовать замены профиля</label>
+      </div>
+
       <h6 style="margin-bottom: 0px">Замены для профиля:</h6>
 
       <div v-for="(change, index) in replacements" class="group" :key="change">

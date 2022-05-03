@@ -1,40 +1,49 @@
 import apiTemplates from "@/api/apiTemplates";
 
+const TYPE_GLOBAL = 1;
+const TYPE_CATEGORIES = 2;
+
 export default {
     state: () => ({
-        templates: []
+        templates: [],
+        templatesGlobal: [],
+        templatesCategories: [],
     }),
     mutations: {
-        setProfileTemplates(state, { profileId, templates }) {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        setProfileTemplates(state, { profileId, type, templates }) {
+            let templateBase = type == TYPE_GLOBAL ? state.templatesGlobal : state.templatesCategories;
+            let result = templateBase.find((el) => el.profileId == profileId);
 
             if (result === undefined) {
-                state.templates.push({ profileId: profileId, templates: [...templates], isLoading: false });
+                templateBase.push({ profileId: profileId, templates: [...templates], isLoading: false });
             } else {
                 result.templates = [...templates];
             }
         },
 
-        setLoading(state, { profileId, isLoading }) {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        setLoading(state, { profileId, type, isLoading }) {
+            let templates = type == TYPE_GLOBAL ? state.templatesGlobal : state.templatesCategories;
+            let result = templates.find((el) => el.profileId == profileId);
 
             if (result === undefined) {
-                state.templates.push({ profileId: profileId, templates: [], isLoading: isLoading });
+                templates.push({ profileId: profileId, templates: [], isLoading: isLoading });
             } else {
                 result.isLoading = isLoading;
             }
         },
 
-        addEmptyTemplate(state, profileId) {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        addTemplate(state, { profileId, type, template }) {
+            let templates = type == TYPE_GLOBAL ? state.templatesGlobal : state.templatesCategories;
+            let result = templates.find((el) => el.profileId == profileId);
 
             if (result !== undefined) {
-                result.templates.push({});
+                result.templates.push(template);
             }
         },
 
-        deleteTemplate(state, { profileId, index }) {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        deleteTemplate(state, { profileId, type, index }) {
+            let templates = type == TYPE_GLOBAL ? state.templatesGlobal : state.templatesCategories;
+            let result = templates.find((el) => el.profileId == profileId);
 
             if (result !== undefined) {
                 result.templates.splice(index, 1);
@@ -42,48 +51,88 @@ export default {
         }
     },
     actions: {
-        getProfileTemplates(context, profileId) {
-            /*
-            if (context.state.templates.find((el) => el.profileId == profileId)) {
-                return;
-            }
-            */
+        getProfileTemplatesGlobal(context, profileId) {
+            context.commit('setLoading', { profileId: profileId, type: TYPE_GLOBAL, isLoading: true });
 
-            context.commit('setLoading', { profileId: profileId, isLoading: true });
-
-            apiTemplates.getTemplates(profileId).then((result) => {
-                context.commit('setProfileTemplates', { profileId: profileId, templates: result.data.data });
+            apiTemplates.getTemplatesGlobal(profileId).then((result) => {
+                context.commit('setProfileTemplates', { profileId: profileId, type: TYPE_GLOBAL, templates: result.data.data });
             }).catch(() => {
-                context.commit('setProfileTemplates', { profileId: profileId, templates: [] });
+                context.commit('setProfileTemplates', { profileId: profileId, type: TYPE_GLOBAL, templates: [] });
             }).finally(() => {
-                context.commit('setLoading', { profileId: profileId, isLoading: false });
+                context.commit('setLoading', { profileId: profileId, type: TYPE_GLOBAL, isLoading: false });
             })
         },
 
-        addEmptyTemplate(context, profileId) {
-            context.commit('addEmptyTemplate', profileId);
+        getProfileTemplatesCategories(context, profileId) {
+            context.commit('setLoading', { profileId: profileId, type: TYPE_CATEGORIES, isLoading: true });
+
+            apiTemplates.getTemplatesCategories(profileId).then((result) => {
+                context.commit('setProfileTemplates', { profileId: profileId, type: TYPE_CATEGORIES, templates: result.data.data });
+            }).catch(() => {
+                context.commit('setProfileTemplates', { profileId: profileId, type: TYPE_CATEGORIES, templates: [] });
+            }).finally(() => {
+                context.commit('setLoading', { profileId: profileId, type: TYPE_CATEGORIES, isLoading: false });
+            })
         },
 
-        deleteTemplate(context, { profileId, index }) {
-            context.commit('deleteTemplate', { profileId: profileId, index: index });
+        addEmptyTemplateGlobal(context, profileId) {
+            context.commit('addTemplate', { profileId: profileId, type: TYPE_GLOBAL, template: {} });
+        },
+
+        addTemplateGlobal(context, { profileId, template }) {
+            context.commit('addTemplate', { profileId: profileId, type: TYPE_GLOBAL, template: template });
+        },
+
+        deleteTemplateGlobal(context, { profileId, index }) {
+            context.commit('deleteTemplate', { profileId: profileId, type: TYPE_GLOBAL, index: index });
+        },
+
+        addEmptyTemplateCategories(context, profileId) {
+            context.commit('addTemplate', { profileId: profileId, type: TYPE_CATEGORIES, template: {} });
+        },
+
+        addTemplateCategories(context, { profileId, template }) {
+            context.commit('addTemplate', { profileId: profileId, type: TYPE_CATEGORIES, template: template });
+        },
+
+        deleteTemplateCategories(context, { profileId, index }) {
+            context.commit('deleteTemplate', { profileId: profileId, type: TYPE_CATEGORIES, index: index });
         }
     },
 
     getters: {
-        isTemplatesLoadings: (state) => (profileId) => {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        isTemplatesGlobalLoadings: (state) => (profileId) => {
+            let result = state.templatesGlobal.find((el) => el.profileId == profileId);
 
             return result === undefined ? true : result.isLoading;
         },
 
-        getProfileTemplates: (state) => (profileId) => {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        isTemplatesCategoriesLoadings: (state) => (profileId) => {
+            let result = state.templatesCategories.find((el) => el.profileId == profileId);
+
+            return result === undefined ? true : result.isLoading;
+        },
+
+        getProfileTemplatesGlobal: (state) => (profileId) => {
+            let result = state.templatesGlobal.find((el) => el.profileId == profileId);
 
             return result === undefined ? [] : result.templates;
         },
 
-        getTemplateCount: (state) => (profileId) => {
-            let result = state.templates.find((el) => el.profileId == profileId);
+        getProfileTemplatesCategories: (state) => (profileId) => {
+            let result = state.templatesCategories.find((el) => el.profileId == profileId);
+
+            return result === undefined ? [] : result.templates;
+        },
+
+        getTemplateGlobalCount: (state) => (profileId) => {
+            let result = state.templatesGlobal.find((el) => el.profileId == profileId);
+
+            return result.templates.length ?? 0;
+        },
+
+        getTemplateCategoriesCount: (state) => (profileId) => {
+            let result = state.templatesCategories.find((el) => el.profileId == profileId);
 
             return result.templates.length ?? 0;
         }

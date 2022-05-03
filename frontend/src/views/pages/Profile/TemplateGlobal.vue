@@ -2,7 +2,7 @@
   <div>
     <h4>Шаблоны</h4>
 
-    <p v-if="isTemplatesLoading || isCategoriesLoading">Загрузка...</p>
+    <p v-if="isTemplatesLoading">Загрузка...</p>
 
     <div v-else>
       <TabView v-model:activeIndex="activeIndex" @tab-click="addTab" scrollable>
@@ -11,11 +11,16 @@
           :key="tab"
           :header="tabIndex + 1"
         >
-          <Template
-            :templateLink="tab"
-            :categoriesList="categories"
-            @delete="deleteTab(tabIndex)"
-          />
+          <Template :templateLink="tab" :isGlobal="true" />
+
+          <div class="mt-4 text-center">
+            <Button
+              label="Удалить шаблон"
+              icon="pi pi-trash"
+              class="mt-4 p-button-danger"
+              @click="tryDelete(tabIndex)"
+            ></Button>
+          </div>
         </TabPanel>
 
         <TabPanel header="+">
@@ -30,6 +35,27 @@
         @click="saveChanges"
       ></Button>
     </div>
+
+    <Dialog
+      v-if="isShowDeleteDialog"
+      :visible="true"
+      :style="{ width: '450px' }"
+      header="Подтвердите удаление"
+      :modal="true"
+      class="p-fluid"
+      @update:visible="isShowDeleteDialog = false"
+    >
+      <p>Удалить шаблон?</p>
+
+      <template #footer>
+        <Button
+          label="Удалить"
+          icon="pi pi-trash"
+          class="p-button-danger"
+          @click="confirmDelete"
+        />
+      </template>
+    </Dialog>
   </div>
 </template>
 
@@ -43,16 +69,26 @@ export default {
   },
 
   methods: {
+    tryDelete(deleteIndex) {
+      this.deleteIndex = deleteIndex;
+      this.isShowDeleteDialog = true;
+    },
+
+    confirmDelete() {
+      this.isShowDeleteDialog = false;
+      this.deleteTab(this.deleteIndex);
+    },
+
     addTab() {
       if (this.activeIndex != this.templateCount) {
         return;
       }
 
-      this.$store.dispatch("addEmptyTemplate", this.profile.id);
+      this.$store.dispatch("addEmptyTemplateGlobal", this.profile.id);
     },
 
     deleteTab(index) {
-      this.$store.dispatch("deleteTemplate", {
+      this.$store.dispatch("deleteTemplateGlobal", {
         profileId: this.profile.id,
         index: index,
       });
@@ -101,6 +137,8 @@ export default {
   data() {
     return {
       activeIndex: 0,
+      deleteIndex: 0,
+      isShowDeleteDialog: false,
       profile: {},
     };
   },
@@ -108,29 +146,20 @@ export default {
   created() {
     this.profile = this.profileLink;
 
-    this.$store.dispatch("getProfileCategories", this.profile.id);
-    this.$store.dispatch("getProfileTemplates", this.profile.id);
+    this.$store.dispatch("getProfileTemplatesGlobal", this.profile.id);
   },
 
   computed: {
     templateList() {
-      return this.$store.getters.getProfileTemplates(this.profile.id);
+      return this.$store.getters.getProfileTemplatesGlobal(this.profile.id);
     },
 
     templateCount() {
-      return this.$store.getters.getTemplateCount(this.profile.id);
+      return this.$store.getters.getTemplateGlobalCount(this.profile.id);
     },
 
     isTemplatesLoading() {
-      return this.$store.getters.isTemplatesLoadings(this.profile.id);
-    },
-
-    isCategoriesLoading() {
-      return this.$store.getters.isCategoryLoadings(this.profile.id);
-    },
-
-    categories() {
-      return this.$store.getters.getProfileCategories(this.profile.id);
+      return this.$store.getters.isTemplatesGlobalLoadings(this.profile.id);
     },
   },
 };

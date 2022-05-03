@@ -8,9 +8,8 @@ use App\Http\Controllers\Controller;
 
 class TemplateController extends Controller
 {
-    const TYPE_ALL = 'all';
-    const TYPE_DEFAULT = 'default';
-    const TYPE_CATEGORY = 'category';
+    const TYPE_GLOBAL = true;
+    const TYPE_CATEGORY = false;
 
     const HEADLINE1 = ['value' => 'headline 1 to pin1', 'pin' => 1];
     const HEADLINE2 = ['value' => 'headline 2 (no pin)', 'pin' => 0];
@@ -21,30 +20,41 @@ class TemplateController extends Controller
 
     const TEMPLATE1 = [
         'name' => 'стандарт10000',
-        'type' => self::TYPE_DEFAULT,
+        //'type' => self::TYPE_GLOBAL,
         'headlines' => [self::HEADLINE1, self::HEADLINE2],
         'descriptions' => [self::DESCRIPTION1, self::DESCRIPTION2],
         'categories' => []
     ];
     const TEMPLATE2 = [
         'name' => 'для категорий "трусы"',
-        'type' => self::TYPE_CATEGORY,
+        //'type' => self::TYPE_CATEGORY,
         'headlines' => [self::HEADLINE3],
         'descriptions' => [self::DESCRIPTION2, self::DESCRIPTION3],
         'categories' => [2]
     ];
 
-    const TEMPLATE_LIST = [self::TEMPLATE1, self::TEMPLATE2];
-
-    public function get(Profile $profile)
+    public function getGlobal(Profile $profile)
     {
         return [
             'success' => true,
-            'data' => self::TEMPLATE_LIST
+            'data' => [self::TEMPLATE1]
         ];
     }
 
-    public function set(Request $request, Profile $profile)
+    public function setGlobal(Request $request, Profile $profile)
+    {
+        return response('ok', 200);
+    }
+
+    public function getCategories(Profile $profile)
+    {
+        return [
+            'success' => true,
+            'data' => [self::TEMPLATE2]
+        ];
+    }
+
+    public function setCategories(Request $request, Profile $profile)
     {
         return response('ok', 200);
     }

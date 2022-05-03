@@ -24,7 +24,8 @@ import {
   PAGE_REPLACEMENT,
   PAGE_SETTINGS,
   PAGE_STATISTIC,
-  PAGE_TEMPLATES,
+  PAGE_TEMPLATE_GLOBAL,
+  PAGE_TEMPLATE_CATEGORIES,
 } from "../pages/Profile/const";
 
 export default {
@@ -91,9 +92,22 @@ export default {
             },
 
             {
-              id: PAGE_TEMPLATES,
+              id: PAGE_NONE,
               label: "Шаблоны",
               icon: "pi pi-fw pi-sliders-h",
+              items: [
+                {
+                  id: PAGE_TEMPLATE_GLOBAL,
+                  label: "Основное",
+                  icon: "pi pi-fw pi-globe",
+                },
+
+                {
+                  id: PAGE_TEMPLATE_CATEGORIES,
+                  label: "Для категорий",
+                  icon: "pi pi-fw pi-folder",
+                },
+              ],
             },
 
             {

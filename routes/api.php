@@ -34,8 +34,10 @@ Route::middleware('auth:sanctum')->group(
         Route::post('/categories/{profile}/set', [CategoryController::class, 'set']);
 
         /** TEMPLATES */
-        Route::get('/templates/{profile}/get', [TemplateController::class, 'get']);
-        Route::post('/templates/{profile}/set', [TemplateController::class, 'set']);
+        Route::get('/templates/{profile}/global', [TemplateController::class, 'getGlobal']);
+        Route::post('/templates/{profile}/global/set', [TemplateController::class, 'setGlobal']);
+        Route::get('/templates/{profile}/categories', [TemplateController::class, 'getCategories']);
+        Route::post('/templates/{profile}/categories/set', [TemplateController::class, 'setCategories']);
 
         /** FEED */
         Route::post('/feed/{profile}/upload', [FeedController::class, 'upload']);

@@ -1,37 +1,13 @@
 <template>
   <div>
-    <h6>Название</h6>
+    <h6 v-if="!isGlobal">Название</h6>
     <InputText
+      v-if="!isGlobal"
       class="w-full"
       type="text"
       placeholder="Название шаблона"
       v-model="template.name"
     />
-
-    <h6>Тип</h6>
-
-    <Dropdown
-      class="w-full"
-      v-model="template.type"
-      :options="typeList"
-      optionLabel="name"
-      optionValue="id"
-      placeholder="Когда нужно использовать шаблон"
-    />
-
-    <div class="mt-2" v-if="template.type == 'category'">
-      <h6>Категории</h6>
-
-      <MultiSelect
-        class="w-full"
-        :filter="true"
-        v-model="template.categories"
-        :options="categoriesList"
-        optionLabel="name"
-        optionValue="id"
-        placeholder="Для каких категорий использовать"
-      />
-    </div>
 
     <h6>Заголовок</h6>
 
@@ -103,41 +79,26 @@
       @click="addDescription()"
     ></Button>
 
-    <div class="mt-4 text-center">
-      <Button
-        label="Удалить шаблон"
-        icon="pi pi-trash"
-        class="mt-4 p-button-danger"
-        @click="tryDelete"
-      ></Button>
-    </div>
+    <h6>Путь</h6>
+    <InputText
+      class="w-full"
+      type="text"
+      placeholder="Путь 1"
+      v-model="template.path1"
+    />
 
-    <Dialog
-      v-if="isShowDeleteDialog"
-      :visible="true"
-      :style="{ width: '450px' }"
-      header="Подтвердите удаление"
-      :modal="true"
-      class="p-fluid"
-      @update:visible="isShowDeleteDialog = false"
-    >
-      <p>Удалить шаблон?</p>
-
-      <template #footer>
-        <Button
-          label="Удалить"
-          icon="pi pi-trash"
-          class="p-button-danger"
-          @click="confirmDelete"
-        />
-      </template>
-    </Dialog>
+    <InputText
+      class="w-full mt-1"
+      type="text"
+      placeholder="Путь 2"
+      v-model="template.path2"
+    />
   </div>
 </template>
 
 <script>
 const MINIMAL_HEADLINES = 1;
-const MINIMAL_DESCRIPTIONS = 2;
+const MINIMAL_DESCRIPTIONS = 1;
 const EMPTY_INPUT = { value: "", pin: 0 };
 
 export default {
@@ -180,15 +141,6 @@ export default {
 
       this.template.descriptions.splice(index, 1);
     },
-
-    tryDelete() {
-      this.isShowDeleteDialog = true;
-    },
-
-    confirmDelete() {
-      this.isShowDeleteDialog = false;
-      this.$emit("delete");
-    },
   },
 
   props: {
@@ -197,31 +149,14 @@ export default {
       required: true,
     },
 
-    categoriesList: {
-      type: Array,
-      required: true,
+    isGlobal: {
+      type: Boolean,
+      default: true,
     },
   },
 
   data() {
     return {
-      isShowDeleteDialog: false,
-
-      typeList: [
-        {
-          id: "all",
-          name: "Использовать для генерации всегда",
-        },
-        {
-          id: "default",
-          name: "Использовать если больше нет вариантов",
-        },
-        {
-          id: "category",
-          name: "Использовать для выбранных категорий",
-        },
-      ],
-
       pinList: [
         {
           id: 0,
@@ -257,7 +192,7 @@ export default {
     }
 
     if (this.template.type === undefined) {
-      this.template.type = null;
+      this.template.type = this.isGlobal;
     }
 
     if (this.template.categories === undefined) {
@@ -269,7 +204,7 @@ export default {
     }
 
     if (this.template.descriptions === undefined) {
-      this.template.descriptions = [{ ...EMPTY_INPUT }, { ...EMPTY_INPUT }];
+      this.template.descriptions = [{ ...EMPTY_INPUT }];
     }
   },
 };

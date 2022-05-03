@@ -37,7 +37,14 @@
       />
       <ProfileSettings v-if="isCurrentPageSettings" :profileLink="profile" />
       <ProfileStatistic v-if="isCurrentPageStatistic" :profileLink="profile" />
-      <ProfileTemplates v-if="isCurrentPageTemplates" :profileLink="profile" />
+      <ProfileTemplateGlobal
+        v-if="isCurrentPageTemplateGlobal"
+        :profileLink="profile"
+      />
+      <ProfileTemplateCategories
+        v-if="isCurrentPageTemplateCategories"
+        :profileLink="profile"
+      />
     </div>
   </div>
 </template>
@@ -56,7 +63,8 @@ import {
   PAGE_REPLACEMENT,
   PAGE_SETTINGS,
   PAGE_STATISTIC,
-  PAGE_TEMPLATES,
+  PAGE_TEMPLATE_GLOBAL,
+  PAGE_TEMPLATE_CATEGORIES,
 } from "./Profile/const";
 
 import AppMenu from "../layout/AppMenu.vue";
@@ -72,7 +80,8 @@ import ProfilePreview from "./Profile/Preview";
 import ProfileReplacement from "./Profile/Replacement";
 import ProfileSettings from "./Profile/Settings";
 import ProfileStatistic from "./Profile/Statistic";
-import ProfileTemplates from "./Profile/Templates";
+import ProfileTemplateGlobal from "./Profile/TemplateGlobal";
+import ProfileTemplateCategories from "./Profile/TemplateCategories";
 
 export default {
   components: {
@@ -88,7 +97,8 @@ export default {
     ProfileReplacement,
     ProfileSettings,
     ProfileStatistic,
-    ProfileTemplates,
+    ProfileTemplateGlobal,
+    ProfileTemplateCategories,
   },
 
   data() {
@@ -160,8 +170,12 @@ export default {
       return this.currentPage == PAGE_STATISTIC;
     },
 
-    isCurrentPageTemplates() {
-      return this.currentPage == PAGE_TEMPLATES;
+    isCurrentPageTemplateGlobal() {
+      return this.currentPage == PAGE_TEMPLATE_GLOBAL;
+    },
+
+    isCurrentPageTemplateCategories() {
+      return this.currentPage == PAGE_TEMPLATE_CATEGORIES;
     },
 
     isWrongLink() {

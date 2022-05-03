@@ -11,4 +11,5 @@ export const PAGE_PREVIEW = 9;
 export const PAGE_REPLACEMENT = 10;
 export const PAGE_SETTINGS = 11;
 export const PAGE_STATISTIC = 12;
-export const PAGE_TEMPLATES = 13;
+export const PAGE_TEMPLATE_GLOBAL = 13;
+export const PAGE_TEMPLATE_CATEGORIES = 14;

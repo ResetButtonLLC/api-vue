@@ -12,18 +12,6 @@
       <label class="ml-2" for="autoupdate">Автообновление</label>
     </div>
 
-    <span class="p-float-label mt-4">
-      <Calendar
-        id="last_date"
-        class="w-full"
-        v-model="profile.settings.autoupdate_last"
-        dateFormat="dd-mm-yy"
-        :showButtonBar="true"
-      />
-
-      <label for="last_date">Конечная дата автообновления</label>
-    </span>
-
     <div
       v-for="(update, index) in profile.autoupdates"
       class="group w-full my-1"
