@@ -9,11 +9,9 @@ class ClientResource extends JsonResource
 {
     public function toArray($request)
     {
-        /** @var Client $client */
-        $client = $this->resource;
         return [
-            'id'        => $client->id,
-            'name'      => $client->name,
+            'id'        => $this->id,
+            'name'      => $this->name,
             'profiles'  => ProfileResource::collection($this->whenLoaded('profiles'))
         ];
     }

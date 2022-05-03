@@ -11,7 +11,7 @@ class CreateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:100'
+            'name' => 'required|string|min:2|max:100|unique:clients,name'
         ];
     }
 
