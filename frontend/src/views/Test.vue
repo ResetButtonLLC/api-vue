@@ -1,17 +1,19 @@
 <template>
   <div>
-    <p>
-      {{ id }}
-    </p>
-
-    <p>
-      {{ text }}
-    </p>
+    <FilterCreator />
   </div>
 </template>
 
 <script>
+import FilterCreator from "../components/FilterCreator";
+
 export default {
-  props: ["id", "text"],
+  components: {
+    FilterCreator,
+  },
+
+  data() {
+    return {};
+  },
 };
 </script>
