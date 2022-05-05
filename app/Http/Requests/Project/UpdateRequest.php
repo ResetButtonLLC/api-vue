@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Client;
+namespace App\Http\Requests\Project;
 
 use App\Http\Requests\ApiRequest;
 use Illuminate\Validation\Rule;
@@ -16,7 +16,7 @@ class UpdateRequest extends ApiRequest
                 'string',
                 'min:2',
                 'max:100',
-                Rule::unique($this->route('client')->getTable())->ignore($this->route('client')),
+                Rule::unique($this->route('project')->getTable())->ignore($this->route('project')),
             ]
         ];
     }

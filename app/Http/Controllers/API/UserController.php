@@ -24,19 +24,19 @@ class UserController extends Controller
 
     public function view(User $user)
     {
-        return new UserResource($user->load('clients'));
+        return new UserResource($user->load('projects'));
     }
 
     public function update(UserRequests\UpdateRequest $request, User $user)
     {
         $role = $request->input('role');
-        $clients = $request->input('clients');
+        $projects = $request->input('projects');
 
         $user->role = $role;
         $user->save();
 
-        $user->clients()->sync($clients);
+        $user->projects()->sync($projects);
 
-        return new UserResource($user->load('clients'));
+        return new UserResource($user->load('projects'));
     }
 }

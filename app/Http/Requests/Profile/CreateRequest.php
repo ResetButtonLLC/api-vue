@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Profile;
 
 use App\Http\Requests\ApiRequest;
-use App\Models\Client;
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 
 class CreateRequest extends ApiRequest
@@ -12,7 +12,7 @@ class CreateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'clientId' => 'required|integer',
+            'projectId' => 'required|integer',
             'name' => 'required|string|min:2|max:100'
         ];
     }
@@ -22,13 +22,13 @@ class CreateRequest extends ApiRequest
         return $this->input('name');
     }
 
-    public function getClientId()
+    public function getprojectId()
     {
-        return $this->input('clientId');
+        return $this->input('projectId');
     }
 
-    public function getClient()
+    public function getproject()
     {
-        return Client::where(['id' => $this->getClientId(), 'user_id' => Auth::id()])->firstOrFail();
+        return Project::where(['id' => $this->getprojectId(), 'user_id' => Auth::id()])->firstOrFail();
     }
 }

@@ -37,8 +37,8 @@ class User extends Authenticatable
         return ($this->role == self::ROLE_ADMIN);
     }
 
-    public function clients()
+    public function projects()
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Project::class);
     }
 }

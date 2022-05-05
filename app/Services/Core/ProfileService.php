@@ -3,18 +3,18 @@
 namespace App\Services\Core;
 
 use App\Helpers\DBHelper;
-use App\Models\Client;
+use App\Models\Project;
 use App\Models\Profile;
 
 class ProfileService
 {
-    public function create($clientId, $name)
+    public function create($projectId, $name)
     {
-        $client = Client::findOrFail($clientId);
+        $project = Project::findOrFail($projectId);
 
         return Profile::create([
-            'client_id' => $clientId,
-            'db' => DBHelper::getName($client->name, $name),
+            'project_id' => $projectId,
+            'db' => DBHelper::getName($project->name, $name),
             'name' => $name
         ]);
     }

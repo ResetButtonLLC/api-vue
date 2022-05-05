@@ -22,20 +22,20 @@ class ProfileController extends Controller
 
     public function create(CreateRequest $request)
     {
-        $client = $request->getClient();
+        $project = $request->getproject();
 
         $profile = Profile::create([
             'name' => $request->getName(),
-            'client_id' => $request->getClientId(),
+            'project_id' => $request->getprojectId(),
             'user_id' => Auth::id(),
-            'db' => DBHelper::getName($client->name, $request->getName())
+            'db' => DBHelper::getName($project->name, $request->getName())
         ]);
 
         if (!$profile) {
             return response('Failed to create profile', 500);
         }
 
-        if (!DBHelper::init($client->name, $request->getName())) {
+        if (!DBHelper::init($project->name, $request->getName())) {
             return response('Failed to init profile DB', 500);
         }
 

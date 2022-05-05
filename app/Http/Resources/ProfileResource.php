@@ -14,7 +14,7 @@ class ProfileResource extends JsonResource
         return [
             'id'            => $profile->id,
             'name'          => $profile->name,
-            'client_id'     => $profile->client_id,
+            'project_id'     => $profile->project_id,
             'google_id'     => $profile->google_id,
             'feed_url'      => $profile->feed_url ?? '',
             'feed_type'     => $profile->feed_type,

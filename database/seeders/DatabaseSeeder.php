@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Client, Profile, User};
+use App\Models\{Project, Profile, User};
 use Illuminate\Database\Seeder;
 
 
@@ -29,10 +29,10 @@ class DatabaseSeeder extends Seeder
         );
 
         User::factory(20)->create();
-        Client::factory(10)
+        Project::factory(10)
             ->has(Profile::factory()->count(3))
-            ->afterCreating(function (Client $client) {
-                $client->users()->sync(User::select('id')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray());
+            ->afterCreating(function (Project $project) {
+                $project->users()->sync(User::select('id')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray());
             })
             ->create();
     }

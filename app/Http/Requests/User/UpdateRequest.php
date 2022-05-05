@@ -18,7 +18,7 @@ class UpdateRequest extends ApiRequest
         return [
             //todo in_array
             'role' => 'required',
-            'clients' => 'array|required'
+            'projects' => 'array|required'
         ];
     }
 }

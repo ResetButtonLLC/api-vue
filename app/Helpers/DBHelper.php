@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Artisan;
 
 class DBHelper
 {
-    public static function getName($client, $profile)
+    public static function getName($project, $profile)
     {
-        return 'gym_' . Str::slug($client, '') . '_' . Str::slug($profile, '');
+        return 'gym_' . Str::slug($project, '') . '_' . Str::slug($profile, '');
     }
 
     public static function enableDefault()
@@ -29,13 +29,13 @@ class DBHelper
         Config::set('database.connections.profile.database', $name);
     }
 
-    public static function migrate($client, $profile, $isFresh)
+    public static function migrate($project, $profile, $isFresh)
     {
         try {
-            $clientProfile = self::getName($client, $profile);
+            $projectProfile = self::getName($project, $profile);
 
-            self::setProfileDB($clientProfile);
-            DB::statement('CREATE DATABASE IF NOT EXISTS `' . $clientProfile . '`');
+            self::setProfileDB($projectProfile);
+            DB::statement('CREATE DATABASE IF NOT EXISTS `' . $projectProfile . '`');
 
             Artisan::call($isFresh ? 'migrate:fresh' : 'migrate', [
                 '--database' => 'profile',
@@ -43,7 +43,7 @@ class DBHelper
                 '--force' => true
             ]);
         } catch (\Exception $e) {
-            LogHelper::error('Не удалось выполнить инициализацию БД для: ' . $client . ' - ' . $profile);
+            LogHelper::error('Не удалось выполнить инициализацию БД для: ' . $project . ' - ' . $profile);
 
             return false;
         }
@@ -51,13 +51,13 @@ class DBHelper
         return true;
     }
 
-    public static function init($client, $profile)
+    public static function init($project, $profile)
     {
-        return self::migrate($client, $profile, false);
+        return self::migrate($project, $profile, false);
     }
 
-    public static function fresh($client, $profile)
+    public static function fresh($project, $profile)
     {
-        return self::migrate($client, $profile, true);
+        return self::migrate($project, $profile, true);
     }
 }

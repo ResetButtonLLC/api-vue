@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Client;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClientResource extends JsonResource
+class ProjectResource extends JsonResource
 {
     public function toArray($request)
     {
