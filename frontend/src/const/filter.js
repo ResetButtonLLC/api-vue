@@ -47,8 +47,8 @@ export const OPERATORS_INTEGER = [
     OPERATOR_INT_IN_RANGE
 ];
 
-export const OPERATOR_BOOLEAN_EQUAL = { name: 'Равно', value: 'b=', type: [VALUE_BOOLEAN], default: [false, null], allowNull: true };
-export const OPERATOR_BOOLEAN_NOT_EQUAL = { name: 'Не равно', value: 'b!=', type: [VALUE_BOOLEAN], default: [false, null], allowNull: true };
+export const OPERATOR_BOOLEAN_EQUAL = { name: 'Включено', value: 'b=', type: [VALUE_BOOLEAN], default: [true, null], allowNull: true };
+export const OPERATOR_BOOLEAN_NOT_EQUAL = { name: 'Не включено', value: 'b!=', type: [VALUE_BOOLEAN], default: [false, null], allowNull: true };
 export const OPERATORS_BOOLEAN = [
     OPERATOR_BOOLEAN_EQUAL,
     OPERATOR_BOOLEAN_NOT_EQUAL
@@ -86,27 +86,153 @@ export const OPERATORS_DATE = [
 ];
 
 // FIELDS
-export const FIELD_HEADLINE1 = { name: 'Заголовок', value: 'headline1', operators: OPERATORS_STRING };
-export const FIELD_DESCRIPTION1 = { name: 'Описание', value: 'description1', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE1 = { name: 'Заголовок 1', alias: "headline 1", value: 'headline1', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE2 = { name: 'Заголовок 2', alias: "headline 2", value: 'headline2', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE3 = { name: 'Заголовок 3', alias: "headline 3", value: 'headline3', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE4 = { name: 'Заголовок 4', alias: "headline 4", value: 'headline4', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE5 = { name: 'Заголовок 5', alias: "headline 5", value: 'headline5', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE6 = { name: 'Заголовок 6', alias: "headline 6", value: 'headline6', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE7 = { name: 'Заголовок 7', alias: "headline 7", value: 'headline7', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE8 = { name: 'Заголовок 8', alias: "headline 8", value: 'headline8', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE9 = { name: 'Заголовок 9', alias: "headline 9", value: 'headline9', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE10 = { name: 'Заголовок 10', alias: "headline 10", value: 'headline10', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE11 = { name: 'Заголовок 11', alias: "headline 11", value: 'headline11', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE12 = { name: 'Заголовок 12', alias: "headline 12", value: 'headline12', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE13 = { name: 'Заголовок 13', alias: "headline 13", value: 'headline13', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE14 = { name: 'Заголовок 14', alias: "headline 14", value: 'headline14', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE15 = { name: 'Заголовок 15', alias: "headline 15", value: 'headline15', operators: OPERATORS_STRING };
 
-export const FIELD_PATH1 = { name: 'Путь1', value: 'path1', operators: OPERATORS_STRING };
-export const FIELD_PATH2 = { name: 'Путь2', value: 'path2', operators: OPERATORS_STRING };
-export const FIELD_PRICE = { name: 'Цена', value: 'price', operators: OPERATORS_INTEGER };
-//export const FIELD_GROUP_STATUS = { name: 'Статус группи', value: 'group_status', operators: OPERATORS_BOOLEAN };
-export const FIELD_GOOGLE_ID = { name: 'Google ID', value: 'googleid', operators: OPERATORS_INTEGER };
-export const FIELD_URL = { name: 'URL', value: 'url', operators: OPERATORS_STRING };
-export const FIELD_KEY_TYPE = { name: 'Тип ключа', value: 'keytype', operators: OPERATORS_KEY_TYPE };
+export const FIELD_DESCRIPTION1 = { name: 'Описание 1', alias: "description 1", value: 'description1', operators: OPERATORS_STRING };
+export const FIELD_DESCRIPTION2 = { name: 'Описание 2', alias: "description 2", value: 'description2', operators: OPERATORS_STRING };
+export const FIELD_DESCRIPTION3 = { name: 'Описание 3', alias: "description 3", value: 'description3', operators: OPERATORS_STRING };
+export const FIELD_DESCRIPTION4 = { name: 'Описание 4', alias: "description 4", value: 'description4', operators: OPERATORS_STRING };
+
+export const FIELD_ID = { name: 'ID', alias: "айди", value: 'id', operators: OPERATORS_INTEGER };
+export const FIELD_PATH1 = { name: 'Путь1', alias: "path1", value: 'path1', operators: OPERATORS_STRING };
+export const FIELD_PATH2 = { name: 'Путь2', alias: "path2", value: 'path2', operators: OPERATORS_STRING };
+export const FIELD_PRICE = { name: 'Цена', alias: "price", value: 'price', operators: OPERATORS_INTEGER };
+export const FIELD_STATUS = { name: 'Статус', alias: "status", value: 'status', operators: OPERATORS_BOOLEAN };
+export const FIELD_GOOGLE_ID = { name: 'Google ID', alias: "гугл айди", value: 'googleid', operators: OPERATORS_STRING };
+export const FIELD_URL = { name: 'URL', alias: "адрес сайта", value: 'url', operators: OPERATORS_STRING };
+export const FIELD_KEY_TYPE = { name: 'Тип ключа', alias: "key type", value: 'keytype', operators: OPERATORS_KEY_TYPE };
+export const FIELD_AD_EDIT_STATUS = { name: 'Статус редактирования', alias: "ad edit status", value: 'editstatus', operators: OPERATORS_AD_EDIT_STATUS };
+
+export const FIELD_AD_COUNT = { name: 'Количество объявлений', alias: "ad count", value: 'adcount', operators: OPERATORS_INTEGER };
+export const FIELD_AD_COUNT_ACTIVE = { name: 'Количество активных объявлений', alias: "ad count active", value: 'adcount-active', operators: OPERATORS_INTEGER };
+export const FIELD_AD_COUNT_PAUSED = { name: 'Количество объявлений в паузе', alias: "ad count paused", value: 'adcount-paused', operators: OPERATORS_INTEGER };
+
+export const FIELD_GROUP_ID = { name: 'ID группы', alias: "айди группы", value: 'groupid', operators: OPERATORS_INTEGER };
+export const FIELD_GROUP_GOOGLE_ID = { name: 'ID группы в Google', alias: "гугл айди группы", value: 'groupgoogleid', operators: OPERATORS_INTEGER };
+export const FIELD_CAMPAIGN_ID = { name: 'ID кампании', alias: "айди кампании", value: 'campaignid', operators: OPERATORS_INTEGER };
+export const FIELD_CAMPAIGN_GOOGLE_ID = { name: 'ID кампании в Google', alias: "айди кампании в гугл", value: 'campaigngoogleid', operators: OPERATORS_INTEGER };
+export const FIELD_KEYWORD = { name: 'Ключевое слово', alias: "keyword", value: 'keyword', operators: OPERATORS_STRING };
+export const FIELD_PARAM1 = { name: 'param1', alias: "param1", value: 'param1', operators: OPERATORS_INTEGER };
 
 function fieldList() {
     return [
-        FIELD_HEADLINE1,
-        FIELD_DESCRIPTION1,
+        FIELD_ID,
         FIELD_GOOGLE_ID,
-        FIELD_KEY_TYPE,
+        FIELD_STATUS,
+        FIELD_AD_EDIT_STATUS,
+        FIELD_CAMPAIGN_ID,
+        FIELD_CAMPAIGN_GOOGLE_ID,
+        FIELD_GROUP_ID,
+        FIELD_GROUP_GOOGLE_ID,
+        FIELD_PRICE,
+        FIELD_HEADLINE1,
+        FIELD_HEADLINE2,
+        FIELD_HEADLINE3,
+        FIELD_HEADLINE4,
+        FIELD_HEADLINE5,
+        FIELD_HEADLINE6,
+        FIELD_HEADLINE7,
+        FIELD_HEADLINE8,
+        FIELD_HEADLINE9,
+        FIELD_HEADLINE10,
+        FIELD_HEADLINE11,
+        FIELD_HEADLINE12,
+        FIELD_HEADLINE13,
+        FIELD_HEADLINE14,
+        FIELD_HEADLINE15,
+        FIELD_DESCRIPTION1,
+        FIELD_DESCRIPTION2,
+        FIELD_DESCRIPTION3,
+        FIELD_DESCRIPTION4,
         FIELD_PATH1,
         FIELD_PATH2,
+        FIELD_URL,
+        FIELD_KEY_TYPE,
+        FIELD_KEYWORD,
+        FIELD_PARAM1,
+        FIELD_AD_COUNT,
+        FIELD_AD_COUNT_ACTIVE,
+        FIELD_AD_COUNT_PAUSED,
+    ];
+}
+
+function fieldListForGroups() {
+    return [
+        FIELD_ID,
+        FIELD_GOOGLE_ID,
+        FIELD_STATUS,
+        FIELD_AD_EDIT_STATUS,
+        FIELD_AD_COUNT,
+        FIELD_AD_COUNT_ACTIVE,
+        FIELD_AD_COUNT_PAUSED,
+        FIELD_CAMPAIGN_ID,
+        FIELD_CAMPAIGN_GOOGLE_ID
+    ];
+}
+
+function fieldListForAds() {
+    return [
+        FIELD_ID,
+        FIELD_GOOGLE_ID,
+        FIELD_STATUS,
+        FIELD_AD_EDIT_STATUS,
+        FIELD_GROUP_ID,
+        FIELD_GROUP_GOOGLE_ID,
+        FIELD_CAMPAIGN_ID,
+        FIELD_CAMPAIGN_GOOGLE_ID,
         FIELD_PRICE,
-        FIELD_URL
+        FIELD_URL,
+        FIELD_HEADLINE1,
+        FIELD_HEADLINE2,
+        FIELD_HEADLINE3,
+        FIELD_HEADLINE4,
+        FIELD_HEADLINE5,
+        FIELD_HEADLINE6,
+        FIELD_HEADLINE7,
+        FIELD_HEADLINE8,
+        FIELD_HEADLINE9,
+        FIELD_HEADLINE10,
+        FIELD_HEADLINE11,
+        FIELD_HEADLINE12,
+        FIELD_HEADLINE13,
+        FIELD_HEADLINE14,
+        FIELD_HEADLINE15,
+        FIELD_DESCRIPTION1,
+        FIELD_DESCRIPTION2,
+        FIELD_DESCRIPTION3,
+        FIELD_DESCRIPTION4,
+        FIELD_PATH1,
+        FIELD_PATH2,
+    ];
+}
+
+function fieldListForKeywords() {
+    return [
+        FIELD_ID,
+        FIELD_GOOGLE_ID,
+        FIELD_STATUS,
+        FIELD_AD_EDIT_STATUS,
+        FIELD_KEYWORD,
+        FIELD_PARAM1,
+        FIELD_KEY_TYPE,
+        FIELD_GROUP_ID,
+        FIELD_GROUP_GOOGLE_ID,
+        FIELD_CAMPAIGN_ID,
+        FIELD_CAMPAIGN_GOOGLE_ID
     ];
 }
 
@@ -127,6 +253,18 @@ export default {
         return fieldList();
     },
 
+    fieldListForGroups() {
+        return fieldListForGroups();
+    },
+
+    fieldListForAds() {
+        return fieldListForAds();
+    },
+
+    fieldListForKeywords() {
+        return fieldListForKeywords();
+    },
+
     operatorList() {
         return operatorList();
     },
@@ -134,6 +272,12 @@ export default {
     filterToText(filter) {
         let field = fieldList().find((el) => el.value == filter.field);
         let operator = operatorList().find((el) => el.value == filter.operator);
+
+        // TEXT FOR BOOLEANS
+        if (filter.value === false || filter.value === true) {
+            return field.name + ' "' + operator.name.toLowerCase() + '"';
+        }
+
         let value = "\"" + filter.value + "\"";
 
         if (filter.value2) {

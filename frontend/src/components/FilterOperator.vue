@@ -1,5 +1,5 @@
 <template>
-  <AutoComplete
+  <CustomAutoComplete
     class="w-full"
     forceSelection
     v-model="filter.operator"
@@ -12,8 +12,14 @@
 </template>
 
 <script>
+import CustomAutoComplete from "./CustomAutoComplete";
+
 export default {
   props: ["filterLink"],
+
+  components: {
+    CustomAutoComplete,
+  },
 
   data() {
     return {

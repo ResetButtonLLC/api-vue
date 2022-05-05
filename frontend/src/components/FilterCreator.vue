@@ -1,29 +1,32 @@
 <template>
   <div>
-    <div class="flex">
-      <FilterField style="flex: 0 0 200px" :filterLink="filter" />
-      <FilterOperator
-        style="flex: 0 0 200px"
-        v-if="isShowOperator"
-        :filterLink="filter"
-      />
-      <FilterValue
-        style="flex: 1 1 400px"
-        v-if="isShowValue"
-        :filterLink="filter"
-      />
-
-      <Button
-        v-if="isShowCreateButton"
-        icon="pi pi-plus"
-        @click="addFilter"
-      ></Button>
-    </div>
-
-    <div class="flex">
+    <div v-if="filterList.length" class="flex mb-2">
       <div class="filter" v-for="(f, index) in filterList" :key="f">
         <span>{{ toText(f) }}</span>
         <i class="pi pi-times-circle" @click="deleteFilter(index)"></i>
+      </div>
+    </div>
+
+    <div style="position: relative" class="flex">
+      <FilterField :filterLink="filter" />
+
+      <div v-if="isShowOperator" class="optionblock card">
+        <FilterOperator v-if="isShowOperator" :filterLink="filter" />
+        <FilterValue v-if="isShowValue" :filterLink="filter" />
+
+        <div class="btnblock">
+          <Button
+            class="p-button-danger"
+            icon="pi pi-times-circle"
+            @click="abortFilter"
+          ></Button>
+
+          <Button
+            label="Применить"
+            v-if="isShowCreateButton"
+            @click="addFilter"
+          ></Button>
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +55,11 @@ export default {
         detail: errorText,
         life: 3000,
       });
+    },
+
+    abortFilter() {
+      this.filter.operator = null;
+      this.filter.field = null;
     },
 
     addFilter() {
@@ -84,8 +92,7 @@ export default {
         value2: value2,
       });
 
-      this.filter.operator = null;
-      this.filter.field = null;
+      this.abortFilter();
     },
 
     deleteFilter(index) {
@@ -150,5 +157,19 @@ export default {
 
 .flex .flex1 {
   margin: 0px 2px;
+}
+
+.optionblock {
+  position: absolute;
+  top: 50px;
+  width: 300px;
+  padding: 10px;
+  z-index: 100;
+}
+
+.btnblock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 </style>

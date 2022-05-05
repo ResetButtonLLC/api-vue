@@ -1,32 +1,33 @@
 <template>
   <div>
     <InputText
-      :class="isShowStr2 ? 'w-50' : 'w-full'"
+      class="w-full mt-1"
       v-if="isShowStr1"
       type="text"
       v-model="filter.value"
     />
     <InputText
-      class="w-50"
+      class="w-full mt-1"
       v-if="isShowStr2"
       type="text"
       v-model="filter.value2"
     />
 
     <InputNumber
-      :class="isShowInt2 ? 'w-50' : 'w-full'"
+      class="w-full mt-1"
       v-if="isShowInt1"
       v-model="filter.value"
       mode="decimal"
     />
     <InputNumber
-      class="w-50"
+      class="w-full mt-1"
       v-if="isShowInt2"
       v-model="filter.value2"
       mode="decimal"
     />
 
     <MultiSelect
+      class="w-full mt-1"
       v-if="isShowKeyType"
       v-model="filter.value"
       :options="keywordList"
@@ -36,7 +37,7 @@
     />
 
     <Calendar
-      :class="isShowDate2 ? 'w-50' : 'w-full'"
+      class="w-full mt-1"
       v-if="isShowDate1"
       v-model="filter.value"
       dateFormat="mm/dd/yy"
@@ -44,8 +45,8 @@
     />
 
     <Calendar
+      class="w-full mt-1"
       v-if="isShowDate2"
-      class="w-50"
       v-model="filter.value2"
       dateFormat="mm/dd/yy"
       placeholder="mm/dd/yyyy"

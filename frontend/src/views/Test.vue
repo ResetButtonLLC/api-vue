@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="panel">
     <FilterCreator />
   </div>
 </template>
@@ -17,3 +17,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.panel {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
