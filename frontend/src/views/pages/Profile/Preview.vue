@@ -3,7 +3,15 @@
     <h4>Предпросмотр</h4>
 
     <div class="panel">
-      <FilterCreator />
+      <FilterCreator
+        v-if="!isLoading"
+        :campaignList="campaigns"
+        :categoryList="categories"
+        :groupList="groups"
+      />
+
+      <div v-else>Загрузка...</div>
+
       <FilterTableFields :profileLink="profile" />
     </div>
 
@@ -56,9 +64,21 @@
         </template>
       </Column>
 
+      <Column v-if="isShow('keyword')" field="keyword" header="Ключевое слово">
+        <template #body="slotProps">
+          {{ slotProps.data.keyword }}
+        </template>
+      </Column>
+
       <Column v-if="isShow('keytype')" field="keytype" header="Тип ключа">
         <template #body="slotProps">
           {{ slotProps.data.keytype }}
+        </template>
+      </Column>
+
+      <Column v-if="isShow('category')" field="category" header="Категория">
+        <template #body="slotProps">
+          {{ slotProps.data.category }}
         </template>
       </Column>
 
@@ -131,12 +151,6 @@
       >
         <template #body="slotProps">
           {{ slotProps.data.groupgoogleid }}
-        </template>
-      </Column>
-
-      <Column v-if="isShow('keyword')" field="keyword" header="Ключевое слово">
-        <template #body="slotProps">
-          {{ slotProps.data.keyword }}
         </template>
       </Column>
 
@@ -215,7 +229,6 @@ export default {
     return {
       profile: {},
       previewList: [],
-      isLoading: false,
       currentPreviewType: PREVIEW_GROUP,
       previewTypes: [
         {
@@ -236,6 +249,12 @@ export default {
 
   created() {
     this.profile = this.profileLink;
+
+    this.$store.dispatch("getProfileCategories", this.profile.id);
+    this.$store.dispatch("getProfileCampaigns", {
+      type: "imported",
+      profileId: this.profile.id,
+    });
   },
 
   methods: {
@@ -282,6 +301,39 @@ export default {
         }
       }
       return resultSet;
+    },
+
+    groups() {
+      return [
+        { id: 1, name: "тест группа 1" },
+        { id: 2, name: "тест группа 2" },
+      ];
+    },
+
+    categories() {
+      return this.$store.getters.getProfileCategories(this.profile.id);
+    },
+
+    campaigns() {
+      return this.$store.getters.getProfileCampaigns(
+        this.profile.id,
+        "imported"
+      );
+    },
+
+    isCategoriesLoading() {
+      return this.$store.getters.isCategoryLoadings(this.profile.id);
+    },
+
+    isCampaignsLoading() {
+      return this.$store.getters.isCampaignsLoadings(
+        this.profile.id,
+        "imported"
+      );
+    },
+
+    isLoading() {
+      return this.isCategoriesLoading && this.isCampaignsLoading;
     },
   },
 };

@@ -36,20 +36,65 @@
       placeholder="Не выбрано"
     />
 
+    <MultiSelect
+      class="w-full mt-1"
+      v-if="isShowAdEditStatus"
+      v-model="filter.value"
+      :options="adStatusList"
+      optionLabel="name"
+      optionValue="value"
+      placeholder="Не выбрано"
+    />
+
+    <MultiSelect
+      class="w-full mt-1"
+      v-if="isShowCampaigns"
+      v-model="filter.value"
+      :options="campaignList"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Не выбрано"
+      @change="formatTextValue(campaignList)"
+    />
+
+    <MultiSelect
+      class="w-full mt-1"
+      v-if="isShowCategories"
+      v-model="filter.value"
+      :options="categoryList"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Не выбрано"
+      @change="formatTextValue(categoryList)"
+    />
+
+    <MultiSelect
+      class="w-full mt-1"
+      v-if="isShowGroups"
+      v-model="filter.value"
+      :options="groupList"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Не выбрано"
+      @change="formatTextValue(groupList)"
+    />
+
     <Calendar
       class="w-full mt-1"
       v-if="isShowDate1"
       v-model="filter.value"
-      dateFormat="mm/dd/yy"
-      placeholder="mm/dd/yyyy"
+      dateFormat="dd.mm.yy"
+      placeholder="dd.mm.yyyy"
+      @date-select="formatDateTextValue"
     />
 
     <Calendar
       class="w-full mt-1"
       v-if="isShowDate2"
       v-model="filter.value2"
-      dateFormat="mm/dd/yy"
-      placeholder="mm/dd/yyyy"
+      dateFormat="dd.mm.yy"
+      placeholder="dd.mm.yyyy"
+      @date-select="formatDateTextValue"
     />
   </div>
 </template>
@@ -65,12 +110,16 @@ import {
   VALUE2_DATE,
   VALUE_KEY_TYPE,
   VALUE_AD_EDIT_STATUS,
+  VALUE_LIST_CAMPAIGN,
+  VALUE_LIST_GROUP,
+  VALUE_LIST_CATEGORIES,
 } from "../const/filter";
 
 import keywords from "../const/keywords";
+import adstatus from "../const/adstatus";
 
 export default {
-  props: ["filterLink"],
+  props: ["filterLink", "campaignList", "categoryList", "groupList"],
 
   data() {
     return {
@@ -82,9 +131,41 @@ export default {
     this.filter = this.filterLink;
   },
 
+  methods: {
+    formatDateTextValue() {
+      let date = new Date(this.filter.value);
+
+      this.filter.textValue =
+        date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+    },
+
+    formatTextValue(list) {
+      if (!Array.isArray(this.filter.value)) {
+        this.filter.textValue = null;
+        return;
+      }
+
+      let newTextValue = [];
+
+      this.filter.value.forEach((value) => {
+        let listElement = list.find((el) => el.id == value);
+
+        if (listElement) {
+          newTextValue.push(listElement.name);
+        }
+      });
+
+      this.filter.textValue = newTextValue;
+    },
+  },
+
   computed: {
     keywordList() {
       return keywords.keywords();
+    },
+
+    adStatusList() {
+      return adstatus.list();
     },
 
     valueType() {
@@ -125,6 +206,18 @@ export default {
 
     isShowAdEditStatus() {
       return this.valueType.some((el) => el == VALUE_AD_EDIT_STATUS);
+    },
+
+    isShowCampaigns() {
+      return this.valueType.some((el) => el == VALUE_LIST_CAMPAIGN);
+    },
+
+    isShowCategories() {
+      return this.valueType.some((el) => el == VALUE_LIST_CATEGORIES);
+    },
+
+    isShowGroups() {
+      return this.valueType.some((el) => el == VALUE_LIST_GROUP);
     },
   },
 };

@@ -12,7 +12,13 @@
 
       <div v-if="isShowOperator" class="optionblock card">
         <FilterOperator v-if="isShowOperator" :filterLink="filter" />
-        <FilterValue v-if="isShowValue" :filterLink="filter" />
+        <FilterValue
+          v-if="isShowValue"
+          :filterLink="filter"
+          :campaignList="campaignList"
+          :categoryList="categoryList"
+          :groupList="groupList"
+        />
 
         <div class="btnblock">
           <Button
@@ -40,6 +46,8 @@ import FilterOperator from "./FilterOperator";
 import FilterValue from "./FilterValue";
 
 export default {
+  props: ["campaignList", "categoryList", "groupList"],
+
   data() {
     return {
       filterList: [],
@@ -60,6 +68,10 @@ export default {
     abortFilter() {
       this.filter.operator = null;
       this.filter.field = null;
+      this.filter.value = null;
+      this.filter.value2 = null;
+      this.filter.textValue = null;
+      this.filter.serverValue = null;
     },
 
     addFilter() {
@@ -90,6 +102,8 @@ export default {
         operator: this.filter.operator.value,
         value: value,
         value2: value2,
+        textValue: this.filter.textValue,
+        serverValue: this.filter.operator.serverValue,
       });
 
       this.abortFilter();

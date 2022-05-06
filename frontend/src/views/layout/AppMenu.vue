@@ -5,6 +5,7 @@
       class="layout-menu"
       :root="true"
       @menuitem-click="onMenuItemClick"
+      :currentMenuItem="currentMenuItem"
     />
   </div>
 </template>
@@ -31,6 +32,7 @@ import {
 export default {
   data() {
     return {
+      currentMenuItem: 0,
       menuItems: [
         {
           label: "Профиль",
@@ -140,6 +142,7 @@ export default {
 
   methods: {
     onMenuItemClick(event) {
+      this.currentMenuItem = event.item.id;
       this.$emit("menuitem-click", event);
     },
     bannerImage() {

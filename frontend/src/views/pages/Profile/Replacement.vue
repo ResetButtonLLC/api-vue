@@ -22,12 +22,12 @@
         ></i>
       </div>
 
-      <div class="el">
+      <div class="el mt-2">
         <InputSwitch
-          id="global_replacement"
-          v-model="profile.settings.global_replacement"
+          id="user_replacement"
+          v-model="profile.settings.user_replacement"
         />
-        <label for="global_replacement">Использовать замены профиля</label>
+        <label for="user_replacement">Использовать замены профиля</label>
       </div>
 
       <h6 style="margin-bottom: 0px">Замены для профиля:</h6>
