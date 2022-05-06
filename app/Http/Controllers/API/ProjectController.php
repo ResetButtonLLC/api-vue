@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\CreateRequest;
 use App\Http\Requests\Project\UpdateRequest;
 use App\Http\Resources\ProjectResource;
-use App\Http\Responses\Delete;
+use App\Http\Responses\DeleteResponse;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,6 +50,6 @@ class ProjectController extends Controller
         $project->users()->detach();
         $project->delete();
 
-        return new Delete();
+        return new DeleteResponse();
     }
 }
