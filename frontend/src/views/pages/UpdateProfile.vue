@@ -3,7 +3,7 @@
     <p v-if="isLoading">Загрузка...</p>
 
     <template v-else>
-      <h3>Профиль {{ profile.name }} ({{ clientName }})</h3>
+      <h3>Профиль {{ profile.name }} ({{ projectName }})</h3>
 
       <TabView scrollable>
         <TabPanel header="Настройки">
@@ -153,14 +153,14 @@ export default {
       return this.$store.getters.getProfiles.find((el) => el.id == this.id);
     },
 
-    client() {
-      return this.$store.getters.getClients.find(
-        (el) => el.id == this.profile.client_id
+    project() {
+      return this.$store.getters.getProjects.find(
+        (el) => el.id == this.profile.project_id
       );
     },
 
-    clientName() {
-      return this.client && this.client.name ? this.client.name : "";
+    projectName() {
+      return this.project && this.project.name ? this.project.name : "";
     },
   },
 };

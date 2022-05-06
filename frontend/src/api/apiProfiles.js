@@ -8,7 +8,7 @@ export default {
         return apiService.api.get(getProfilePath);
     },
 
-    createProfile(clientId, name) {
-        return apiService.api.post(createProfilePath, { clientId: clientId, name: name });
+    createProfile(projectId, name) {
+        return apiService.api.post(createProfilePath, { projectId: projectId, name: name });
     }
 }

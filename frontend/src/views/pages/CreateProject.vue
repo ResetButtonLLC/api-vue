@@ -11,7 +11,7 @@
       label="Создать клиента"
       icon="pi pi-save"
       class="mt-5"
-      @click="addClient"
+      @click="addProject"
     ></Button>
   </div>
 </template>
@@ -21,8 +21,8 @@ export default {
   props: ["id"],
 
   methods: {
-    addClient() {
-      this.$store.dispatch("createClient", this.name);
+    addProject() {
+      this.$store.dispatch("createProject", this.name);
     },
   },
 

@@ -9,29 +9,29 @@ export default {
             setProfiles(state, profiles) {
                 state.profiles = profiles;
             },
-    
+
             addProfile(state, profile) {
                 state.profiles.push(profile);
             }
         },
         actions: {
-            createProfile(context, { clientId, name }) {
-                apiProfiles.createProfile(clientId, name).then((result) => {
+            createProfile(context, { projectId, name }) {
+                apiProfiles.createProfile(projectId, name).then((result) => {
                     let profile = result.data.data;
                     context.commit('addProfile', profile);
-    
+
                     context.dispatch('route', {
                         name: 'Profile',
                         params: {
                             id: profile.id,
-                            clientId: clientId
+                            projectId: projectId
                         }
                     });
                 }).catch(() => {
                     context.dispatch('error', 'Не удалось создать профиль');
                 });
             },
-    
+
             loadProfiles(context) {
                 apiProfiles.getProfiles().then((result) => {
                     context.commit('setProfiles', result.data.data);
@@ -40,7 +40,7 @@ export default {
                 });
             },
         },
-    
+
         getters: {
             getProfiles(state) {
                 return state.profiles;

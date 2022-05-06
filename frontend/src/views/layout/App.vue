@@ -2,7 +2,7 @@
   <div :class="containerClass" @click="onWrapperClick" v-if="!isLoginProcess">
     <AppTopBar @menu-toggle="onMenuToggle" />
     <div class="layout-sidebar" @click="onSidebarClick">
-      <AppMenu :model="clientsForMenu" @menuitem-click="onMenuItemClick" />
+      <AppMenu :model="projectsForMenu" @menuitem-click="onMenuItemClick" />
     </div>
 
     <div class="layout-main-container">
@@ -37,7 +37,7 @@ import AppFooter from "./AppFooter.vue";
 export default {
   created() {
     this.$store.dispatch("updateUserInfo");
-    this.$store.dispatch("loadClients");
+    this.$store.dispatch("loadProjects");
   },
 
   data() {
@@ -123,8 +123,8 @@ export default {
     },
   },
   computed: {
-    clientsForMenu() {
-      return this.$store.getters.getClientsForMenu;
+    projectsForMenu() {
+      return this.$store.getters.getProjectsForMenu;
     },
 
     isLoginProcess() {

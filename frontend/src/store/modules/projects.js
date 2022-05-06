@@ -1,8 +1,7 @@
-import apiClients from "@/api/apiClients";
-import apiProfiles from "@/api/apiProfiles";
+import apiProjects from "@/api/apiProjects";
 //import { result } from "lodash";
 
-function buildProfiles(items, clientId) {
+function buildProfiles(items, projectId) {
     let result = [];
 
     items.forEach((el) => {
@@ -17,13 +16,13 @@ function buildProfiles(items, clientId) {
     result.push({
         label: 'Добавить профиль',
         icon: "pi pi-fw pi-plus",
-        to: { name: "CreateProfile", params: { clientId: clientId } },
+        to: { name: "CreateProfile", params: { projectId: projectId } },
     });
 
     return result;
 }
 
-function buildClients(items) {
+function buildProjects(items) {
     let result = [];
 
     items.forEach((el) => {
@@ -38,7 +37,7 @@ function buildClients(items) {
     result.push({
         label: 'Добавить клиента',
         icon: "pi pi-fw pi-plus",
-        to: { name: "CreateClient" },
+        to: { name: "CreateProject" },
     });
 
     return result;
@@ -46,33 +45,33 @@ function buildClients(items) {
 
 export default {
     state: () => ({
-        clients: [],
+        projects: [],
     }),
     mutations: {
-        setClients(state, clients) {
-            state.clients = clients;
+        setProjects(state, projects) {
+            state.projects = projects;
         },
 
-        addClient(state, client) {
-            state.clients.push(client);
+        addProject(state, project) {
+            state.projects.push(project);
         },
 
         addProfile(state, profile) {
-            let client = state.clients.find((el) => el.id == profile.client_id);
+            let project = state.projects.find((el) => el.id == profile.project_id);
 
-            client.profiles.push(profile);
+            project.profiles.push(profile);
         }
     },
     actions: {
-        createClient(context, name) {
-            apiClients.createClient(name).then((result) => {
-                let client = result.data.data;
-                context.commit('addClient', client);
+        createProject(context, name) {
+            apiProjects.createProject(name).then((result) => {
+                let project = result.data.data;
+                context.commit('addProject', project);
 
                 context.dispatch('route', {
                     name: 'CreateProfile',
                     params: {
-                        clientId: client.id
+                        projectId: project.id
                     }
                 });
             }).catch(() => {
@@ -80,16 +79,16 @@ export default {
             });
         },
 
-        loadClients(context) {
-            apiClients.getClients().then((result) => {
-                context.commit('setClients', result.data.data);
+        loadProjects(context) {
+            apiProjects.getProjects().then((result) => {
+                context.commit('setProjects', result.data.data);
             }).catch(() => {
                 context.dispatch('error', 'Не удалось загрузить список клиентов');
             });
         },
 
-        createProfile(context, { clientId, name }) {
-            apiProfiles.createProfile(clientId, name).then((result) => {
+        createProfile(context, { projectId, name }) {
+            apiProfiles.createProfile(projectId, name).then((result) => {
                 let profile = result.data.data;
 
                 context.commit('addProfile', profile);
@@ -98,7 +97,7 @@ export default {
                     name: 'Profile',
                     params: {
                         id: profile.id,
-                        clientId: clientId
+                        projectId: projectId
                     }
                 });
 
@@ -110,21 +109,21 @@ export default {
     },
 
     getters: {
-        getClientsForMenu(state) {
+        getProjectsForMenu(state) {
             return [{
                 label: "Клиенты",
-                items: buildClients(state.clients)
+                items: buildProjects(state.projects)
             }];
         },
 
-        getClients(state) {
-            return state.clients;
+        getProjects(state) {
+            return state.projects;
         },
 
         getProfiles(state) {
             let result = [];
 
-            state.clients.forEach((el) => {
+            state.projects.forEach((el) => {
                 result = result.concat(el.profiles);
             });
 

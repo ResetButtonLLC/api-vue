@@ -20,13 +20,13 @@ const routes = [
     },
 
     {
-        path: '/new/client',
-        name: 'CreateClient',
-        component: () => import('@/views/pages/CreateClient.vue'),
+        path: '/new/project',
+        name: 'CreateProject',
+        component: () => import('@/views/pages/CreateProject.vue'),
     },
 
     {
-        path: '/new/profile/:clientId',
+        path: '/new/profile/:projectId',
         name: 'CreateProfile',
         props: true,
         component: () => import('@/views/pages/CreateProfile.vue'),

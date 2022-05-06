@@ -1,13 +1,13 @@
 import { createStore } from 'vuex'
 import userModule from '@/store/modules/user';
-import clientModule from '@/store/modules/clients';
+import projectModule from '@/store/modules/projects';
 import profileModule from '@/store/modules/profiles';
 import router from '@/router'
 
 export default createStore({
   modules: {
     user: userModule,
-    clients: clientModule,
+    projects: projectModule,
     profiles: profileModule
   },
 

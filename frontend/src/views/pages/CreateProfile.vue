@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Создание профиля для клиента "{{ clientName }}"</h3>
+    <h3>Создание профиля для клиента "{{ projectName }}"</h3>
 
     <span class="p-float-label mt-4">
       <InputText class="w-full" type="text" id="name" v-model="name" />
@@ -22,7 +22,7 @@ export default {
     id: {
       default: 0,
     },
-    clientId: {
+    projectId: {
       required: true,
     },
   },
@@ -36,21 +36,21 @@ export default {
   methods: {
     addProfile() {
       this.$store.dispatch("createProfile", {
-        clientId: this.clientId,
+        projectId: this.projectId,
         name: this.name,
       });
     },
   },
 
   computed: {
-    client() {
-      return this.$store.getters.getClients.find(
-        (el) => el.id == this.clientId
+    project() {
+      return this.$store.getters.getProjects.find(
+        (el) => el.id == this.projectId
       );
     },
 
-    clientName() {
-      return this.client && this.client.name ? this.client.name : "";
+    projectName() {
+      return this.project && this.project.name ? this.project.name : "";
     },
   },
 };
