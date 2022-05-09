@@ -13,6 +13,7 @@
       :categoriesLink="categories"
       :campaignsLink="campaigns"
       :key="categories"
+      @onChange="$emit('onChange')"
     />
 
     <Button

@@ -7,6 +7,7 @@
       type="text"
       placeholder="Название шаблона"
       v-model="template.name"
+      @change="$emit('onChange')"
     />
 
     <h6>Заголовок</h6>
@@ -20,6 +21,7 @@
         type="text"
         :placeholder="'Заголовок ' + (index + 1)"
         v-model="headline.value"
+        @change="$emit('onChange')"
       />
 
       <Dropdown
@@ -28,6 +30,7 @@
         :options="pinList"
         optionLabel="name"
         optionValue="id"
+        @change="$emit('onChange')"
       />
 
       <Button
@@ -55,6 +58,7 @@
         type="text"
         :placeholder="'Описание ' + (index + 1)"
         v-model="description.value"
+        @change="$emit('onChange')"
       />
 
       <Dropdown
@@ -63,6 +67,7 @@
         :options="pinList"
         optionLabel="name"
         optionValue="id"
+        @change="$emit('onChange')"
       />
 
       <Button
@@ -85,6 +90,7 @@
       type="text"
       placeholder="Путь 1"
       v-model="template.path1"
+      @change="$emit('onChange')"
     />
 
     <InputText
@@ -92,6 +98,7 @@
       type="text"
       placeholder="Путь 2"
       v-model="template.path2"
+      @change="$emit('onChange')"
     />
   </div>
 </template>
@@ -114,6 +121,7 @@ export default {
 
     addHeadline() {
       this.template.headlines.push({ ...EMPTY_INPUT });
+      this.$emit("onChange");
     },
 
     deleteHeadline(index) {
@@ -125,10 +133,12 @@ export default {
       }
 
       this.template.headlines.splice(index, 1);
+      this.$emit("onChange");
     },
 
     addDescription() {
       this.template.descriptions.push({ ...EMPTY_INPUT });
+      this.$emit("onChange");
     },
 
     deleteDescription(index) {
@@ -140,6 +150,7 @@ export default {
       }
 
       this.template.descriptions.splice(index, 1);
+      this.$emit("onChange");
     },
   },
 
@@ -189,10 +200,6 @@ export default {
 
     if (this.template.name === undefined) {
       this.template.name = "";
-    }
-
-    if (this.template.type === undefined) {
-      this.template.type = this.isGlobal;
     }
 
     if (this.template.categories === undefined) {

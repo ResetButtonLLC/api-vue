@@ -10,6 +10,7 @@
           <InputSwitch
             id="global_replacement"
             v-model="profile.settings.global_replacement"
+            @change="$emit('onChange')"
           />
           <label for="global_replacement">Использовать глобальные замены</label>
         </div>
@@ -26,6 +27,7 @@
         <InputSwitch
           id="user_replacement"
           v-model="profile.settings.user_replacement"
+          @change="$emit('onChange')"
         />
         <label for="user_replacement">Использовать замены профиля</label>
       </div>
@@ -39,6 +41,7 @@
             type="text"
             id="from"
             v-model="change.from"
+            @change="$emit('onChange')"
           />
           <label for="from">Что заменяем</label>
         </span>

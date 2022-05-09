@@ -6,46 +6,125 @@
 
     <div v-else>
       <div class="layout-sidebar">
-        <AppMenu @menuitem-click="onMenuItemClick" />
+        <AppMenu
+          @menuitem-click="onMenuItemClick"
+          @hideMenu="$emit('hideMenu')"
+          :currentPage="currentPage"
+        />
       </div>
 
       <ProfileAutoupdateLogs
         v-if="isCurrentPageAutoupdateLogs"
         :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
       <ProfileAutoupdateSettings
         v-if="isCurrentPageAutoupdateSettings"
         :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
 
-      <ProfileCampaign v-if="isCurrentPageCampaign" :profileLink="profile" />
+      <ProfileCampaign
+        v-if="isCurrentPageCampaign"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
       <ProfileCategories
         v-if="isCurrentPageCategories"
         :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
-      <ProfileFeed v-if="isCurrentPageFeed" :profileLink="profile" />
+      <ProfileFeed
+        v-if="isCurrentPageFeed"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
       <ProfileInfo
         v-if="isCurrentPageInfo"
         :profileLink="profile"
         :clientLink="client"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
-      <ProfileLogs v-if="isCurrentPageLogs" :profileLink="profile" />
-      <ProfilePreview v-if="isCurrentPagePreview" :profileLink="profile" />
+      <ProfileLogs
+        v-if="isCurrentPageLogs"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
+      <ProfilePreview
+        v-if="isCurrentPagePreview"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
       <ProfileReplacement
         v-if="isCurrentPageReplacement"
         :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
-      <ProfileSettings v-if="isCurrentPageSettings" :profileLink="profile" />
-      <ProfileStatistic v-if="isCurrentPageStatistic" :profileLink="profile" />
+      <ProfileSettings
+        v-if="isCurrentPageSettings"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
+      <ProfileStatistic
+        v-if="isCurrentPageStatistic"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
       <ProfileTemplateGlobal
         v-if="isCurrentPageTemplateGlobal"
         :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
       <ProfileTemplateCategories
         v-if="isCurrentPageTemplateCategories"
         :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
       />
     </div>
+
+    <Dialog
+      v-if="isShowRouteDialog"
+      :visible="true"
+      :style="{ width: '450px' }"
+      header="Подтвердите дейтвие"
+      :modal="true"
+      class="p-fluid"
+      @update:visible="isShowRouteDialog = false"
+    >
+      <p>
+        Есть несохраненные изменения. Они будут отброшены после перехода на
+        другую страницу. Дейтвительно хотите перейти?
+      </p>
+
+      <template #footer>
+        <Button
+          label="Перейти"
+          icon="pi pi-sign-out"
+          class="p-button-danger"
+          @click="confirmRoute"
+        />
+
+        <Button
+          label="Остаться"
+          icon="pi pi-replay"
+          class="p-button-success"
+          @click="isShowRouteDialog = false"
+        />
+      </template>
+    </Dialog>
   </div>
 </template>
 
@@ -103,17 +182,39 @@ export default {
 
   data() {
     return {
+      isHaveChanges: false,
+      isShowRouteDialog: false,
+      routeId: 0,
       currentPage: PAGE_INFO,
     };
   },
 
   methods: {
+    onChanges() {
+      this.isHaveChanges = true;
+    },
+
+    onSaveChanges() {
+      this.isHaveChanges = false;
+    },
+
+    confirmRoute() {
+      this.isHaveChanges = false;
+      this.isShowRouteDialog = false;
+      this.currentPage = this.routeId;
+    },
+
     onMenuItemClick(event) {
       if (event.item.id == PAGE_NONE) {
         return;
       }
 
-      this.currentPage = event.item.id;
+      if (this.isHaveChanges) {
+        this.routeId = event.item.id;
+        this.isShowRouteDialog = true;
+      } else {
+        this.currentPage = event.item.id;
+      }
     },
   },
 

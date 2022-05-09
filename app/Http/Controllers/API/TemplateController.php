@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SetTemplatesForCategoriesRequest;
+use App\Http\Requests\SetTemplatesRequest;
 
 class TemplateController extends Controller
 {
@@ -41,7 +43,7 @@ class TemplateController extends Controller
         ];
     }
 
-    public function setGlobal(Request $request, Profile $profile)
+    public function setGlobal(SetTemplatesRequest $request, Profile $profile)
     {
         return response('ok', 200);
     }
@@ -54,7 +56,7 @@ class TemplateController extends Controller
         ];
     }
 
-    public function setCategories(Request $request, Profile $profile)
+    public function setCategories(SetTemplatesForCategoriesRequest $request, Profile $profile)
     {
         return response('ok', 200);
     }

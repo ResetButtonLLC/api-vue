@@ -22,6 +22,7 @@
         type="text"
         id="feed_url"
         v-model="profile.feed_url"
+        @change="$emit('onChange')"
       />
       <label for="feed_url">Ссылка на фид</label>
     </div>
@@ -30,20 +31,22 @@
       <InputText
         class="w-full"
         type="text"
-        id="google_id"
-        v-model="profile.google_id"
+        id="login"
+        v-model="profile.login"
+        @change="$emit('onChange')"
       />
-      <label for="google_id">Логин</label>
+      <label for="login">Логин</label>
     </span>
 
     <span class="p-float-label mt-4">
       <InputText
         class="w-full"
         type="text"
-        id="google_id"
-        v-model="profile.google_id"
+        id="password"
+        v-model="profile.password"
+        @change="$emit('onChange')"
       />
-      <label for="google_id">Пароль</label>
+      <label for="password">Пароль</label>
     </span>
 
     <h6>Файл фида</h6>
@@ -55,6 +58,7 @@
       name="feed"
       :url="'/api/feed/upload/' + profile.id"
       @upload="onUpload"
+      @change="$emit('onChange')"
     />
   </div>
 </template>

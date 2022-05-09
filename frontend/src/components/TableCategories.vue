@@ -58,6 +58,7 @@
       :campaignList="campaignList"
       :categoryId="selectedCategory.id"
       :vendorList="selectedCategory.vendors"
+      @onChange="$emit('onChange')"
     />
   </div>
 </template>
@@ -90,6 +91,8 @@ export default {
       category.vendors.forEach((el) => {
         el.campaign = newValue;
       });
+
+      this.$emit("onChange");
     },
 
     onChangeKeywordTypes(categoryId, newValue) {
@@ -102,6 +105,8 @@ export default {
       category.vendors.forEach((el) => {
         el.keyword_types = newValue;
       });
+
+      this.$emit("onChange");
     },
 
     onChangeCategoryCheckbox(categoryId, newValue) {
@@ -114,6 +119,8 @@ export default {
       category.vendors.forEach((el) => {
         el.is_active = newValue;
       });
+
+      this.$emit("onChange");
     },
 
     onChangeVendorCheckbox({ categoryId, newValue }) {

@@ -11,7 +11,11 @@
           :key="tab"
           :header="tabIndex + 1"
         >
-          <Template :templateLink="tab" :isGlobal="true" />
+          <Template
+            @onChange="$emit('onChange')"
+            :templateLink="tab"
+            :isGlobal="true"
+          />
 
           <div class="mt-4 text-center">
             <Button
@@ -77,6 +81,7 @@ export default {
     confirmDelete() {
       this.isShowDeleteDialog = false;
       this.deleteTab(this.deleteIndex);
+      this.$emit("onChange");
     },
 
     addTab() {
@@ -107,7 +112,7 @@ export default {
       });
 
       apiTemplates
-        .setTemplates(this.profile.id, this.templateList)
+        .setTemplatesGlobal(this.profile.id, this.templateList)
         .then(() => {
           this.$toast.add({
             severity: "success",

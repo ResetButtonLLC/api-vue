@@ -10,6 +10,7 @@
             type="text"
             id="google_id"
             v-model="profile.google_id"
+            @change="$emit('onChange')"
           />
           <label for="google_id">Google Ads ID</label>
         </span>
@@ -20,6 +21,7 @@
             type="text"
             id="url"
             v-model="profile.url"
+            @change="$emit('onChange')"
           />
           <label for="url">URL</label>
         </span>
@@ -36,6 +38,7 @@
             :minFractionDigits="2"
             :maxFractionDigits="2"
             :step="0.01"
+            @input="$emit('onChange')"
           />
           <!-- suffix="₴" -->
 
@@ -54,6 +57,7 @@
             :maxFractionDigits="0"
             :step="1"
             currency="UAH"
+            @input="$emit('onChange')"
           />
 
           <label for="min_price">Минимальная цена продукта</label>
@@ -69,6 +73,7 @@
             :maxFractionDigits="0"
             :step="1"
             currency="UAH"
+            @input="$emit('onChange')"
           />
 
           <label for="max_price">Максимальная цена продукта</label>
@@ -81,6 +86,7 @@
             <InputSwitch
               id="no_category_in_model"
               v-model="profile.settings.no_category_in_model"
+              @change="$emit('onChange')"
             />
             <label for="no_category_in_model"
               >Вырезать название категории из названия модели</label
@@ -100,6 +106,7 @@
             <InputSwitch
               id="no_cyrillic"
               v-model="profile.settings.no_cyrillic"
+              @change="$emit('onChange')"
             />
             <label for="no_cyrillic">Убрать кириллицу</label>
           </div>

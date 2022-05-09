@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div v-if="filterList.length" class="flex mb-2">
-      <div class="filter" v-for="(f, index) in filterList" :key="f">
-        <span>{{ toText(f) }}</span>
-        <i class="pi pi-times-circle" @click="deleteFilter(index)"></i>
-      </div>
-    </div>
-
     <div style="position: relative" class="flex">
       <FilterField :filterLink="filter" />
 
@@ -39,8 +32,6 @@
 </template>
 
 <script>
-import filterConst from "../const/filter";
-
 import FilterField from "./FilterField";
 import FilterOperator from "./FilterOperator";
 import FilterValue from "./FilterValue";
@@ -50,7 +41,6 @@ export default {
 
   data() {
     return {
-      filterList: [],
       filter: {},
     };
   },
@@ -71,7 +61,7 @@ export default {
       this.filter.value = null;
       this.filter.value2 = null;
       this.filter.textValue = null;
-      this.filter.serverValue = null;
+      this.filter.serverOperator = null;
     },
 
     addFilter() {
@@ -97,24 +87,16 @@ export default {
           ? this.filter.operator.default[1]
           : this.filter.value2;
 
-      this.filterList.push({
+      this.$emit("addFilter", {
         field: this.filter.field.value,
         operator: this.filter.operator.value,
+        serverOperator: this.filter.operator.serverValue,
         value: value,
         value2: value2,
         textValue: this.filter.textValue,
-        serverValue: this.filter.operator.serverValue,
       });
 
       this.abortFilter();
-    },
-
-    deleteFilter(index) {
-      this.filterList.splice(index, 1);
-    },
-
-    toText(filter) {
-      return filterConst.filterToText(filter);
     },
   },
 
@@ -143,24 +125,6 @@ export default {
 </script>
 
 <style scoped>
-.filter {
-  border: 1px solid #848484;
-  padding: 5px 10px;
-  margin: 2px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  color: #494949;
-  background-color: #c0c0c0;
-}
-
-.filter i {
-  margin-left: 5px;
-  color: #db0000;
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
 .flex {
   display: flex;
 }

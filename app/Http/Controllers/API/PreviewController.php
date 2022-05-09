@@ -3,29 +3,38 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Profile;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PreviewRequest;
 
 class PreviewController extends Controller
 {
-    public function getGroups(Profile $profile)
+    public function getGroups(PreviewRequest $request, Profile $profile)
     {
+        $filters = $request->getFilters();
+        $page = $request->getPage();
+
         return [
             'success' => true,
             'data' => []
         ];
     }
 
-    public function getAds(Profile $profile)
+    public function getAds(PreviewRequest $request, Profile $profile)
     {
+        $filters = $request->getFilters();
+        $page = $request->getPage();
+
         return [
             'success' => true,
             'data' => []
         ];
     }
 
-    public function getKeywords(Profile $profile)
+    public function getKeywords(PreviewRequest $request, Profile $profile)
     {
+        $filters = $request->getFilters();
+        $page = $request->getPage();
+
         return [
             'success' => true,
             'data' => []

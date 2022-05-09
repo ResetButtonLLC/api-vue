@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
     <Button
+      label="Настройка видимости полей"
       class="p-button-info"
       icon="pi pi-filter"
       @click="$refs.select.$el.click()"

@@ -1,11 +1,11 @@
 <template>
-  <div :class="containerClass" @click="onWrapperClick" v-if="!isLoginProcess">
+  <div :class="containerClass" v-if="!isLoginProcess">
     <AppTopBar @menu-toggle="onMenuToggle" />
 
     <div class="layout-main-container">
       <div class="layout-main">
         <Toast />
-        <router-view :key="$route.fullPath" />
+        <router-view :key="$route.fullPath" @hideMenu="hideMenu" />
       </div>
       <AppFooter />
     </div>
@@ -14,6 +14,7 @@
       <div
         class="layout-mask p-component-overlay"
         v-if="mobileMenuActive"
+        @click="hideMenu"
       ></div>
     </transition>
   </div>
@@ -51,13 +52,9 @@ export default {
     },
   },
   methods: {
-    onWrapperClick() {
-      if (!this.menuClick) {
-        this.overlayMenuActive = false;
-        this.mobileMenuActive = false;
-      }
-
-      this.menuClick = false;
+    hideMenu() {
+      this.overlayMenuActive = false;
+      this.mobileMenuActive = false;
     },
     onMenuToggle() {
       this.menuClick = true;

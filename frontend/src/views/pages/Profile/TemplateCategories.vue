@@ -33,6 +33,7 @@
           <TemplatePreview style="flex: 1" :templateLink="tab" />
 
           <MultiSelect
+            @change="$emit('onChange')"
             style="flex: 1"
             :filter="true"
             display="chip"
@@ -44,6 +45,13 @@
           />
         </div>
       </div>
+
+      <Button
+        class="mt-4 mb-2"
+        label="Сохранить изменения"
+        icon="pi pi-save"
+        @click="saveChanges"
+      ></Button>
     </div>
 
     <Dialog
@@ -141,6 +149,7 @@ export default {
       }
 
       this.isShowCreateDialog = false;
+      this.$emit("onChange");
     },
 
     tryDelete(deleteIndex) {
@@ -155,6 +164,8 @@ export default {
         profileId: this.profile.id,
         index: this.deleteIndex,
       });
+
+      this.$emit("onChange");
     },
 
     saveChanges() {
@@ -166,7 +177,7 @@ export default {
       });
 
       apiTemplates
-        .setTemplates(this.profile.id, this.templateList)
+        .setTemplatesCategories(this.profile.id, this.templateList)
         .then(() => {
           this.$toast.add({
             severity: "success",

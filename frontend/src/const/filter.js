@@ -15,12 +15,13 @@ export const VALUE_LIST_CATEGORIES = 2048;
 
 /*
 Фильтр отправляется на сервер в формате:
-field:      XXXX
-operator:   XXXX
-value:      XXXX
-value2:     XXXX
+field:              XXXX
+operator:           XXXX
+serverOperator:     XXXX
+value:              XXXX
+value2:             XXXX
 
-Операторы (с скобках тип данных для value (value2 только для range)):
+Серверные операторы (с скобках тип данных для value (value2 только для range)):
 =           - равно (число, строка или дата)
 !=          - не равно (число, строка или дата)
 >           - меньше (число или дата)
@@ -395,6 +396,7 @@ export const OPERATOR_CATEGORY_LIST_NOT_CONTAIN_ANY = {
     default: [null, null],
     allowNull: false
 };
+/*
 export const OPERATOR_CATEGORY_LIST_CONTAIN_ALL = {
     name: 'Содержит все из',
     value: 'category_contain_all',
@@ -411,6 +413,7 @@ export const OPERATOR_CATEGORY_LIST_NOT_CONTAIN_ALL = {
     default: [null, null],
     allowNull: false
 };
+*/
 export const OPERATOR_CATEGORY_LIST_EMPTY = {
     name: 'Не содержит ничего',
     value: 'category_empty',
@@ -430,8 +433,8 @@ export const OPERATOR_CATEGORY_LIST_NOT_EMPTY = {
 export const OPERATORS_CATEGORY_LIST = [
     OPERATOR_CATEGORY_LIST_CONTAIN_ANY,
     OPERATOR_CATEGORY_LIST_NOT_CONTAIN_ANY,
-    OPERATOR_CATEGORY_LIST_CONTAIN_ALL,
-    OPERATOR_CATEGORY_LIST_NOT_CONTAIN_ALL,
+    //OPERATOR_CATEGORY_LIST_CONTAIN_ALL,
+    //OPERATOR_CATEGORY_LIST_NOT_CONTAIN_ALL,
     OPERATOR_CATEGORY_LIST_EMPTY,
     OPERATOR_CATEGORY_LIST_NOT_EMPTY
 ];

@@ -5,7 +5,7 @@
       class="layout-menu"
       :root="true"
       @menuitem-click="onMenuItemClick"
-      :currentMenuItem="currentMenuItem"
+      :currentMenuItem="currentPage"
     />
   </div>
 </template>
@@ -30,9 +30,12 @@ import {
 } from "../pages/Profile/const";
 
 export default {
+  props: {
+    currentPage: Number,
+  },
+
   data() {
     return {
-      currentMenuItem: 0,
       menuItems: [
         {
           label: "Профиль",
@@ -142,8 +145,10 @@ export default {
 
   methods: {
     onMenuItemClick(event) {
-      this.currentMenuItem = event.item.id;
-      this.$emit("menuitem-click", event);
+      if (event.item.id) {
+        this.$emit("menuitem-click", event);
+        this.$emit("hideMenu");
+      }
     },
     bannerImage() {
       return this.$appState.darkTheme

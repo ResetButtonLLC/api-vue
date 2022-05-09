@@ -117,6 +117,8 @@ export default {
       });
 
       this.hideImportDialog();
+
+      this.$emit("onChange");
     },
   },
 

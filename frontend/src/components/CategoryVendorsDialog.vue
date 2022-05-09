@@ -31,6 +31,7 @@
 
       <div class="keywords">
         <MultiSelect
+          @change="$emit('onChange')"
           class="w-full"
           v-model="vendor.keyword_types"
           :options="keywordTypes"
@@ -43,6 +44,7 @@
 
       <div class="campaign">
         <Dropdown
+          @change="$emit('onChange')"
           class="w-full"
           v-model="vendor.campaign"
           :options="campaignList"

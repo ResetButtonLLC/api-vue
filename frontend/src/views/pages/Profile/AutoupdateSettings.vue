@@ -8,7 +8,11 @@
     </p>
 
     <div class="group mt-4 mb-2">
-      <InputSwitch id="autoupdate" v-model="profile.settings.autoupdate" />
+      <InputSwitch
+        id="autoupdate"
+        v-model="profile.settings.autoupdate"
+        @change="$emit('onChange')"
+      />
       <label class="ml-2" for="autoupdate">Автообновление</label>
     </div>
 
@@ -23,6 +27,7 @@
           v-model="update.time"
           :showTime="true"
           :timeOnly="true"
+          @input="$emit('onChange')"
         />
         <label>Время автообновления</label>
       </span>
@@ -55,10 +60,12 @@ export default {
   methods: {
     addUpdate() {
       this.profile.autoupdates.push({ ...EMPTY_UDATE });
+      this.$emit("onChange");
     },
 
     deleteUpdate(index) {
       this.profile.autoupdates.splice(index, 1);
+      this.$emit("onChange");
     },
   },
 
