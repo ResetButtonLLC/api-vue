@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    //Используется обсервер для логов
+
     use HasFactory;
 
     protected $fillable = [

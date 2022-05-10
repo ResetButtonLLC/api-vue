@@ -8,9 +8,6 @@ use App\Http\Requests\Project\UpdateRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Responses\DeleteResponse;
 use App\Models\Project;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -46,7 +43,6 @@ class ProjectController extends Controller
     public function update(Project $project, UpdateRequest $request)
     {
         $project->fill($request->validated())->save();
-
         return new ProjectResource($project);
     }
 
