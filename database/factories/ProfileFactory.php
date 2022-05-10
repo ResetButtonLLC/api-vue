@@ -18,10 +18,10 @@ class ProfileFactory extends Factory
     public function definition()
     {
 
-        $name = $this->faker->domainName();
+        $name = $this->faker->words(2,true);
 
         return [
-            // 'client_id' не генерим, он обязательно должен быть передан
+            // 'project_id' не генерим, он обязательно должен быть передан
             //'google_id' => $this->faker->numerify('###-###-####'),
             'google_id' => $this->faker->numerify('##########'),
             'db' =>  $name,

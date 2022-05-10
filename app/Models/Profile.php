@@ -11,9 +11,9 @@ class Profile extends Model
 
     protected $fillable = [
         'project_id',
+        'name',
         'adwords_id',
         'db',
-        'name',
         'feed_url',
         'feed_file',
         'feed_type',

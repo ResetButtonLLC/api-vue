@@ -12,6 +12,11 @@ use App\Http\Requests\User as UserRequests;
 class UserController extends Controller
 {
 
+    public function me()
+    {
+        return new UserResource(auth()->user());
+    }
+
     public function info()
     {
         return new UserResource(auth()->user());

@@ -2,43 +2,37 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\DBHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\CreateRequest;
+use App\Http\Requests\Profile\UpdateRequest;
 use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Responses\DeleteResponse;
 
 class ProfileController extends Controller
 {
-    //bind to user
-    public function index(Request $request)
+
+    public function view (Profile $profile)
     {
-        return ProfileResource::collection(
-            Profile::where('user_id', Auth::id())->get()
-        );
+        return new ProfileResource($profile);
     }
 
     public function create(CreateRequest $request)
     {
-        $project = $request->getproject();
+          $profile = Profile::factory($request->validated())->create();
+          return new ProfileResource($profile);
+    }
 
-        $profile = Profile::create([
-            'name' => $request->getName(),
-            'project_id' => $request->getprojectId(),
-            'user_id' => Auth::id(),
-            'db' => DBHelper::getName($project->name, $request->getName())
-        ]);
-
-        if (!$profile) {
-            return response('Failed to create profile', 500);
-        }
-
-        if (!DBHelper::init($project->name, $request->getName())) {
-            return response('Failed to init profile DB', 500);
-        }
-
+    public function update(Profile $profile, UpdateRequest $request)
+    {
+        $profile->fill($request->validated())->save();
         return new ProfileResource($profile);
     }
+
+    public function delete(Profile $profile)
+    {
+        $profile->delete();
+        return new DeleteResponse();
+    }
+
 }

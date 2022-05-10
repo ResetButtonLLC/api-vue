@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+
+    public function all()
+    {
+        return ProjectResource::collection(
+            Project::with('profiles')->paginate()
+        );
+    }
+
     public function index()
     {
         return ProjectResource::collection(
