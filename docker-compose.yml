@@ -52,7 +52,10 @@ services:
     networks:
       - network-gym
 
-  node:
+  node-gym:
+      build:
+        context: ./
+        dockerfile: ./.docker/node/node.dockerfile
       image: "node:16"
       user: "node"
       container_name: node-gym
@@ -60,7 +63,7 @@ services:
       environment:
           - NODE_ENV=production
       volumes:
-          - ./:/home/node/app
+          - ./frontend:/home/node/app
       tty: true
 
 networks:

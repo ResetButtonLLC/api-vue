@@ -8,6 +8,7 @@ use App\Http\Requests\Project\UpdateRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Responses\DeleteResponse;
 use App\Models\Project;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {
