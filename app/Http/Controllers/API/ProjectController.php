@@ -29,6 +29,9 @@ class ProjectController extends Controller
 
     public function view(Project $project)
     {
+        if (Gate::allows('admin')) {
+            return new ProjectResource($project->load('profiles','users'));
+        }
         return new ProjectResource($project->load('profiles'));
     }
 
