@@ -69,7 +69,7 @@ import Slider from 'primevue/slider';
 // import TabMenu from 'primevue/tabmenu';
 // import Tag from 'primevue/tag';
 // import TieredMenu from 'primevue/tieredmenu';
-// import Textarea from 'primevue/textarea';
+import Textarea from 'primevue/textarea';
 // import Timeline from 'primevue/timeline';
 import Toast from 'primevue/toast';
 // import Toolbar from 'primevue/toolbar';
@@ -156,7 +156,7 @@ export default {
         TabView: TabView,
         TabPanel: TabPanel,
         // Tag: Tag,
-        // Textarea: Textarea,
+        Textarea: Textarea,
         // TieredMenu: TieredMenu,
         // Timeline: Timeline,
         Toast: Toast,

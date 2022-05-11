@@ -15,18 +15,16 @@ import AppSubmenu from "./AppSubmenu";
 import {
   PAGE_NONE,
   PAGE_AUTOUPDATE_LOGS,
-  PAGE_AUTOUPDATE_SETTINGS,
-  PAGE_CAMPAIGN,
   PAGE_CATEGORIES,
-  PAGE_FEED,
   PAGE_INFO,
   PAGE_LOGS,
   PAGE_PREVIEW,
-  PAGE_REPLACEMENT,
-  PAGE_SETTINGS,
+  PAGE_SETTINGS_MAIN,
+  PAGE_SETTINGS_IMPORT,
+  PAGE_SETTINGS_ADS_GENERATION,
+  PAGE_SETTINGS_KEY_GENERATION,
+  PAGE_SETTINGS_AUTOUPDATE,
   PAGE_STATISTIC,
-  PAGE_TEMPLATE_GLOBAL,
-  PAGE_TEMPLATE_CATEGORIES,
 } from "../pages/Profile/const";
 
 export default {
@@ -47,89 +45,68 @@ export default {
             },
 
             {
-              id: PAGE_SETTINGS,
+              id: PAGE_NONE,
               label: "Настройки",
               icon: "pi pi-fw pi-cog",
-            },
-
-            {
-              id: PAGE_NONE,
-              label: "Автообновления",
-              icon: "pi pi-fw pi-cloud-upload",
               items: [
                 {
-                  id: PAGE_AUTOUPDATE_LOGS,
-                  label: "История",
-                  icon: "pi pi-fw pi-calendar",
+                  id: PAGE_SETTINGS_MAIN,
+                  label: "Общие",
+                  icon: "pi pi-fw pi-globe",
                 },
 
                 {
-                  id: PAGE_AUTOUPDATE_SETTINGS,
-                  label: "Настройки",
-                  icon: "pi pi-fw pi-filter",
+                  id: PAGE_SETTINGS_IMPORT,
+                  label: "Импорт и фильтрация",
+                  icon: "pi pi-fw pi-sitemap",
+                },
+
+                {
+                  id: PAGE_CATEGORIES,
+                  label: "Категории",
+                  icon: "pi pi-fw pi-qrcode",
+                },
+
+                {
+                  id: PAGE_SETTINGS_ADS_GENERATION,
+                  label: "Генерация объявлений",
+                  icon: "pi pi-fw pi-briefcase",
+                },
+
+                {
+                  id: PAGE_SETTINGS_KEY_GENERATION,
+                  label: "Генерация ключевых слов",
+                  icon: "pi pi-fw pi-book",
+                },
+
+                {
+                  id: PAGE_SETTINGS_AUTOUPDATE,
+                  label: "Автообновления",
+                  icon: "pi pi-fw pi-cloud-upload",
                 },
               ],
             },
-          ],
-        },
-        {
-          label: "Управление",
-          items: [
-            {
-              id: PAGE_FEED,
-              label: "Фид",
-              icon: "pi pi-fw pi-copy",
-            },
-            {
-              id: PAGE_CAMPAIGN,
-              label: "Кампании",
-              icon: "pi pi-fw pi-wallet",
-            },
-            {
-              id: PAGE_CATEGORIES,
-              label: "Категории",
-              icon: "pi pi-fw pi-qrcode",
-            },
+
             {
               id: PAGE_PREVIEW,
               label: "Локальная база",
               icon: "pi pi-fw pi-database",
             },
-
-            {
-              id: PAGE_NONE,
-              label: "Шаблоны",
-              icon: "pi pi-fw pi-sliders-h",
-              items: [
-                {
-                  id: PAGE_TEMPLATE_GLOBAL,
-                  label: "Основное",
-                  icon: "pi pi-fw pi-globe",
-                },
-
-                {
-                  id: PAGE_TEMPLATE_CATEGORIES,
-                  label: "Для категорий",
-                  icon: "pi pi-fw pi-folder",
-                },
-              ],
-            },
-
-            {
-              id: PAGE_REPLACEMENT,
-              label: "Замены",
-              icon: "pi pi-fw pi-sync",
-            },
           ],
         },
-
         {
-          label: "Другое",
+          label: "Информация",
           items: [
             {
               id: PAGE_STATISTIC,
               label: "Статистика",
               icon: "pi pi-fw pi-chart-bar",
+            },
+
+            {
+              id: PAGE_AUTOUPDATE_LOGS,
+              label: "История автообновлений",
+              icon: "pi pi-fw pi-calendar",
             },
 
             {

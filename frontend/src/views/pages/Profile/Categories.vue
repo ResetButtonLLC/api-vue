@@ -16,12 +16,14 @@
       @onChange="$emit('onChange')"
     />
 
-    <Button
-      label="Сохранить изменения"
-      icon="pi pi-save"
-      class="mt-2 mb-4"
-      @click="saveChanges"
-    ></Button>
+    <div class="savebtn">
+      <Button
+        label="Сохранить изменения"
+        icon="pi pi-save"
+        class="mt-2 mb-4 p-button-success"
+        @click="saveChanges"
+      ></Button>
+    </div>
   </div>
 </template>
 

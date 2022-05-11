@@ -1,5 +1,45 @@
 <template>
   <div>
+    <h4>Основное</h4>
+
+    <div class="text-center">
+      <SelectButton
+        v-model="profile.activity"
+        :options="activityList"
+        optionLabel="name"
+        optionValue="value"
+        @change="$emit('onChange')"
+      />
+    </div>
+
+    <span class="p-float-label mt-5">
+      <InputText
+        class="w-full"
+        type="text"
+        id="google_id"
+        v-model="profile.google_id"
+        @change="$emit('onChange')"
+      />
+      <label for="google_id">Google Ads ID</label>
+    </span>
+
+    <span class="p-float-label mt-3">
+      <InputNumber
+        class="w-full"
+        id="bid"
+        v-model="profile.bid"
+        mode="decimal"
+        locale="ua-UA"
+        :minFractionDigits="2"
+        :maxFractionDigits="2"
+        :step="0.01"
+        @input="$emit('onChange')"
+      />
+      <!-- suffix="₴" -->
+
+      <label for="bid">Ставка</label>
+    </span>
+
     <h4>Кампании</h4>
 
     <p v-if="isNoCampaigns">
@@ -33,12 +73,14 @@
       v-if="isShowImportDialog"
     />
 
-    <Button
-      label="Сохранить изменения"
-      icon="pi pi-save"
-      class="mt-4 mb-4"
-      @click="saveChanges"
-    ></Button>
+    <div class="savebtn">
+      <Button
+        label="Сохранить изменения"
+        icon="pi pi-save"
+        class="mt-4 mb-4 p-button-success"
+        @click="saveChanges"
+      ></Button>
+    </div>
   </div>
 </template>
 
@@ -62,11 +104,19 @@ export default {
     return {
       profile: {},
       isShowImportDialog: false,
+      activityList: [
+        { name: "Профиль активен", value: true },
+        { name: "Профиль остановлен", value: false },
+      ],
     };
   },
 
   created() {
     this.profile = this.profileLink;
+
+    if (this.profile.activity === undefined) {
+      this.profile.activity = true;
+    }
 
     this.$store.dispatch("getProfileCampaigns", {
       type: "imported",

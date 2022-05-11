@@ -47,6 +47,14 @@
       class="mt-2"
       @click="addUpdate"
     ></Button>
+
+    <div class="savebtn">
+      <Button
+        label="Сохранить изменения"
+        icon="pi pi-save"
+        class="mt-4 mb-4 p-button-success"
+      ></Button>
+    </div>
   </div>
 </template>
 

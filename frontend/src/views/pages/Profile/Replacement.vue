@@ -5,8 +5,8 @@
     <p v-if="isReplacementsLoadings">Загрузка...</p>
 
     <div v-else>
-      <div class="box">
-        <div class="el">
+      <div class="infobox">
+        <div class="switch">
           <InputSwitch
             id="global_replacement"
             v-model="profile.settings.global_replacement"
@@ -47,7 +47,13 @@
         </span>
 
         <span class="p-float-label mt-4 mx-2">
-          <InputText class="w-full" type="text" id="to" v-model="change.to" />
+          <InputText
+            class="w-full"
+            type="text"
+            id="to"
+            v-model="change.to"
+            @change="$emit('onChange')"
+          />
           <label for="to">Чем заменяем</label>
         </span>
 
@@ -188,26 +194,5 @@ export default {
 
 .group div {
   align-self: end;
-}
-
-.box {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.box i {
-  font-size: 1.4rem;
-  color: var(--blue-400);
-}
-
-.el {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.el label {
-  margin-left: 10px;
 }
 </style>

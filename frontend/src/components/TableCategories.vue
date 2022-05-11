@@ -8,7 +8,7 @@
       <div class="row">
         <div class="name">
           <Checkbox
-            @input="onChangeCategoryCheckbox(category.id, $event)"
+            @input="$emit('onChange')"
             v-model="category.is_active"
             :binary="true"
           />
@@ -17,7 +17,7 @@
 
         <div class="keywords">
           <MultiSelect
-            @change="onChangeKeywordTypes(category.id, $event.value)"
+            @change="$emit('onChange')"
             class="w-full"
             v-model="category.keyword_types"
             :options="keywordTypes"
@@ -30,7 +30,7 @@
 
         <div class="campaign">
           <Dropdown
-            @change="onChangeCategoryDropdown(category.id, $event.value)"
+            @change="$emit('onChange')"
             class="w-full"
             v-model="category.campaign"
             :options="campaignList"
@@ -53,17 +53,18 @@
     <CategoryVendorsDialog
       v-if="selectedCategory"
       @close="selectedCategory = null"
-      @changeCheckbox="onChangeVendorCheckbox"
       :keywordTypes="keywordTypes"
       :campaignList="campaignList"
       :categoryId="selectedCategory.id"
       :vendorList="selectedCategory.vendors"
+      :customVendorList="selectedCategory.customVendors"
       @onChange="$emit('onChange')"
     />
   </div>
 </template>
 
 <script>
+import keywords from "../const/keywords";
 import CategoryVendorsDialog from "./CategoryVendorsDialog";
 
 export default {
@@ -80,93 +81,20 @@ export default {
     openVendorDialog(category) {
       this.selectedCategory = category;
     },
-
-    onChangeCategoryDropdown(categoryId, newValue) {
-      let category = this.categories.find((el) => el.id == categoryId);
-
-      if (!category) {
-        return;
-      }
-
-      category.vendors.forEach((el) => {
-        el.campaign = newValue;
-      });
-
-      this.$emit("onChange");
-    },
-
-    onChangeKeywordTypes(categoryId, newValue) {
-      let category = this.categories.find((el) => el.id == categoryId);
-
-      if (!category) {
-        return;
-      }
-
-      category.vendors.forEach((el) => {
-        el.keyword_types = newValue;
-      });
-
-      this.$emit("onChange");
-    },
-
-    onChangeCategoryCheckbox(categoryId, newValue) {
-      let category = this.categories.find((el) => el.id == categoryId);
-
-      if (!category) {
-        return;
-      }
-
-      category.vendors.forEach((el) => {
-        el.is_active = newValue;
-      });
-
-      this.$emit("onChange");
-    },
-
-    onChangeVendorCheckbox({ categoryId, newValue }) {
-      let category = this.categories.find((el) => el.id == categoryId);
-
-      if (!category) {
-        return;
-      }
-
-      if (newValue) {
-        category.is_active = true;
-      } else {
-        let isCategoryActive = false;
-
-        category.vendors.forEach((el) => {
-          if (el.is_active) {
-            isCategoryActive = true;
-          }
-        });
-
-        category.is_active = isCategoryActive;
-      }
-    },
   },
 
   data() {
     return {
-      keywordTypes: [
-        {
-          id: 1,
-          name: "BROAD",
-        },
-        {
-          id: 2,
-          name: "PHRASE",
-        },
-        {
-          id: 3,
-          name: "EXACT",
-        },
-      ],
-
       campaignList: [],
 
       selectedCategory: null,
     };
+  },
+
+  computed: {
+    keywordTypes() {
+      return keywords.keywords();
+    },
   },
 };
 </script>
@@ -179,13 +107,14 @@ export default {
 
 .row {
   display: flex;
+  align-items: center;
   margin-top: 2px;
   margin-bottom: 2px;
 }
 
 .row .name {
   display: flex;
-  flex: 1 0 250px;
+  flex: 1 1 250px;
   overflow-wrap: anywhere;
   align-items: center;
 }
@@ -201,7 +130,7 @@ export default {
 
 .row .campaign {
   display: flex;
-  flex: 1 0 200px;
+  flex: 1 0 250px;
   align-items: center;
 }
 

@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h4>Шаблоны для категорий</h4>
-
     <p v-if="isTemplatesLoading || isCategoriesLoading">Загрузка...</p>
 
     <div v-else>

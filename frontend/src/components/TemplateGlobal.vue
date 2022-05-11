@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h4>Шаблоны</h4>
-
     <p v-if="isTemplatesLoading">Загрузка...</p>
 
     <div v-else>
@@ -90,6 +88,7 @@ export default {
       }
 
       this.$store.dispatch("addEmptyTemplateGlobal", this.profile.id);
+      this.$emit("onChange");
     },
 
     deleteTab(index) {

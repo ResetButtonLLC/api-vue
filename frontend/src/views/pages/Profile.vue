@@ -25,21 +25,8 @@
         @onChange="onChanges"
         @onSave="onSaveChanges"
       />
-
-      <ProfileCampaign
-        v-if="isCurrentPageCampaign"
-        :profileLink="profile"
-        @onChange="onChanges"
-        @onSave="onSaveChanges"
-      />
       <ProfileCategories
         v-if="isCurrentPageCategories"
-        :profileLink="profile"
-        @onChange="onChanges"
-        @onSave="onSaveChanges"
-      />
-      <ProfileFeed
-        v-if="isCurrentPageFeed"
         :profileLink="profile"
         @onChange="onChanges"
         @onSave="onSaveChanges"
@@ -63,32 +50,34 @@
         @onChange="onChanges"
         @onSave="onSaveChanges"
       />
-      <ProfileReplacement
-        v-if="isCurrentPageReplacement"
+      <ProfileSettingsMain
+        v-if="isCurrentPageSettingsMain"
         :profileLink="profile"
         @onChange="onChanges"
         @onSave="onSaveChanges"
       />
-      <ProfileSettings
-        v-if="isCurrentPageSettings"
-        :profileLink="profile"
-        @onChange="onChanges"
-        @onSave="onSaveChanges"
-      />
+
       <ProfileStatistic
         v-if="isCurrentPageStatistic"
         :profileLink="profile"
         @onChange="onChanges"
         @onSave="onSaveChanges"
       />
-      <ProfileTemplateGlobal
-        v-if="isCurrentPageTemplateGlobal"
+
+      <ProfileImportAndFilters
+        v-if="isCurrentPageImportAndFilters"
         :profileLink="profile"
         @onChange="onChanges"
         @onSave="onSaveChanges"
       />
-      <ProfileTemplateCategories
-        v-if="isCurrentPageTemplateCategories"
+      <ProfileGenerateAds
+        v-if="isCurrentPageAdsGeneration"
+        :profileLink="profile"
+        @onChange="onChanges"
+        @onSave="onSaveChanges"
+      />
+      <ProfileGenerateKeywords
+        v-if="isCurrentPageKeywordGeneration"
         :profileLink="profile"
         @onChange="onChanges"
         @onSave="onSaveChanges"
@@ -132,52 +121,46 @@
 import {
   PAGE_NONE,
   PAGE_AUTOUPDATE_LOGS,
-  PAGE_AUTOUPDATE_SETTINGS,
-  PAGE_CAMPAIGN,
   PAGE_CATEGORIES,
-  PAGE_FEED,
   PAGE_INFO,
   PAGE_LOGS,
   PAGE_PREVIEW,
-  PAGE_REPLACEMENT,
-  PAGE_SETTINGS,
+  PAGE_SETTINGS_MAIN,
+  PAGE_SETTINGS_IMPORT,
+  PAGE_SETTINGS_ADS_GENERATION,
+  PAGE_SETTINGS_KEY_GENERATION,
+  PAGE_SETTINGS_AUTOUPDATE,
   PAGE_STATISTIC,
-  PAGE_TEMPLATE_GLOBAL,
-  PAGE_TEMPLATE_CATEGORIES,
 } from "./Profile/const";
 
 import AppMenu from "../layout/AppMenu.vue";
 
 import ProfileAutoupdateLogs from "./Profile/AutoupdateLogs";
 import ProfileAutoupdateSettings from "./Profile/AutoupdateSettings";
-import ProfileCampaign from "./Profile/Campaign";
 import ProfileCategories from "./Profile/Categories";
-import ProfileFeed from "./Profile/Feed";
 import ProfileInfo from "./Profile/Info";
 import ProfileLogs from "./Profile/Logs";
 import ProfilePreview from "./Profile/Preview";
-import ProfileReplacement from "./Profile/Replacement";
-import ProfileSettings from "./Profile/Settings";
+import ProfileSettingsMain from "./Profile/SettingsMain";
 import ProfileStatistic from "./Profile/Statistic";
-import ProfileTemplateGlobal from "./Profile/TemplateGlobal";
-import ProfileTemplateCategories from "./Profile/TemplateCategories";
+import ProfileImportAndFilters from "./Profile/ImportAndFilters";
+import ProfileGenerateAds from "./Profile/GenerateAds";
+import ProfileGenerateKeywords from "./Profile/GenerateKeywords";
 
 export default {
   components: {
     AppMenu,
     ProfileAutoupdateLogs,
     ProfileAutoupdateSettings,
-    ProfileCampaign,
     ProfileCategories,
-    ProfileFeed,
     ProfileInfo,
     ProfileLogs,
     ProfilePreview,
-    ProfileReplacement,
-    ProfileSettings,
+    ProfileSettingsMain,
     ProfileStatistic,
-    ProfileTemplateGlobal,
-    ProfileTemplateCategories,
+    ProfileImportAndFilters,
+    ProfileGenerateAds,
+    ProfileGenerateKeywords,
   },
 
   data() {
@@ -232,19 +215,11 @@ export default {
     },
 
     isCurrentPageAutoupdateSettings() {
-      return this.currentPage == PAGE_AUTOUPDATE_SETTINGS;
-    },
-
-    isCurrentPageCampaign() {
-      return this.currentPage == PAGE_CAMPAIGN;
+      return this.currentPage == PAGE_SETTINGS_AUTOUPDATE;
     },
 
     isCurrentPageCategories() {
       return this.currentPage == PAGE_CATEGORIES;
-    },
-
-    isCurrentPageFeed() {
-      return this.currentPage == PAGE_FEED;
     },
 
     isCurrentPageInfo() {
@@ -259,24 +234,24 @@ export default {
       return this.currentPage == PAGE_PREVIEW;
     },
 
-    isCurrentPageReplacement() {
-      return this.currentPage == PAGE_REPLACEMENT;
-    },
-
-    isCurrentPageSettings() {
-      return this.currentPage == PAGE_SETTINGS;
+    isCurrentPageSettingsMain() {
+      return this.currentPage == PAGE_SETTINGS_MAIN;
     },
 
     isCurrentPageStatistic() {
       return this.currentPage == PAGE_STATISTIC;
     },
 
-    isCurrentPageTemplateGlobal() {
-      return this.currentPage == PAGE_TEMPLATE_GLOBAL;
+    isCurrentPageImportAndFilters() {
+      return this.currentPage == PAGE_SETTINGS_IMPORT;
     },
 
-    isCurrentPageTemplateCategories() {
-      return this.currentPage == PAGE_TEMPLATE_CATEGORIES;
+    isCurrentPageAdsGeneration() {
+      return this.currentPage == PAGE_SETTINGS_ADS_GENERATION;
+    },
+
+    isCurrentPageKeywordGeneration() {
+      return this.currentPage == PAGE_SETTINGS_KEY_GENERATION;
     },
 
     isWrongLink() {
@@ -321,3 +296,31 @@ export default {
   },
 };
 </script>
+
+<style>
+.switch {
+  flex: 1;
+  display: flex;
+}
+
+.switch label {
+  align-self: center;
+  margin-left: 10px;
+}
+
+.savebtn {
+  display: flex;
+  justify-content: center;
+}
+
+.infobox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.infobox i {
+  font-size: 1.4rem;
+  color: var(--blue-400);
+}
+</style>
