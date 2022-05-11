@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Profile;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 use App\Policies\ProjectPolicy;
 use App\Models\User;
@@ -36,8 +38,17 @@ class AuthServiceProvider extends ServiceProvider
             return $user->load('projects')->projects->contains($project->id);
         });
 
-        Gate::define('profile.access', function (User $user, Project $project) {
-            return $user->load('projects')->projects->contains($project->id);
+        Gate::define('profile.access', function (User $user, Profile $profile) {
+            $projects = $user->load('projects.profiles')->projects->toArray();
+            $userOwnProject = false;
+            foreach ($projects as $project) {
+                foreach ($project["profiles"] as $profileProject) {
+                    if ($profileProject["id"] == $profile->id) {
+                        $userOwnProject = true;
+                    }
+                }
+            }
+            return $userOwnProject;
         });
 
     }

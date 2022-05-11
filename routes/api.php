@@ -29,11 +29,12 @@ Route::middleware('auth:sanctum')->group(
         });
 
         /** PROFILES */
-        Route::post('/profile', [ProfileController::class, 'create'])->name('profile.create');
-        Route::get('/profile/{profile}', [ProfileController::class, 'view'])->name('profile.view');
-        Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
-
+        Route::post('/profile', [ProfileController::class, 'create'])->name('profile.create'); //todo check project access
+        Route::middleware('can:profile.access,profile')->group(function () {
+            Route::get('/profile/{profile}', [ProfileController::class, 'view'])->name('profile.view');
+            Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+            Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
+        });
     }
 );
 
