@@ -44,6 +44,9 @@ class ProjectController extends Controller
     public function update(Project $project, UpdateRequest $request)
     {
         $project->fill($request->validated())->save();
+        if ($request->validated("users")) {
+            $project->users()->sync($request->validated("users"));
+        }
         return new ProjectResource($project);
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class UpdateRequest extends ApiRequest
 {
@@ -16,9 +18,12 @@ class UpdateRequest extends ApiRequest
     public function rules()
     {
         return [
-            //todo in_array
-            'role' => 'required',
-            'projects' => 'array|required'
+            'role' => [
+                'required',
+                 Rule::in([User::ROLE_ADMIN,User::ROLE_USER]),
+             ],
+            'projects' => 'array|required',
+            'projects.*' => 'integer'
         ];
     }
 }

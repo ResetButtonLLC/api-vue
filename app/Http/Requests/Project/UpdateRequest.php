@@ -13,9 +13,8 @@ class UpdateRequest extends ApiRequest
         //Обновлять пользователей из проекта может только администратор, поэтому если есть массив с добавлением пользователей, то проверяем права
         if (request()->get('users',[])) {
             return auth()->user()->isAdmin();
-        } else {
-            return true;
         }
+        return true;
     }
 
     public function rules()
@@ -27,7 +26,9 @@ class UpdateRequest extends ApiRequest
                 'min:2',
                 'max:100',
                 Rule::unique($this->route('project')->getTable())->ignore($this->route('project')),
-            ]
+            ],
+            'users' => 'array',
+            'users.*' => 'integer'
         ];
     }
 }
