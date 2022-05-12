@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <h6 v-if="!isGlobal">Название</h6>
     <InputText
       v-if="!isGlobal"
@@ -22,6 +22,7 @@
         :placeholder="'Заголовок ' + (index + 1)"
         v-model="headline.value"
         @change="$emit('onChange')"
+        @contextmenu="openMacrosMenu($event, headline, 'value')"
       />
 
       <Dropdown
@@ -59,6 +60,7 @@
         :placeholder="'Описание ' + (index + 1)"
         v-model="description.value"
         @change="$emit('onChange')"
+        @contextmenu="openMacrosMenu($event, description, 'value')"
       />
 
       <Dropdown
@@ -91,6 +93,7 @@
       placeholder="Путь 1"
       v-model="template.path1"
       @change="$emit('onChange')"
+      @contextmenu="openMacrosMenu($event, template, 'path1')"
     />
 
     <InputText
@@ -99,7 +102,24 @@
       placeholder="Путь 2"
       v-model="template.path2"
       @change="$emit('onChange')"
+      @contextmenu="openMacrosMenu($event, template, 'path2')"
     />
+
+    <ul
+      ref="macrosMenu"
+      id="right-click-menu"
+      tabindex="-1"
+      :style="{ top: top + 'px', left: left + 'px' }"
+      @blur="closeMacrosMenu"
+    >
+      <li
+        v-for="macros in macrosList"
+        :key="macros"
+        @click="addMacros(macros.value)"
+      >
+        {{ macros.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -110,6 +130,48 @@ const EMPTY_INPUT = { value: "", pin: 0 };
 
 export default {
   methods: {
+    openMacrosMenu(event, target, value) {
+      event.preventDefault();
+
+      let parentOffsetX = 0;
+      let parentOffsetY = 0;
+
+      let el = event.target;
+
+      while (el.parentNode) {
+        if (el.classList.contains("p-dialog")) {
+          parentOffsetX += el.offsetLeft;
+          parentOffsetY += el.offsetTop;
+        }
+
+        el = el.parentNode;
+      }
+
+      this.top = event.clientY - parentOffsetY;
+      this.left = event.clientX - parentOffsetX;
+      this.isShowMacrosMenu = true;
+      this.$refs.macrosMenu.focus();
+
+      this.currentMacrosTarget = target;
+      this.currentMacrosValue = value;
+    },
+
+    closeMacrosMenu() {
+      this.top = -9999;
+      this.left = -9999;
+      this.isShowMacrosMenu = false;
+    },
+
+    addMacros(value) {
+      if (this.currentMacrosTarget[this.currentMacrosValue] === undefined) {
+        this.currentMacrosTarget[this.currentMacrosValue] = value;
+      } else {
+        this.currentMacrosTarget[this.currentMacrosValue] += value;
+      }
+
+      this.closeMacrosMenu();
+    },
+
     showWarning(message) {
       this.$toast.add({
         severity: "warn",
@@ -168,6 +230,11 @@ export default {
 
   data() {
     return {
+      top: -9999,
+      left: -9999,
+      isShowMacrosMenu: false,
+      currentMacrosTarget: null,
+      currentMacrosValue: null,
       pinList: [
         {
           id: 0,
@@ -184,6 +251,17 @@ export default {
         {
           id: 3,
           name: "3",
+        },
+      ],
+
+      macrosList: [
+        {
+          name: "Имя товара",
+          value: "[NAME]",
+        },
+        {
+          name: "Производитель",
+          value: "[VENDOR]",
         },
       ],
 
@@ -221,4 +299,35 @@ export default {
 .w-40 {
   max-width: 110px;
 }
+
+#right-click-menu {
+  background: #fafafa;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 250px;
+  z-index: 999999;
+}
+
+#right-click-menu li {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+  padding: 5px 35px;
+  cursor: pointer;
+}
+
+#right-click-menu li:last-child {
+  border-bottom: none;
+}
+
+#right-click-menu li:hover {
+  background: #1e88e5;
+  color: #fafafa;
+}
 </style>
+
