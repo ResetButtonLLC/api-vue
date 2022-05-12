@@ -8,8 +8,8 @@
           @onSave="onSaveChanges"
         />
       </TabPanel>
-      <TabPanel header="Шаблоны для категорий">
-        <ProfileTemplateCategories
+      <TabPanel header="Умные шаблоны">
+        <ProfileTemplateSmart
           :profileLink="profile"
           @onChange="onChanges"
           @onSave="onSaveChanges"
@@ -50,14 +50,14 @@
 <script>
 import GenerateAdsSettings from "./GenerateAdsSettings";
 import ProfileTemplateGlobal from "@/components/TemplateGlobal";
-import ProfileTemplateCategories from "@/components/TemplateCategories";
+import ProfileTemplateSmart from "@/components/TemplateSmart";
 import ReplacementList from "@/components/ReplacementList";
 
 export default {
   components: {
     GenerateAdsSettings,
     ProfileTemplateGlobal,
-    ProfileTemplateCategories,
+    ProfileTemplateSmart,
     ReplacementList,
   },
 

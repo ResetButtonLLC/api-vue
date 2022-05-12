@@ -53,6 +53,14 @@
         v-tooltip.left="'Через каждые 3 символа будет вставлен пробел'"
       ></i>
     </div>
+
+    <div class="savebtn">
+      <Button
+        class="mt-4 mb-2 p-button-success"
+        label="Сохранить изменения"
+        icon="pi pi-save"
+      ></Button>
+    </div>
   </div>
 </template>
 

@@ -71,6 +71,13 @@
       @change="$emit('onChange')"
     />
 
+    <h6>Правила фильтрации при импорте товаров</h6>
+    <Rules
+      style="flex: 1; text-align: center"
+      :objectLink="profile.import"
+      conditionHelpText="Импортируем только товары соответствующие условиям"
+    />
+
     <h6>Тонкая настройка полей</h6>
 
     <div class="switch">
@@ -115,10 +122,12 @@
 
 <script>
 import CustomFields from "@/components/CustomFields";
+import Rules from "@/components/Rules";
 
 export default {
   components: {
     CustomFields,
+    Rules,
   },
 
   props: {
@@ -136,6 +145,10 @@ export default {
 
   created() {
     this.profile = this.profileLink;
+
+    if (this.profile.import === undefined) {
+      this.profile.import = {};
+    }
   },
 
   methods: {

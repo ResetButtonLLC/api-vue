@@ -4,6 +4,14 @@
 
     <div v-else>
       <TabView v-model:activeIndex="activeIndex" @tab-click="addTab" scrollable>
+        <TabPanel header="Default">
+          <Template
+            @onChange="$emit('onChange')"
+            :templateLink="profile.defaultTemplate"
+            :isGlobal="true"
+          />
+        </TabPanel>
+
         <TabPanel
           v-for="(tab, tabIndex) in templateList"
           :key="tab"
@@ -30,12 +38,14 @@
         </TabPanel>
       </TabView>
 
-      <Button
-        class="mt-4 mb-2"
-        label="Сохранить изменения"
-        icon="pi pi-save"
-        @click="saveChanges"
-      ></Button>
+      <div class="savebtn">
+        <Button
+          class="mt-4 mb-2 p-button-success"
+          label="Сохранить изменения"
+          icon="pi pi-save"
+          @click="saveChanges"
+        ></Button>
+      </div>
     </div>
 
     <Dialog
@@ -83,7 +93,7 @@ export default {
     },
 
     addTab() {
-      if (this.activeIndex != this.templateCount) {
+      if (this.activeIndex != this.templateCount + 1) {
         return;
       }
 
@@ -97,9 +107,7 @@ export default {
         index: index,
       });
 
-      if (this.templateCount && this.activeIndex >= this.templateCount) {
-        this.activeIndex -= 1;
-      }
+      this.activeIndex -= 1;
     },
 
     saveChanges() {
@@ -149,6 +157,10 @@ export default {
 
   created() {
     this.profile = this.profileLink;
+
+    if (this.profile.defaultTemplate === undefined) {
+      this.profile.defaultTemplate = {};
+    }
 
     this.$store.dispatch("getProfileTemplatesGlobal", this.profile.id);
   },

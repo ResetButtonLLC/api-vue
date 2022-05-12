@@ -30,33 +30,29 @@
         <div class="row2">
           <TemplatePreview style="flex: 1" :templateLink="tab" />
 
-          <MultiSelect
-            @change="$emit('onChange')"
-            style="flex: 1"
-            :filter="true"
-            display="chip"
-            v-model="tab.categories"
-            :options="categories"
-            optionLabel="name"
-            optionValue="id"
-            placeholder="Для каких категорий использовать"
+          <Rules
+            style="flex: 1; text-align: center"
+            :objectLink="tab"
+            conditionHelpText="Применяем шаблон к товарам соответствующим условиям"
           />
         </div>
       </div>
 
-      <Button
-        class="mt-4 mb-2"
-        label="Сохранить изменения"
-        icon="pi pi-save"
-        @click="saveChanges"
-      ></Button>
+      <div class="savebtn">
+        <Button
+          class="mt-4 mb-2 p-button-success"
+          label="Сохранить изменения"
+          icon="pi pi-save"
+          @click="saveChanges"
+        ></Button>
+      </div>
     </div>
 
     <Dialog
       v-if="isShowCreateDialog"
       :visible="true"
       :style="{ maxWidth: '100%', width: '750px' }"
-      header="Создание категории"
+      header="Создание шаблона"
       :modal="true"
       class="p-fluid"
       :maximizable="true"
@@ -101,11 +97,13 @@
 import Template from "@/components/Template";
 import TemplatePreview from "@/components/TemplatePreview";
 import apiTemplates from "@/api/apiTemplates";
+import Rules from "@/components/Rules";
 
 export default {
   components: {
     Template,
     TemplatePreview,
+    Rules,
   },
 
   methods: {
@@ -217,7 +215,7 @@ export default {
   created() {
     this.profile = this.profileLink;
 
-    this.$store.dispatch("getProfileCategories", this.profile.id);
+    //this.$store.dispatch("getProfileCategories", this.profile.id);
     this.$store.dispatch("getProfileTemplatesCategories", this.profile.id);
   },
 

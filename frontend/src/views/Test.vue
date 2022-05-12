@@ -1,26 +1,23 @@
 <template>
-  <div class="panel">
-    <FilterCreator />
-  </div>
+  <Rules :objectLink="object" />
 </template>
 
 <script>
-import FilterCreator from "../components/FilterCreator";
+import Rules from "@/components/Rules";
 
 export default {
   components: {
-    FilterCreator,
+    Rules,
   },
 
   data() {
-    return {};
+    return {
+      object: {},
+    };
   },
+
+  methods: {},
+
+  computed: {},
 };
 </script>
-
-<style scoped>
-.panel {
-  display: flex;
-  justify-content: space-between;
-}
-</style>

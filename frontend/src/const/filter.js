@@ -49,7 +49,7 @@ all         - содержит всё из (массив)
 export const OPERATOR_STR_CONTAIN = {
     name: 'Содержит',
     value: 'contain',
-    serverValue: 'contain',
+    serverValue: 'CONTAINS',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: false
@@ -57,7 +57,7 @@ export const OPERATOR_STR_CONTAIN = {
 export const OPERATOR_STR_NOT_CONTAIN = {
     name: 'Не содержит',
     value: '!contain',
-    serverValue: '!contain',
+    serverValue: 'NOT_CONTAINS',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: false
@@ -65,7 +65,7 @@ export const OPERATOR_STR_NOT_CONTAIN = {
 export const OPERATOR_STR_EQUAL = {
     name: 'Равно',
     value: 's=',
-    serverValue: '=',
+    serverValue: 'EQUALS',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: true
@@ -73,7 +73,7 @@ export const OPERATOR_STR_EQUAL = {
 export const OPERATOR_STR_NOT_EQUAL = {
     name: 'Не равно',
     value: 's!=',
-    serverValue: '!=',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: true
@@ -81,7 +81,7 @@ export const OPERATOR_STR_NOT_EQUAL = {
 export const OPERATOR_STR_START_WITH = {
     name: 'Начинается на',
     value: 'start_with',
-    serverValue: 'startwith',
+    serverValue: 'BEGINS_WITH',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: false
@@ -89,7 +89,7 @@ export const OPERATOR_STR_START_WITH = {
 export const OPERATOR_STR_END_WITH = {
     name: 'Заканчивается на',
     value: 'end_with',
-    serverValue: 'endwith',
+    serverValue: 'ENDS_WITH',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: false
@@ -97,7 +97,7 @@ export const OPERATOR_STR_END_WITH = {
 export const OPERATOR_STR_NOT_START_WITH = {
     name: 'Не начинается на',
     value: '!start_with',
-    serverValue: '!startwith',
+    serverValue: 'NOT_BEGINS_WITH',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: false
@@ -105,7 +105,7 @@ export const OPERATOR_STR_NOT_START_WITH = {
 export const OPERATOR_STR_NOT_END_WITH = {
     name: 'Не заканчивается на',
     value: '!end_with',
-    serverValue: '!endwith',
+    serverValue: 'NOT_ENDS_WITH',
     type: [VALUE1_STR],
     default: ['', null],
     allowNull: false
@@ -124,7 +124,7 @@ export const OPERATORS_STRING = [
 export const OPERATOR_INT_EQUAL = {
     name: 'Равно',
     value: 'i=',
-    serverValue: '=',
+    serverValue: 'EQUALS',
     type: [VALUE1_INT],
     default: [0, null],
     allowNull: false
@@ -132,7 +132,7 @@ export const OPERATOR_INT_EQUAL = {
 export const OPERATOR_INT_NOT_EQUAL = {
     name: 'Не равно',
     value: 'i!=',
-    serverValue: '!=',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE1_INT],
     default: [0, null],
     allowNull: false
@@ -140,7 +140,7 @@ export const OPERATOR_INT_NOT_EQUAL = {
 export const OPERATOR_INT_GREATER_THAN = {
     name: 'Больше',
     value: 'i>',
-    serverValue: '>',
+    serverValue: 'GREATER_THAN',
     type: [VALUE1_INT],
     default: [0, null],
     allowNull: false
@@ -148,7 +148,7 @@ export const OPERATOR_INT_GREATER_THAN = {
 export const OPERATOR_INT_LOWER_THAN = {
     name: 'Меньше',
     value: 'i<',
-    serverValue: '<',
+    serverValue: 'LESS_THAN',
     type: [VALUE1_INT],
     default: [0, null],
     allowNull: false
@@ -156,7 +156,7 @@ export const OPERATOR_INT_LOWER_THAN = {
 export const OPERATOR_INT_GREATER_OR_EQUAL_THAN = {
     name: 'Больше или равно',
     value: 'i>=',
-    serverValue: '>=',
+    serverValue: 'GREATER_EQUAL',
     type: [VALUE1_INT],
     default: [0, null],
     allowNull: false
@@ -164,7 +164,7 @@ export const OPERATOR_INT_GREATER_OR_EQUAL_THAN = {
 export const OPERATOR_INT_LOWER_OR_EQUAL_THAN = {
     name: 'Меньше или равно',
     value: 'i<=',
-    serverValue: '<=',
+    serverValue: 'LESS_EQUAL',
     type: [VALUE1_INT],
     default: [0, null],
     allowNull: false
@@ -172,7 +172,7 @@ export const OPERATOR_INT_LOWER_OR_EQUAL_THAN = {
 export const OPERATOR_INT_IN_RANGE = {
     name: 'В диапазоне',
     value: 'i-range',
-    serverValue: 'range',
+    serverValue: 'BETWEEN',
     type: [VALUE1_INT, VALUE2_INT],
     default: [0, 0],
     allowNull: false
@@ -191,7 +191,7 @@ export const OPERATORS_INTEGER = [
 export const OPERATOR_BOOLEAN_EQUAL = {
     name: 'Включено',
     value: 'b=',
-    serverValue: '=',
+    serverValue: 'EQUALS',
     type: [VALUE_BOOLEAN],
     default: [true, null],
     allowNull: true
@@ -200,7 +200,7 @@ export const OPERATOR_BOOLEAN_EQUAL = {
 export const OPERATOR_BOOLEAN_NOT_EQUAL = {
     name: 'Не включено',
     value: 'b!=',
-    serverValue: '=',
+    serverValue: 'EQUALS',
     type: [VALUE_BOOLEAN],
     default: [false, null],
     allowNull: true
@@ -214,7 +214,7 @@ export const OPERATORS_BOOLEAN = [
 export const OPERATOR_AD_EDIT_STATUS_EQUAL = {
     name: 'Равно',
     value: 'aes=',
-    serverValue: 'any',
+    serverValue: 'EQUALS',
     type: [VALUE_AD_EDIT_STATUS],
     default: [null, null],
     allowNull: false
@@ -222,7 +222,7 @@ export const OPERATOR_AD_EDIT_STATUS_EQUAL = {
 export const OPERATOR_AD_EDIT_STATUS_NOT_EQUAL = {
     name: 'Не равно',
     value: 'aes!=',
-    serverValue: '!any',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE_AD_EDIT_STATUS],
     default: [null, null],
     allowNull: false
@@ -236,7 +236,7 @@ export const OPERATORS_AD_EDIT_STATUS = [
 export const OPERATOR_KEY_TYPE_EQUAL = {
     name: 'Равно',
     value: 'kt=',
-    serverValue: '=',
+    serverValue: 'EQUALS',
     type: [VALUE_KEY_TYPE],
     default: [null, null],
     allowNull: false
@@ -244,7 +244,7 @@ export const OPERATOR_KEY_TYPE_EQUAL = {
 export const OPERATOR_KEY_TYPE_NOT_EQUAL = {
     name: 'Не равно',
     value: 'kt!=',
-    serverValue: '!=',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE_KEY_TYPE],
     default: [null, null],
     allowNull: false
@@ -258,7 +258,7 @@ export const OPERATORS_KEY_TYPE = [
 export const OPERATOR_DATE_EQUAL = {
     name: 'Равно',
     value: 'd=',
-    serverValue: '=',
+    serverValue: 'EQUALS',
     type: [VALUE1_DATE],
     default: [null, null],
     allowNull: false
@@ -266,7 +266,7 @@ export const OPERATOR_DATE_EQUAL = {
 export const OPERATOR_DATE_NOT_EQUAL = {
     name: 'Не равно',
     value: 'd!=',
-    serverValue: '!=',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE1_DATE],
     default: [null, null],
     allowNull: false
@@ -274,7 +274,7 @@ export const OPERATOR_DATE_NOT_EQUAL = {
 export const OPERATOR_DATE_GREATER_THAN = {
     name: 'После',
     value: 'd>',
-    serverValue: '>',
+    serverValue: 'GREATER_THAN',
     type: [VALUE1_DATE],
     default: [null, null],
     allowNull: false
@@ -282,7 +282,7 @@ export const OPERATOR_DATE_GREATER_THAN = {
 export const OPERATOR_DATE_LOWER_THAN = {
     name: 'До',
     value: 'd<',
-    serverValue: '<',
+    serverValue: 'LESS_THAN',
     type: [VALUE1_DATE],
     default: [null, null],
     allowNull: false
@@ -290,7 +290,7 @@ export const OPERATOR_DATE_LOWER_THAN = {
 export const OPERATOR_DATE_GREATER_OR_EQUAL_THAN = {
     name: 'После (включительно)',
     value: 'd>=',
-    serverValue: '>=',
+    serverValue: 'GREATER_EQUAL',
     type: [VALUE1_DATE],
     default: [null, null],
     allowNull: false
@@ -298,7 +298,7 @@ export const OPERATOR_DATE_GREATER_OR_EQUAL_THAN = {
 export const OPERATOR_DATE_LOWER_OR_EQUAL_THAN = {
     name: 'До (включительно)',
     value: 'd<=',
-    serverValue: '<=',
+    serverValue: 'LESS_EQUAL',
     type: [VALUE1_DATE],
     default: [null, null],
     allowNull: false
@@ -306,7 +306,7 @@ export const OPERATOR_DATE_LOWER_OR_EQUAL_THAN = {
 export const OPERATOR_DATE_IN_RANGE = {
     name: 'В диапазоне',
     value: 'd-range',
-    serverValue: 'range',
+    serverValue: 'BETWEEN',
     type: [VALUE1_DATE, VALUE2_DATE],
     default: [null, null],
     allowNull: false
@@ -325,7 +325,7 @@ export const OPERATORS_DATE = [
 export const OPERATOR_CAMPAIGN_LIST_CONTAIN_ANY = {
     name: 'Содержит любое из',
     value: 'campaign_contain_any',
-    serverValue: 'any',
+    serverValue: 'EQUALS',
     type: [VALUE_LIST_CAMPAIGN],
     default: [null, null],
     allowNull: false
@@ -333,11 +333,12 @@ export const OPERATOR_CAMPAIGN_LIST_CONTAIN_ANY = {
 export const OPERATOR_CAMPAIGN_LIST_NOT_CONTAIN_ANY = {
     name: 'Не содержит любое из',
     value: '!campaign_contain_any',
-    serverValue: '!any',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE_LIST_CAMPAIGN],
     default: [null, null],
     allowNull: false
 };
+/*
 export const OPERATOR_CAMPAIGN_LIST_CONTAIN_ALL = {
     name: 'Содержит все из',
     value: 'campaign_contain_all',
@@ -354,6 +355,7 @@ export const OPERATOR_CAMPAIGN_LIST_NOT_CONTAIN_ALL = {
     default: [null, null],
     allowNull: false
 };
+*/
 export const OPERATOR_CAMPAIGN_LIST_EMPTY = {
     name: 'Не содержит ничего',
     value: 'campaign_empty',
@@ -373,8 +375,8 @@ export const OPERATOR_CAMPAIGN_LIST_NOT_EMPTY = {
 export const OPERATORS_CAMPAIGN_LIST = [
     OPERATOR_CAMPAIGN_LIST_CONTAIN_ANY,
     OPERATOR_CAMPAIGN_LIST_NOT_CONTAIN_ANY,
-    OPERATOR_CAMPAIGN_LIST_CONTAIN_ALL,
-    OPERATOR_CAMPAIGN_LIST_NOT_CONTAIN_ALL,
+    //OPERATOR_CAMPAIGN_LIST_CONTAIN_ALL,
+    //OPERATOR_CAMPAIGN_LIST_NOT_CONTAIN_ALL,
     OPERATOR_CAMPAIGN_LIST_EMPTY,
     OPERATOR_CAMPAIGN_LIST_NOT_EMPTY
 ];
@@ -383,7 +385,7 @@ export const OPERATORS_CAMPAIGN_LIST = [
 export const OPERATOR_CATEGORY_LIST_CONTAIN_ANY = {
     name: 'Содержит любое из',
     value: 'category_contain_any',
-    serverValue: 'any',
+    serverValue: 'EQUALS',
     type: [VALUE_LIST_CATEGORIES],
     default: [null, null],
     allowNull: false
@@ -391,7 +393,7 @@ export const OPERATOR_CATEGORY_LIST_CONTAIN_ANY = {
 export const OPERATOR_CATEGORY_LIST_NOT_CONTAIN_ANY = {
     name: 'Не содержит любое из',
     value: '!category_contain_any',
-    serverValue: '!any',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE_LIST_CATEGORIES],
     default: [null, null],
     allowNull: false
@@ -443,7 +445,7 @@ export const OPERATORS_CATEGORY_LIST = [
 export const OPERATOR_GROUP_LIST_CONTAIN_ANY = {
     name: 'Содержит любое из',
     value: 'group_contain_any',
-    serverValue: 'any',
+    serverValue: 'EQUALS',
     type: [VALUE_LIST_GROUP],
     default: [null, null],
     allowNull: false
@@ -451,11 +453,12 @@ export const OPERATOR_GROUP_LIST_CONTAIN_ANY = {
 export const OPERATOR_GROUP_LIST_NOT_CONTAIN_ANY = {
     name: 'Не содержит любое из',
     value: '!group_contain_any',
-    serverValue: '!any',
+    serverValue: 'NOT_EQUALS',
     type: [VALUE_LIST_GROUP],
     default: [null, null],
     allowNull: false
 };
+/*
 export const OPERATOR_GROUP_LIST_CONTAIN_ALL = {
     name: 'Содержит все из',
     value: 'group_contain_all',
@@ -472,6 +475,7 @@ export const OPERATOR_GROUP_LIST_NOT_CONTAIN_ALL = {
     default: [null, null],
     allowNull: false
 };
+*/
 export const OPERATOR_GROUP_LIST_EMPTY = {
     name: 'Не содержит ничего',
     value: 'group_empty',
@@ -491,8 +495,8 @@ export const OPERATOR_GROUP_LIST_NOT_EMPTY = {
 export const OPERATORS_GROUP_LIST = [
     OPERATOR_GROUP_LIST_CONTAIN_ANY,
     OPERATOR_GROUP_LIST_NOT_CONTAIN_ANY,
-    OPERATOR_GROUP_LIST_CONTAIN_ALL,
-    OPERATOR_GROUP_LIST_NOT_CONTAIN_ALL,
+    //OPERATOR_GROUP_LIST_CONTAIN_ALL,
+    //OPERATOR_GROUP_LIST_NOT_CONTAIN_ALL,
     OPERATOR_GROUP_LIST_EMPTY,
     OPERATOR_GROUP_LIST_NOT_EMPTY
 ];

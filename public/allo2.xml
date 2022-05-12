@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<rss date="2021-05-18 23:07:01" xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+ <channel>
+  <title>comfy.ua</title>
+  <description>Comfy</description>
+  <link>http://www.comfy.ua</link>
+  <item par="sample123">
+   <g:id>940326</g:id>
+   <g:title>Смартфон Nokia 5230 Navi Black Chrome</g:title>
+   <g:description><![CDATA[Діагональ дисплея/3,2''|Роздільна здатність екрану/640х360|Тип екрану/TFT|Кількість SIM-карт/1 SIM|Операційна система/Symbian|Модель центрального процесора/ARM 11|Частота центрального процесора/434 МГц|Вбудована пам'ять/70 МБ|Розширення пам'яті/microSD 16 ГБ|Основна камера/2 Мп|Bluetooth/Версия 2.0|Навігаційна система/A-GPS|FM-тюнер/Есть|Час роботи в режимі розмови/До 7 ч|Час роботи в режимі очікування/До 432 ч|Висота/116,9 мм|Ширина/58 мм|Глибина/11,7 мм|Вага/97 г]]></g:description>
+   <g:product_type><![CDATA[Инновации и Телеком > Смартфон > Смартфон]]></g:product_type>
+   <g:link>https://comfy.ua/ua/smartfon-nokia-5230-navi-black-chrome.html</g:link>
+   <g:image_link>https://cdn.comfy.ua/media/catalog/product/cache/5/image/600x/9df78eab33525d08d6e5fb8d27136e95/9/4/940326_1.jpg</g:image_link>
+   <g:condition>new</g:condition>
+   <g:availability>out of stock</g:availability>
+   <g:price>1199 UAH</g:price>
+   <g:custom_label_2>https://comfy.ua/ua/smartfon/</g:custom_label_2>
+   <g:custom_label_3>https://comfy.ua/ua/smartfon/brand__nokia/</g:custom_label_3>
+   <g:brand>Nokia</g:brand>
+   <g:shipping>true</g:shipping>
+   <g:is_bundle>false</g:is_bundle>
+   <g:custom_label_0>Смартфони</g:custom_label_0>
+  </item>
+
+      <offer id="61068" type="event-ticket">
+			<url>
+			https://concert.ua/ru/event/oleg-skripka-i-naoni-orkestra-odesa-11-04
+			</url>
+			<price>300</price>
+			<currencyId>UAH</currencyId>
+			<categoryId>15</categoryId>
+			<picture>
+			https://storage.concert.ua/JmI/1/Ij/603c9b746bd23/bd69.jpg
+			</picture>
+			<pickup>true</pickup>
+			<available>true</available>
+			<delivery>true</delivery>
+			<isNew>true</isNew>
+			<isExternal>false</isExternal>
+			<name>���� ������� � ����� �������� | 61068</name>
+			<name2> </name2>
+			<name3> </name3>
+			<place>����� ���������� (����� ��. �. ��������)</place>
+			<place2>����� ����������</place2>
+			<date> 2021-04-11 21:00:00</date>
+			<param name="����">11 ������</param>
+			<param name="�����">������</param>
+			<param name="��������">���� ������� � ����� ��������</param>
+			<param name="ukName">���� ������� &amp; ����I - ��������</param>
+			<param name="ukPlace">����� �������䳿 (����� ��. �. ��������)</param>
+			<param name="cityUkName">�����</param>
+		</offer>
+
+</channel>
+</rss>

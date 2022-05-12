@@ -23,7 +23,7 @@
       <label for="google_id">Google Ads ID</label>
     </span>
 
-    <span class="p-float-label mt-3">
+    <span class="p-float-label mt-4">
       <InputNumber
         class="w-full"
         id="bid"

@@ -1,7 +1,15 @@
 <template>
   <div>
     <div class="text-center">
-      <h5>Алгоритм генерации</h5>
+      <h5>
+        Алгоритм генерации
+        <i
+          class="pi pi-question-circle mr-2"
+          v-tooltip.bottom="
+            'Простой алгоритм - он очень простой, но иногда может пригодиться\n\nПрогрессивный - более продвинутый, его используют чаще'
+          "
+        ></i>
+      </h5>
 
       <SelectButton
         v-model="generateAlgorithm"
@@ -78,6 +86,14 @@
           'Слова состоящие из кирилличиских символов будут удалены. Бренд не удаляется.'
         "
       ></i>
+    </div>
+
+    <div class="savebtn">
+      <Button
+        class="mt-4 mb-2 p-button-success"
+        label="Сохранить изменения"
+        icon="pi pi-save"
+      ></Button>
     </div>
   </div>
 </template>
