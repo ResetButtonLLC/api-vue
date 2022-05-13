@@ -28,8 +28,4 @@ class TestController extends Controller
         return redirect()->intended("/");
     }
 
-    public function test(Request $request)
-    {
-        DBHelper::fresh('Алло премиум', 'основной');
-    }
 }

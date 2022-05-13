@@ -13,9 +13,7 @@ class User extends Authenticatable
 
     const ROLE_ADMIN = 'admin';
     const ROLE_USER = 'user';
-    //todo remove ?
-    const ROLE_TEAMLEAD = 3;
-    const ROLE_ROOT = 9;
+    const ROLES = [self::ROLE_ADMIN,self::ROLE_USER];
 
     protected $fillable = [
         'name',
@@ -41,5 +39,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class);
     }
+
+
 
 }

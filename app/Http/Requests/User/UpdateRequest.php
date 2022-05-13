@@ -20,7 +20,7 @@ class UpdateRequest extends ApiRequest
         return [
             'role' => [
                 'required',
-                 Rule::in([User::ROLE_ADMIN,User::ROLE_USER]),
+                 Rule::in(User::ROLES),
              ],
             'projects' => 'array|required',
             'projects.*' => 'integer'

@@ -12,7 +12,7 @@ Route::middleware('auth:sanctum')->group(
         /* USERS */
         Route::get('/user', [UserController::class, 'info'])->name('user.info'); //Для совместимости c роутом
         Route::get('/me', [UserController::class, 'me'])->name('user.me');
-        Route::middleware('can:user.managment')->group(function () {
+        Route::middleware('can:user.management')->group(function () {
             Route::get('/users/all', [UserController::class, 'all'])->name('users.all');
             Route::get('/user/{user}', [UserController::class, 'view'])->name('user.view');
             Route::patch('/user/{user}', [UserController::class, 'update'])->name('user.update');

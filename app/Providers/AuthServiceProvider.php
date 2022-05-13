@@ -28,25 +28,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        //null используется потому, что - If the before closure returns a non-null result that result will be considered the result of the authorization check.
         Gate::before(function ($user, $ability) {
             return  $user->isAdmin() ? true : null;
         });
 
+        Gate::define('user.management', function (User $user, Project $project) {
+            return $user->isAdmin();
+        });
+
         Gate::define('project.access', function (User $user, Project $project) {
-            return $user->load('projects')->projects->contains($project->id);
+            return $project->users()->where('user_id', $user->id)->exists();
         });
 
         Gate::define('profile.access', function (User $user, Profile $profile) {
-            $projects = $user->load('projects.profiles')->projects->toArray();
-            $userOwnProject = false;
-            foreach ($projects as $project) {
-                foreach ($project["profiles"] as $profileProject) {
-                    if ($profileProject["id"] == $profile->id) {
-                        $userOwnProject = true;
-                    }
-                }
-            }
-            return $userOwnProject;
+            return $profile->project->users()->where('user_id', $user->id)->exists();
         });
 
     }
