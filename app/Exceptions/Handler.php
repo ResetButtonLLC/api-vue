@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,10 +46,15 @@ class Handler extends ExceptionHandler
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if ($request->is('api/*')) {
                 if ($e->getPrevious() instanceof ModelNotFoundException) {
-                    return response('',404,['content-type' => 'application/json']);
+                    return response(null,404,['content-type' => 'application/json']);
                 }
             }
         });
+
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+            return response(null,403,['content-type' => 'application/json']);
+        });
+
 
     }
 
