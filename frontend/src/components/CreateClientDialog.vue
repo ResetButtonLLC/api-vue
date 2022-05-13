@@ -2,7 +2,7 @@
   <Dialog
     :visible="true"
     :style="{ width: '450px' }"
-    header="Создание клиента"
+    header="Создание проекта"
     :modal="true"
     class="p-fluid"
     @update:visible="$emit('cancel')"

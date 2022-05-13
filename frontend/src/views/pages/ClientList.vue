@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="btnlist">
-      <h2>Список клиентов</h2>
+      <h2>Список проектов</h2>
 
       <Button
-        label="Создать клиента"
+        label="Создать проект"
         icon="pi pi-plus"
         class="p-button-success"
         @click="navigateToCreate"
@@ -18,7 +18,7 @@
     <div v-else>
       <span class="p-float-label my-4">
         <InputText class="w-full" type="text" id="filter" v-model="filter" />
-        <label for="filter">Название клиента</label>
+        <label for="filter">Название проекта</label>
       </span>
 
       <DataTable
@@ -29,7 +29,7 @@
         :rows="10"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
-        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} клиентов"
+        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} проектов"
       >
         <Column
           headerStyle="width: 4rem"
@@ -119,7 +119,7 @@ export default {
 
     noClientLabel() {
       return this.$store.isClientLoaded
-        ? "У вас нет доступных клиентов"
+        ? "У вас нет доступных проектов"
         : "Загрузка...";
     },
   },

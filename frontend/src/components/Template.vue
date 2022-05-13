@@ -263,6 +263,14 @@ export default {
           name: "Производитель",
           value: "[VENDOR]",
         },
+        {
+          name: "Цена",
+          value: "[PRICE]",
+        },
+        {
+          name: "URL ссылка",
+          value: "[URL]",
+        },
       ],
 
       profile: {},

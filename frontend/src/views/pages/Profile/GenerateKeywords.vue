@@ -10,49 +10,41 @@
 
       <TabPanel header="Бренды">
         <ReplacementList
-          :isLoading="false"
-          :isGlobal="true"
           header="Использовать список брендов"
-          :globalTextList="'1\n2\n3\n6'"
-          :localTextList="'2\n4\n5'"
+          :getPath="getBrandsPath"
+          :setPath="setBrandsPath"
+          :profileLink="profile"
           @onChange="onChanges"
-          @onSave="saveBrands"
         />
       </TabPanel>
 
       <TabPanel header="Замены">
         <ReplacementList
-          :isLoading="false"
-          :isGlobal="true"
           header="Использовать список замен"
-          :globalTextList="'allo,алло\n5\n7\n6'"
-          :localTextList="'allo,алло\n4\n5'"
+          :getPath="getReplacesPath"
+          :setPath="setReplacesPath"
+          :profileLink="profile"
           @onChange="onChanges"
-          @onSave="saveReplacements"
         />
       </TabPanel>
 
       <TabPanel header="Цвета">
         <ReplacementList
-          :isLoading="false"
-          :isGlobal="true"
           header="Использовать цвета"
-          :globalTextList="'red\ngreen\nyellow\norange'"
-          :localTextList="'\ngreen\nred'"
+          :getPath="getKeysPath"
+          :setPath="setKeysPath"
+          :profileLink="profile"
           @onChange="onChanges"
-          @onSave="saveReplacements"
         />
       </TabPanel>
 
       <TabPanel header="Кривые кеи">
         <ReplacementList
-          :isLoading="false"
-          :isGlobal="true"
           header="Использовать кривые кеи"
-          :globalTextList="'&\n|\n,\n.'"
-          :localTextList="'!\n.'"
+          :getPath="getKeysPath"
+          :setPath="setKeysPath"
+          :profileLink="profile"
           @onChange="onChanges"
-          @onSave="saveReplacements"
         />
       </TabPanel>
     </TabView>
@@ -62,6 +54,17 @@
 <script>
 import GenerateKeywordsSettings from "./GenerateKeywordsSettings";
 import ReplacementList from "@/components/ReplacementList";
+
+import {
+  GET_KEYWORD_BRANDS_PATH,
+  SET_KEYWORD_BRANDS_PATH,
+  GET_KEYWORD_REPLACES_PATH,
+  SET_KEYWORD_REPLACES_PATH,
+  GET_KEYWORD_COLORS_PATH,
+  SET_KEYWORD_COLORS_PATH,
+  GET_KEYWORD_KEYS_PATH,
+  SET_KEYWORD_KEYS_PATH,
+} from "@/api/apiReplacement";
 
 export default {
   components: {
@@ -100,6 +103,40 @@ export default {
     onChanges() {},
 
     onSaveChanges() {},
+  },
+
+  computed: {
+    getBrandsPath() {
+      return GET_KEYWORD_BRANDS_PATH;
+    },
+
+    setBrandsPath() {
+      return SET_KEYWORD_BRANDS_PATH;
+    },
+
+    getReplacesPath() {
+      return GET_KEYWORD_REPLACES_PATH;
+    },
+
+    setReplacesPath() {
+      return SET_KEYWORD_REPLACES_PATH;
+    },
+
+    getColorsPath() {
+      return GET_KEYWORD_COLORS_PATH;
+    },
+
+    setColorsPath() {
+      return SET_KEYWORD_COLORS_PATH;
+    },
+
+    getKeysPath() {
+      return GET_KEYWORD_KEYS_PATH;
+    },
+
+    setKeysPath() {
+      return SET_KEYWORD_KEYS_PATH;
+    },
   },
 };
 </script>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class SetTemplatesForCategoriesRequest extends SetTemplatesRequest
+class SetTemplatesSmartRequest extends SetTemplatesRequest
 {
     public function authorize()
     {
@@ -12,7 +12,6 @@ class SetTemplatesForCategoriesRequest extends SetTemplatesRequest
     public function rules()
     {
         return [
-            'categories' => 'array',
             'descriptions' => 'array',
             'descriptions.value' => 'string',
             'descriptions.pin' => 'integer',

@@ -2,8 +2,8 @@ import apiService from "@/api/apiService";
 
 const getTemplatesGlobalPath = '/api/templates/{profileId}/global';
 const setTemplatesGlobalPath = '/api/templates/{profileId}/global/set';
-const getTemplatesCategoriesPath = '/api/templates/{profileId}/categories';
-const setTemplatesCategoriesPath = '/api/templates/{profileId}/categories/set';
+const getTemplatesSmartPath = '/api/templates/{profileId}/smart';
+const setTemplatesSmartPath = '/api/templates/{profileId}/smart/set';
 
 export default {
     getTemplatesGlobal(profileId) {
@@ -15,10 +15,10 @@ export default {
     },
 
     getTemplatesCategories(profileId) {
-        return apiService.api.get(getTemplatesCategoriesPath.replace('{profileId}', profileId));
+        return apiService.api.get(getTemplatesSmartPath.replace('{profileId}', profileId));
     },
 
     setTemplatesCategories(profileId, templates) {
-        return apiService.api.post(setTemplatesCategoriesPath.replace('{profileId}', profileId), { templates: templates });
+        return apiService.api.post(setTemplatesSmartPath.replace('{profileId}', profileId), { templates: templates });
     }
 }

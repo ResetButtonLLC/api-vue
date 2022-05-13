@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="btnlist">
-      <h2>Клиент {{ clientName }}</h2>
+      <h2>Проект {{ clientName }}</h2>
 
       <Button
         label="Создать профиль"
@@ -18,7 +18,7 @@
     <div v-else>
       <span class="p-float-label my-4">
         <InputText class="w-full" type="text" id="filter" v-model="filter" />
-        <label for="filter">Название клиента</label>
+        <label for="filter">Название проекта</label>
       </span>
 
       <DataTable
@@ -29,7 +29,7 @@
         :rows="10"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
-        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} клиентов"
+        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} проектов"
       >
         <Column
           headerStyle="width: 4rem"

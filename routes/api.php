@@ -36,16 +36,27 @@ Route::middleware('auth:sanctum')->group(
         /** TEMPLATES */
         Route::get('/templates/{profile}/global', [TemplateController::class, 'getGlobal']);
         Route::post('/templates/{profile}/global/set', [TemplateController::class, 'setGlobal']);
-        Route::get('/templates/{profile}/categories', [TemplateController::class, 'getCategories']);
-        Route::post('/templates/{profile}/categories/set', [TemplateController::class, 'setCategories']);
+        Route::get('/templates/{profile}/smart', [TemplateController::class, 'getSmart']);
+        Route::post('/templates/{profile}/smart/set', [TemplateController::class, 'setSmart']);
 
         /** FEED */
         Route::post('/feed/{profile}/upload', [FeedController::class, 'upload']);
         Route::post('/feed/{profile}/set', [FeedController::class, 'set']);
 
         /** REPLACEMENTS */
-        Route::get('/replacements/{profile}/get', [ReplaceController::class, 'get']);
-        Route::post('/replacements/{profile}/set', [ReplaceController::class, 'set']);
+        Route::get('/replacements/{profile}/ads/brands/get', [ReplaceController::class, 'getAdBrands']);
+        Route::post('/replacements/{profile}/ads/brands/set', [ReplaceController::class, 'setAdBrands']);
+        Route::get('/replacements/{profile}/ads/replaces/get', [ReplaceController::class, 'getAdReplaces']);
+        Route::post('/replacements/{profile}/ads/replaces/set', [ReplaceController::class, 'setAdReplaces']);
+
+        Route::get('/replacements/{profile}/keywords/brands/get', [ReplaceController::class, 'getKeywordBrands']);
+        Route::post('/replacements/{profile}/keywords/brands/set', [ReplaceController::class, 'setKeywordBrands']);
+        Route::get('/replacements/{profile}/keywords/replaces/get', [ReplaceController::class, 'getKeywordReplaces']);
+        Route::post('/replacements/{profile}/keywords/replaces/set', [ReplaceController::class, 'setKeywordReplaces']);
+        Route::get('/replacements/{profile}/keywords/colors/get', [ReplaceController::class, 'getKeywordColors']);
+        Route::post('/replacements/{profile}/keywords/colors/set', [ReplaceController::class, 'setKeywordColors']);
+        Route::get('/replacements/{profile}/keywords/keys/get', [ReplaceController::class, 'getKeywordKeys']);
+        Route::post('/replacements/{profile}/keywords/keys/set', [ReplaceController::class, 'setKeywordKeys']);
 
         /** PREVIEW */
         Route::post('/preview/{profile}/groups', [PreviewController::class, 'getGroups']);

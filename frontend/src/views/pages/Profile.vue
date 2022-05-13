@@ -323,4 +323,9 @@ export default {
   font-size: 1.4rem;
   color: var(--blue-400);
 }
+
+.infobox .p-float-label {
+  flex: 1;
+  margin-right: 10px;
+}
 </style>

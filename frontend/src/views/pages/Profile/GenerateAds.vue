@@ -22,25 +22,21 @@
 
       <TabPanel header="Бренды">
         <ReplacementList
-          :isLoading="false"
-          :isGlobal="true"
           header="Использовать список брендов"
-          :globalTextList="'1\n2\n3\n6'"
-          :localTextList="'2\n4\n5'"
+          :getPath="getBrandsPath"
+          :setPath="setBrandsPath"
+          :profileLink="profile"
           @onChange="onChanges"
-          @onSave="saveBrands"
         />
       </TabPanel>
 
       <TabPanel header="Замены">
         <ReplacementList
-          :isLoading="false"
-          :isGlobal="true"
           header="Использовать список замен"
-          :globalTextList="'allo,алло\n5\n7\n6'"
-          :localTextList="'allo,алло\n4\n5'"
+          :getPath="getReplacesPath"
+          :setPath="setReplacesPath"
+          :profileLink="profile"
           @onChange="onChanges"
-          @onSave="saveReplacements"
         />
       </TabPanel>
     </TabView>
@@ -52,6 +48,13 @@ import GenerateAdsSettings from "./GenerateAdsSettings";
 import ProfileTemplateGlobal from "@/components/TemplateGlobal";
 import ProfileTemplateSmart from "@/components/TemplateSmart";
 import ReplacementList from "@/components/ReplacementList";
+
+import {
+  GET_AD_BRANDS_PATH,
+  SET_AD_BRANDS_PATH,
+  GET_AD_REPLACES_PATH,
+  SET_AD_REPLACES_PATH,
+} from "@/api/apiReplacement";
 
 export default {
   components: {
@@ -92,6 +95,24 @@ export default {
     onChanges() {},
 
     onSaveChanges() {},
+  },
+
+  computed: {
+    getBrandsPath() {
+      return GET_AD_BRANDS_PATH;
+    },
+
+    setBrandsPath() {
+      return SET_AD_BRANDS_PATH;
+    },
+
+    getReplacesPath() {
+      return GET_AD_REPLACES_PATH;
+    },
+
+    setReplacesPath() {
+      return SET_AD_REPLACES_PATH;
+    },
   },
 };
 </script>

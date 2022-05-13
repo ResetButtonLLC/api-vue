@@ -35,7 +35,7 @@ export default {
                     }
                 });
             }).catch(() => {
-                context.dispatch('error', 'Не удалось создать клиента');
+                context.dispatch('error', 'Не удалось создать проект');
             });
         },
 
@@ -43,7 +43,7 @@ export default {
             apiClients.getClients().then((result) => {
                 context.commit('setClients', result.data.data);
             }).catch(() => {
-                context.dispatch('error', 'Не удалось загрузить список клиентов');
+                context.dispatch('error', 'Не удалось загрузить список проектов');
             });
         },
 

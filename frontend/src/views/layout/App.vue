@@ -173,4 +173,8 @@ export default {
   height: 100vh;
   align-items: center;
 }
+
+.p-tooltip {
+  max-width: 30rem;
+}
 </style>

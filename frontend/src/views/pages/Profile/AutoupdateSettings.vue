@@ -48,6 +48,50 @@
       @click="addUpdate"
     ></Button>
 
+    <div class="infobox mt-4">
+      <span class="p-float-label">
+        <InputNumber
+          class="w-full"
+          id="min_count"
+          v-model="profile.min_count"
+          mode="decimal"
+          @input="$emit('onChange')"
+        />
+
+        <label for="min_count">Минимальное количество товаров</label>
+      </span>
+
+      <i
+        class="pi pi-question-circle"
+        v-tooltip.right="
+          'Если при автообновлении в фиде будет меньше указанного количества товаров - то автообновление не произойдет'
+        "
+      ></i>
+    </div>
+
+    <div class="infobox mt-4">
+      <span class="p-float-label">
+        <InputNumber
+          class="w-full"
+          id="cleanup"
+          v-model="profile.settings.autoupdate_cleanup"
+          mode="decimal"
+          @input="$emit('onChange')"
+        />
+
+        <label for="cleanup"
+          >Количество дней для автоочистки локальной базы</label
+        >
+      </span>
+
+      <i
+        class="pi pi-question-circle"
+        v-tooltip.right="
+          'Очищать локальную базу от товаров которые находятся в паузе больше указанного количества дней'
+        "
+      ></i>
+    </div>
+
     <div class="savebtn">
       <Button
         label="Сохранить изменения"

@@ -9,7 +9,7 @@
         <h5>{{ header }}</h5>
 
         <SelectButton
-          v-model="activeType"
+          v-model="isGlobal"
           :options="activityList"
           optionLabel="name"
           optionValue="value"
@@ -19,7 +19,7 @@
 
       <div class="copybtn mt-3 mb-1">
         <Button
-          v-if="activeType == false"
+          v-if="isGlobal == false"
           label="Скопировать глобальные значения в профиль"
           icon="pi pi-sync"
           class="p-button-sm p-button-info"
@@ -29,7 +29,7 @@
 
       <Textarea
         disabled
-        v-if="activeType"
+        v-if="isGlobal"
         class="w-full"
         :value="globalTextList"
         rows="15"
@@ -60,43 +60,47 @@
 
 
 <script>
+import apiReplacement from "@/api/apiReplacement";
+
 export default {
   props: {
+    profileLink: {
+      type: Object,
+      required: true,
+    },
+
     header: {
       type: String,
       default: "",
     },
 
-    isGlobal: {
-      type: Boolean,
-      default: true,
-    },
-
-    isLoading: {
-      type: Boolean,
-      default: false,
-    },
-
-    globalTextList: {
+    getPath: {
       type: String,
-      default: "",
+      required: true,
     },
 
-    localTextList: {
+    setPath: {
       type: String,
-      default: "",
+      required: true,
     },
   },
 
   data() {
     return {
-      activeType: this.isGlobal,
-      profileTextList: this.localTextList,
+      isLoading: false,
+      isGlobal: true,
+      globalTextList: "",
+      profileTextList: "",
+
       activityList: [
         { name: "Глобальные", value: true },
         { name: "Из профиля", value: false },
       ],
     };
+  },
+
+  created() {
+    this.load();
   },
 
   methods: {
@@ -112,11 +116,57 @@ export default {
       this.$emit("onChange");
     },
 
+    load() {
+      this.isLoading = true;
+
+      apiReplacement
+        .getReplacement(this.getPath, this.profileLink.id)
+        .then((result) => {
+          let data = result.data.data;
+
+          this.isGlobal = data.isGlobal;
+          this.globalTextList = data.globalText;
+          this.profileTextList = data.profileText;
+        })
+        .catch(() => {
+          this.$store.dispatch("error", "Не удалось загрузить список замен");
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+
     save() {
-      this.$emit("onSave", {
-        isGlobal: this.activeType,
-        profileText: this.profileTextList,
+      this.$toast.add({
+        severity: "info",
+        summary: "В процессе",
+        detail: "Отправляю запрос...",
+        life: 3000,
       });
+
+      apiReplacement
+        .setReplacement(
+          this.setPath,
+          this.profileLink.id,
+          this.isGlobal,
+          this.profileTextList
+        )
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Сохранено",
+            detail: "Успешно сохранено",
+            life: 3000,
+          });
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Ошибка",
+            detail: "Не удалось сохранить изменения",
+            life: 3000,
+          });
+        });
     },
   },
 

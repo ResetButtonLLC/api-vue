@@ -5,7 +5,7 @@
     <div class="grid">
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
-          <span class="block text-500 font-medium mb-3">Клиент</span>
+          <span class="block text-500 font-medium mb-3">Проект</span>
           <div class="text-900 font-medium text-xl">{{ client.name }}</div>
         </div>
       </div>
