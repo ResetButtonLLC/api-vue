@@ -4,14 +4,6 @@
 
     <div v-else>
       <TabView v-model:activeIndex="activeIndex" @tab-click="addTab" scrollable>
-        <TabPanel header="Default">
-          <Template
-            @onChange="$emit('onChange')"
-            :templateLink="profile.defaultTemplate"
-            :isGlobal="true"
-          />
-        </TabPanel>
-
         <TabPanel
           v-for="(tab, tabIndex) in templateList"
           :key="tab"
@@ -35,6 +27,14 @@
 
         <TabPanel header="+">
           <p class="text-center">Нет ни 1 шаблона</p>
+        </TabPanel>
+
+        <TabPanel header="Default">
+          <Template
+            @onChange="$emit('onChange')"
+            :templateLink="profile.defaultTemplate"
+            :isGlobal="true"
+          />
         </TabPanel>
       </TabView>
 
@@ -93,7 +93,7 @@ export default {
     },
 
     addTab() {
-      if (this.activeIndex != this.templateCount + 1) {
+      if (this.activeIndex != this.templateCount) {
         return;
       }
 

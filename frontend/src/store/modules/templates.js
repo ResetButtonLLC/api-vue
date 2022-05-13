@@ -48,6 +48,16 @@ export default {
             if (result !== undefined) {
                 result.templates.splice(index, 1);
             }
+        },
+
+        swapTemplateCategories(state, { profileId, oldIndex, newIndex }) {
+            let result = state.templatesCategories.find((el) => el.profileId == profileId);
+
+            if (result) {
+                let tmp = result.templates[oldIndex];
+                result.templates[oldIndex] = result.templates[newIndex];
+                result.templates[newIndex] = tmp;
+            }
         }
     },
     actions: {
@@ -97,6 +107,10 @@ export default {
 
         deleteTemplateCategories(context, { profileId, index }) {
             context.commit('deleteTemplate', { profileId: profileId, type: TYPE_CATEGORIES, index: index });
+        },
+
+        swapTemplateCategories(context, { profileId, oldIndex, newIndex }) {
+            context.commit('swapTemplateCategories', { profileId: profileId, oldIndex: oldIndex, newIndex: newIndex });
         }
     },
 

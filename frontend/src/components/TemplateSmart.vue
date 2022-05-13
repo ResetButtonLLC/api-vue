@@ -3,6 +3,23 @@
     <p v-if="isTemplatesLoading || isCategoriesLoading">Загрузка...</p>
 
     <div v-else>
+      <h5>Информация по умным шаблонам</h5>
+      <ul>
+        <li>Умные шаблоны имеют приоритет над стандартными</li>
+
+        <li>
+          Стандарные шаблоны не генерируются для товара, если был сгенерирован
+          умный шаблон
+        </li>
+
+        <li>
+          Умные шаблоны имеют очередность сверху-вниз и будет использован первый
+          шаблон, подходящий под условия
+        </li>
+
+        <li>Умные шаблоны можно сортировать перетаскиванием</li>
+      </ul>
+
       <Button
         label="Создать шаблон"
         icon="pi pi-plus"
@@ -10,31 +27,53 @@
         @click="openCreateDialog"
       />
 
-      <div v-for="(tab, tabIndex) in templateList" :key="tab" class="card">
-        <div class="header row2">
-          <span>{{ tab.name ? tab.name : "[без названия]" }}</span>
+      <div
+        v-for="(tab, tabIndex) in templateList"
+        :key="tab"
+        class="card"
+        @drop="endDragFilter($event, tabIndex)"
+        @dragover.prevent
+        @dragenter.prevent
+      >
+        <div
+          draggable="true"
+          @dragstart="startDragFilter($event, tabIndex)"
+          @dragover.prevent
+          @dragenter.prevent
+        >
+          <div class="header row2">
+            <span>{{ tab.name ? tab.name : "[без названия]" }}</span>
 
-          <span>
-            <i
-              class="pi pi-pencil p-button p-button-info mr-2"
-              @click="openEditDialog(tabIndex)"
-            ></i>
+            <span>
+              <i
+                v-tooltip.left="'Клонировать'"
+                class="pi pi-link p-button p-button-warning mr-2"
+                @click="cloneTemplate(tab)"
+              ></i>
 
-            <i
-              class="pi pi-times-circle p-button p-button-danger"
-              @click="tryDelete(tabIndex)"
-            ></i>
-          </span>
-        </div>
+              <i
+                v-tooltip.left="'Редактировать'"
+                class="pi pi-pencil p-button p-button-info mr-2"
+                @click="openEditDialog(tabIndex)"
+              ></i>
 
-        <div class="row2">
-          <TemplatePreview style="flex: 1" :templateLink="tab" />
+              <i
+                v-tooltip.left="'Удалить'"
+                class="pi pi-times-circle p-button p-button-danger"
+                @click="tryDelete(tabIndex)"
+              ></i>
+            </span>
+          </div>
 
-          <Rules
-            style="flex: 1; text-align: center"
-            :objectLink="tab"
-            conditionHelpText="Применяем шаблон к товарам соответствующим условиям"
-          />
+          <div class="row2">
+            <TemplatePreview style="flex: 1" :templateLink="tab" />
+
+            <Rules
+              style="flex: 1; text-align: center"
+              :objectLink="tab"
+              conditionHelpText="Применяем шаблон к товарам соответствующим условиям"
+            />
+          </div>
         </div>
       </div>
 
@@ -107,6 +146,22 @@ export default {
   },
 
   methods: {
+    startDragFilter(evt, index) {
+      evt.dataTransfer.dropEffect = "move";
+      evt.dataTransfer.effectAllowed = "move";
+      evt.dataTransfer.setData("itemID", index);
+    },
+
+    endDragFilter(evt, index) {
+      const oldIndex = evt.dataTransfer.getData("itemID");
+
+      this.$store.dispatch("swapTemplateCategories", {
+        profileId: this.profile.id,
+        oldIndex: oldIndex,
+        newIndex: index,
+      });
+    },
+
     getTemplateClone(index) {
       return JSON.parse(JSON.stringify(this.templateList[index]));
     },
@@ -121,6 +176,13 @@ export default {
       this.currentTemplateIndex = index;
       this.isShowCreateDialog = true;
       this.currentTemplate = this.getTemplateClone(index);
+    },
+
+    cloneTemplate(template) {
+      this.$store.dispatch("addTemplateCategories", {
+        profileId: this.profile.id,
+        template: JSON.parse(JSON.stringify(template)),
+      });
     },
 
     createTemplate() {

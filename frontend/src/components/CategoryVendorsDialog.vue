@@ -40,6 +40,12 @@
         :key="'category' + categoryId + '_vendor' + vendor.id"
       >
         <div class="name" :class="{ 'my-2': !isShowVendorParam }">
+          <Checkbox
+            @input="$emit('onChange')"
+            v-model="vendor.is_active"
+            :binary="true"
+          />
+
           <p>{{ customVendorName(vendor.id) }}</p>
         </div>
 
@@ -131,6 +137,7 @@ export default {
       newVendors.forEach((el) => {
         this.customVendors.push({
           id: el,
+          is_active: true,
         });
       });
     },
