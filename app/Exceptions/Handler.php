@@ -55,7 +55,6 @@ class Handler extends ExceptionHandler
             return response(null,403,['content-type' => 'application/json']);
         });
 
-
     }
 
     /* Laravel 7 method
