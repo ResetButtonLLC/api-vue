@@ -2,48 +2,6 @@ import apiProjects from "@/api/apiProjects";
 import apiProfiles from "@/api/apiProfiles";
 //import { result } from "lodash";
 
-function buildProfiles(items, projectId) {
-    let result = [];
-
-    items.forEach((el) => {
-        result.push({
-            id: el.id,
-            label: el.name,
-            icon: "pi pi-fw pi-tag",
-            to: { name: "Profile", params: { id: el.id } },
-        });
-    });
-
-    result.push({
-        label: 'Добавить профиль',
-        icon: "pi pi-fw pi-plus",
-        to: { name: "CreateProfile", params: { projectId: projectId } },
-    });
-
-    return result;
-}
-
-function buildProjects(items) {
-    let result = [];
-
-    items.forEach((el) => {
-        result.push({
-            id: el.id,
-            label: el.name,
-            icon: "pi pi-fw pi-tags",
-            items: buildProfiles(el.profiles, el.id)
-        });
-    });
-
-    result.push({
-        label: 'Добавить проект',
-        icon: "pi pi-fw pi-plus",
-        to: { name: "CreateProject" },
-    });
-
-    return result;
-}
-
 export default {
     state: () => ({
         projects: [],
@@ -70,9 +28,9 @@ export default {
                 context.commit('addProject', project);
 
                 context.dispatch('route', {
-                    name: 'CreateProfile',
+                    name: 'ProjectProfileList',
                     params: {
-                        projectId: project.id
+                        id: project.id
                     }
                 });
             }).catch(() => {
@@ -98,11 +56,9 @@ export default {
                     name: 'Profile',
                     params: {
                         id: profile.id,
-                        projectId: projectId
+                        projectId: profile.project_id
                     }
                 });
-
-
             }).catch(() => {
                 context.dispatch('error', 'Не удалось создать профиль');
             });
@@ -110,13 +66,6 @@ export default {
     },
 
     getters: {
-        getProjectsForMenu(state) {
-            return [{
-                label: "Проекты",
-                items: buildProjects(state.projects)
-            }];
-        },
-
         getProjects(state) {
             return state.projects;
         },

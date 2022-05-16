@@ -10,7 +10,7 @@ export default {
     },
 
     createProfile(projectId, name) {
-        return apiService.api.post(createProfilePath, { projectId: projectId, name: name });
+        return apiService.api.post(createProfilePath, { project_id: Number.parseInt(projectId), name: name });
     },
 
     setSettings(profileId, settings) {
