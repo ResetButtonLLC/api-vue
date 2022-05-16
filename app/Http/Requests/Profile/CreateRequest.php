@@ -13,7 +13,7 @@ class CreateRequest extends ApiRequest
     {
         return [
             'project_id' => 'required|integer|exists:projects,id',
-            'name' => 'required|string|min:2|max:100|unique:profiles,name' //todo уникальный в рамках проекта
+            'name' => 'required|string|min:2|max:100|unique:profiles,name'
         ];
     }
 
