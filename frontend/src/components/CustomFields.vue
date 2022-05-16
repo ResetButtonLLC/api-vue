@@ -5,7 +5,7 @@
         <InputNumber
           :id="'in' + field.value"
           class="w-full mt-1"
-          v-model="profile.csv_feed_fields[field.value]"
+          v-model="profile.settings.csv_feed_fields[field.value]"
           mode="decimal"
           @input="$emit('onChange')"
           prefix="Столбец №"
@@ -23,7 +23,7 @@
           :id="'dd' + field.value"
           @change="$emit('onChange')"
           class="w-full"
-          v-model="profile.feed_fields[field.value]"
+          v-model="profile.settings.feed_fields[field.value]"
           :options="customFields"
           optionLabel="name"
           optionValue="value"
@@ -71,12 +71,12 @@ export default {
   created() {
     this.profile = this.profileLink;
 
-    if (this.profile.feed_fields === undefined) {
-      this.profile.feed_fields = {};
+    if (this.profile.settings.feed_fields === undefined) {
+      this.profile.settings.feed_fields = {};
     }
 
-    if (this.profile.csv_feed_fields === undefined) {
-      this.profile.csv_feed_fields = {};
+    if (this.profile.settings.csv_feed_fields === undefined) {
+      this.profile.settings.csv_feed_fields = {};
     }
 
     this.buildCustomFields(["id", "name", "vendor", "custom_label0"]);

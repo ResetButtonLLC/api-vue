@@ -240,7 +240,7 @@ export default {
           this.$toast.add({
             severity: "success",
             summary: "Сохранено",
-            detail: "Успешно сохранено",
+            detail: "Шаблоны успешно сохранены",
             life: 3000,
           });
         })
@@ -248,7 +248,7 @@ export default {
           this.$toast.add({
             severity: "error",
             summary: "Ошибка",
-            detail: "Не удалось сохранить",
+            detail: "Не удалось сохранить шаблоны",
             life: 3000,
           });
         });
