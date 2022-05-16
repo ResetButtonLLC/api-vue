@@ -2,9 +2,9 @@
 
 Требования к окружению:
 
-- PHP 7.4+
-- MySql 5.7+
-- NodeJS
+- PHP 8.1+
+- MySql 8.0+
+- NodeJS 16
 - Composer
 
 1. Клонируем проект из git

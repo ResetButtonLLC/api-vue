@@ -9,14 +9,13 @@ class UserResource extends JsonResource
 {
     public function toArray($request)
     {
-        /** @var User $user */
-        $user = $this->resource;
         return [
-            'id'     => $user->id,
-            'name'   => $user->name,
-            'email'  => $user->email,
-            'avatar' => $user->avatar,
-            'admin'  => $user->isAdmin()
+            'id'     => $this->id,
+            'role'  => $this->role,
+            'name'   => $this->name,
+            'email'  => $this->email,
+            'avatar' => $this->avatar,
+            'projects' => ProjectResource::collection($this->whenLoaded('projects'))
         ];
     }
 }

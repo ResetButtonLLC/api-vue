@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Project;
 
+use App\Http\Requests\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClientCreateRequest extends FormRequest
+class CreateRequest extends ApiRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
 
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:100'
+            'name' => 'required|string|min:2|max:100|unique:projects,name'
         ];
     }
 

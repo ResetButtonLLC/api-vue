@@ -2,24 +2,46 @@
 
 use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\FeedController;
 use App\Http\Controllers\API\PreviewController;
+use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\ReplaceController;
 use App\Http\Controllers\API\TemplateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use Illuminate\Http\Request;
 
 Route::middleware('auth:sanctum')->group(
     function () {
-        Route::get('/user', [UserController::class, 'info']);
 
-        /** CLIENTS */
-        Route::get('/clients', [ClientController::class, 'index']);
-        Route::post('/client/create', [ClientController::class, 'create']);
+        /* USERS */
+        Route::get('/user', [UserController::class, 'info'])->name('user.info'); //Для совместимости c роутом
+        Route::get('/me', [UserController::class, 'me'])->name('user.me');
+        Route::middleware('can:user.management')->group(function () {
+            Route::get('/users/all', [UserController::class, 'all'])->name('users.all');
+            Route::get('/user/{user}', [UserController::class, 'view'])->name('user.view');
+            Route::patch('/user/{user}', [UserController::class, 'update'])->name('user.update');
+        });
+
+        /** PROJECTS */
+        Route::get('/projects/all', [ProjectController::class, 'all'])->name('projects.all');
+        Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+        Route::post('/project', [ProjectController::class, 'create'])->name('project.create');
+        Route::middleware('can:project.access,project')->group(function () {
+            Route::get('/project/{project}', [ProjectController::class, 'view'])->name('project.view');
+            Route::patch('/project/{project}', [ProjectController::class, 'update'])->name('project.update');
+            Route::delete('/project/{project}', [ProjectController::class, 'delete'])->name('project.delete');
+        });
 
         /** PROFILES */
+        Route::post('/profile', [ProfileController::class, 'create'])->name('profile.create'); //todo check project access
+        Route::middleware('can:profile.access,profile')->group(function () {
+            Route::get('/profile/{profile}', [ProfileController::class, 'view'])->name('profile.view');
+            Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+            Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
+        });
+        
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
         Route::post('/profile/{profile}/settings', [ProfileController::class, 'settings']);

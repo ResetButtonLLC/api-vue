@@ -15,14 +15,19 @@ class TestController extends Controller
 {
     public function login()
     {
-        $user = User::firstOrCreate([
-            'name' => 'Test',
-            'email' => 'test@test',
-            'avatar' => '/img/test.png',
-            'role' => User::ROLE_ROOT
-        ]);
 
-        Auth::loginUsingId($user->id);
+        $user = User::where('email','test@test')->first();
+
+        if(!$user) {
+            $user = User::factory([
+                'name' => 'Test',
+                'email' => 'test@test',
+                'avatar' => '/img/test.png',
+                'role' => USER::ROLE_ADMIN
+            ])->create();
+        }
+
+        auth()->login($user,true);
 
         return redirect()->intended("/");
     }

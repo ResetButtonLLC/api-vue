@@ -1,14 +1,54 @@
 import apiProjects from "@/api/apiProjects";
-import apiProfiles from "@/api/apiProfiles";
+//import { result } from "lodash";
+
+function buildProfiles(items, projectId) {
+    let result = [];
+
+    items.forEach((el) => {
+        result.push({
+            id: el.id,
+            label: el.name,
+            icon: "pi pi-fw pi-tag",
+            to: { name: "Profile", params: { id: el.id } },
+        });
+    });
+
+    result.push({
+        label: 'Добавить профиль',
+        icon: "pi pi-fw pi-plus",
+        to: { name: "CreateProfile", params: { projectId: projectId } },
+    });
+
+    return result;
+}
+
+function buildProjects(items) {
+    let result = [];
+
+    items.forEach((el) => {
+        result.push({
+            id: el.id,
+            label: el.name,
+            icon: "pi pi-fw pi-tags",
+            items: buildProfiles(el.profiles, el.id)
+        });
+    });
+
+    result.push({
+        label: 'Добавить клиента',
+        icon: "pi pi-fw pi-plus",
+        to: { name: "CreateProject" },
+    });
+
+    return result;
+}
 
 export default {
     state: () => ({
         projects: [],
-        isProjectLoaded: false,
     }),
     mutations: {
         setProjects(state, projects) {
-            state.isProjectLoaded = true;
             state.projects = projects;
         },
 
@@ -29,13 +69,13 @@ export default {
                 context.commit('addProject', project);
 
                 context.dispatch('route', {
-                    name: 'ProjectProfileList',
+                    name: 'CreateProfile',
                     params: {
-                        id: project.id
+                        projectId: project.id
                     }
                 });
             }).catch(() => {
-                context.dispatch('error', 'Не удалось создать проект');
+                context.dispatch('error', 'Не удалось создать клиента');
             });
         },
 
@@ -43,11 +83,11 @@ export default {
             apiProjects.getProjects().then((result) => {
                 context.commit('setProjects', result.data.data);
             }).catch(() => {
-                context.dispatch('error', 'Не удалось загрузить список проектов');
+                context.dispatch('error', 'Не удалось загрузить список клиентов');
             });
         },
 
-        createProfile(context, { projectId: projectId, name }) {
+        createProfile(context, { projectId, name }) {
             apiProfiles.createProfile(projectId, name).then((result) => {
                 let profile = result.data.data;
 
@@ -69,6 +109,13 @@ export default {
     },
 
     getters: {
+        getProjectsForMenu(state) {
+            return [{
+                label: "Клиенты",
+                items: buildProjects(state.projects)
+            }];
+        },
+
         getProjects(state) {
             return state.projects;
         },
@@ -82,9 +129,5 @@ export default {
 
             return result;
         },
-
-        isProjectLoaded(state) {
-            return state.isProjectLoaded;
-        }
     }
 }

@@ -10,10 +10,10 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'client_id',
-        'db',
+        'project_id',
         'name',
+        'adwords_id',
+        'db',
         'feed_url',
         'feed_file',
         'feed_type',
@@ -28,9 +28,9 @@ class Profile extends Model
         'autoupdates' => 'array',
     ];
 
-    public function client()
+    public function project()
     {
-        return $this->hasOne(Client::class, 'id', 'client_id');
+        return $this->hasOne(Project::class, 'id', 'project_id');
     }
 
     public function isFileFeed()

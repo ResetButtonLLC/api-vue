@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\ModelLogEvent;
+use App\Listeners\ModelLogListener;
+use App\Models\Project;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Observers\ModelObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        ModelLogEvent::class => [
+            ModelLogListener::class,
+        ],
     ];
 
     /**
@@ -27,6 +34,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Project::observe(ModelObserver::class);
     }
 }
