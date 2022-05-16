@@ -2,43 +2,52 @@
   <div>
     <h4>Основное</h4>
 
-    <div class="text-center">
-      <SelectButton
-        v-model="profile.activity"
-        :options="activityList"
-        optionLabel="name"
-        optionValue="value"
-        @change="$emit('onChange')"
-      />
+    <div v-if="isSettingsLoading">
+      <p>
+        <i class="pi pi-spin pi-spinner"></i>
+        Загрузка...
+      </p>
     </div>
 
-    <span class="p-float-label mt-5">
-      <InputText
-        class="w-full"
-        type="text"
-        id="google_id"
-        v-model="profile.google_id"
-        @change="$emit('onChange')"
-      />
-      <label for="google_id">Google Ads ID</label>
-    </span>
+    <div v-else>
+      <div class="text-center">
+        <SelectButton
+          v-model="profile.settings.activity"
+          :options="activityList"
+          optionLabel="name"
+          optionValue="value"
+          @change="$emit('onChange')"
+        />
+      </div>
 
-    <span class="p-float-label mt-4">
-      <InputNumber
-        class="w-full"
-        id="bid"
-        v-model="profile.bid"
-        mode="decimal"
-        locale="ua-UA"
-        :minFractionDigits="2"
-        :maxFractionDigits="2"
-        :step="0.01"
-        @input="$emit('onChange')"
-      />
-      <!-- suffix="₴" -->
+      <span class="p-float-label mt-5">
+        <InputText
+          class="w-full"
+          type="text"
+          id="google_id"
+          v-model="profile.settings.google_id"
+          @change="$emit('onChange')"
+        />
+        <label for="google_id">Google Ads ID</label>
+      </span>
 
-      <label for="bid">Ставка</label>
-    </span>
+      <span class="p-float-label mt-4">
+        <InputNumber
+          class="w-full"
+          id="bid"
+          v-model="profile.settings.bid"
+          mode="decimal"
+          locale="ua-UA"
+          :minFractionDigits="2"
+          :maxFractionDigits="2"
+          :step="0.01"
+          @input="$emit('onChange')"
+        />
+        <!-- suffix="₴" -->
+
+        <label for="bid">Ставка</label>
+      </span>
+    </div>
 
     <h4>Кампании</h4>
 
@@ -53,7 +62,9 @@
       @click="showImportDialog"
     ></Button>
 
-    <p v-if="isCampaignsLoading">Загрузка...</p>
+    <p v-if="isCampaignsLoading">
+      <i class="pi pi-spin pi-spinner"></i> Загрузка...
+    </p>
 
     <DataTable
       v-else
@@ -73,7 +84,7 @@
       v-if="isShowImportDialog"
     />
 
-    <div class="savebtn">
+    <div class="savebtn" v-if="!isCampaignsLoading && !isSettingsLoading">
       <Button
         label="Сохранить изменения"
         icon="pi pi-save"
@@ -85,6 +96,7 @@
 </template>
 
 <script>
+import apiSettings from "@/api/apiSettings";
 import apiCampaign from "@/api/apiCampaign";
 import ImportCampaignDialog from "@/components/ImportCampaignDialog";
 
@@ -104,6 +116,7 @@ export default {
     return {
       profile: {},
       isShowImportDialog: false,
+      isSettingsLoading: false,
       activityList: [
         { name: "Профиль активен", value: true },
         { name: "Профиль остановлен", value: false },
@@ -114,9 +127,11 @@ export default {
   created() {
     this.profile = this.profileLink;
 
-    if (this.profile.activity === undefined) {
-      this.profile.activity = true;
+    if (this.profile.settings === undefined) {
+      this.profile.settings = {};
     }
+
+    this.loadSettings();
 
     this.$store.dispatch("getProfileCampaigns", {
       type: "imported",
@@ -125,6 +140,21 @@ export default {
   },
 
   methods: {
+    loadSettings() {
+      this.isSettingsLoading = true;
+      apiSettings
+        .getMainSettings(this.profile.id)
+        .then((result) => {
+          this.profile.settings = result.data.data;
+        })
+        .catch(() => {
+          this.$store.dispatch("error", "Не удалось загрузить настройки");
+        })
+        .finally(() => {
+          this.isSettingsLoading = false;
+        });
+    },
+
     saveChanges() {
       this.$toast.add({
         severity: "info",
@@ -139,7 +169,7 @@ export default {
           this.$toast.add({
             severity: "success",
             summary: "Сохранено",
-            detail: "Успешно сохранено",
+            detail: "Кампании сохранены",
             life: 3000,
           });
         })
@@ -151,6 +181,27 @@ export default {
             life: 3000,
           });
         });
+
+      apiSettings
+        .setMainSettings(this.profile.id, this.profile.settings)
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Сохранено",
+            detail: "Настройки сохранены",
+            life: 3000,
+          });
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Ошибка",
+            detail: "Не удалось сохранить настройки",
+            life: 3000,
+          });
+        });
+
+      this.$emit("onSave");
     },
 
     hideImportDialog() {

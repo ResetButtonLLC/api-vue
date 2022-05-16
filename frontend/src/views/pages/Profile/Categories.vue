@@ -2,11 +2,6 @@
   <div>
     <h4>Категории</h4>
 
-    <p>
-      <i class="pi pi-info-circle"></i> Выбрать активные категории можно после
-      загрузки фида
-    </p>
-
     <p v-if="isCategoriesLoading || isCampaignsLoading">Загрузка...</p>
     <TableCategories
       v-else

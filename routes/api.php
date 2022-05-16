@@ -7,6 +7,7 @@ use App\Http\Controllers\API\FeedController;
 use App\Http\Controllers\API\PreviewController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\ReplaceController;
+use App\Http\Controllers\API\SettingsController;
 use App\Http\Controllers\API\TemplateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
@@ -23,6 +24,18 @@ Route::middleware('auth:sanctum')->group(
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
         Route::post('/profile/{profile}/settings', [ProfileController::class, 'settings']);
+
+        /** SETTINGS */
+        Route::get('/settings/profile/{profileId}/get', [SettingsController::class, 'getProfile']);
+        Route::post('/settings/profile/{profileId}/set', [SettingsController::class, 'setProfile']);
+        Route::get('/settings/import/{profileId}/get', [SettingsController::class, 'getImport']);
+        Route::post('/settings/import/{profileId}/set', [SettingsController::class, 'setImport']);
+        Route::get('/settings/ads/{profileId}/get', [SettingsController::class, 'getAds']);
+        Route::post('/settings/ads/{profileId}/set', [SettingsController::class, 'setAds']);
+        Route::get('/settings/keywords/{profileId}/get', [SettingsController::class, 'getKeywords']);
+        Route::post('/settings/keywords/{profileId}/set', [SettingsController::class, 'setKeywords']);
+        Route::get('/settings/autoupdate/{profileId}/get', [SettingsController::class, 'getAutoupdate']);
+        Route::post('/settings/autoupdate/{profileId}/set', [SettingsController::class, 'setAutoupdate']);
 
         /** CAMPAIGNS */
         Route::get('/campaigns/{profile}/imported', [CampaignController::class, 'getImported']);
