@@ -34,7 +34,7 @@
       <ProfileInfo
         v-if="isCurrentPageInfo"
         :profileLink="profile"
-        :clientLink="client"
+        :projectLink="project"
         @onChange="onChanges"
         @onSave="onSaveChanges"
       />
@@ -202,7 +202,7 @@ export default {
   },
 
   props: {
-    clientId: {
+    projectId: {
       default: 0,
     },
     id: {
@@ -256,24 +256,24 @@ export default {
 
     isWrongLink() {
       return (
-        (this.client == null || this.profile == null) && this.clients.length
+        (this.project == null || this.profile == null) && this.projects.length
       );
     },
 
-    clients() {
-      return this.$store.getters.getClients;
+    projects() {
+      return this.$store.getters.getProjects;
     },
 
-    client() {
-      return this.clients.find((el) => el.id == this.clientId);
+    project() {
+      return this.projects.find((el) => el.id == this.projectId);
     },
 
-    clientName() {
-      return this.client && this.client.name ? this.client.name : "";
+    projectName() {
+      return this.project && this.project.name ? this.project.name : "";
     },
 
     profiles() {
-      return this.client && this.client.profiles ? this.client.profiles : [];
+      return this.project && this.project.profiles ? this.project.profiles : [];
     },
 
     profile() {

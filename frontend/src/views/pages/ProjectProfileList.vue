@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="btnlist">
-      <h2>Список проектов</h2>
+      <h2>Проект {{ projectName }}</h2>
 
       <Button
-        label="Создать проект"
+        label="Создать профиль"
         icon="pi pi-plus"
         class="p-button-success"
         @click="navigateToCreate"
       ></Button>
     </div>
 
-    <div v-if="!clients.length">
-      <h2 class="text-center mt-4">{{ noClientLabel }}</h2>
+    <div v-if="!profiles.length">
+      <h2 class="text-center mt-4">{{ noProjectLabel }}</h2>
     </div>
 
     <div v-else>
@@ -23,7 +23,7 @@
 
       <DataTable
         ref="dt"
-        :value="filteredClients"
+        :value="filteredProfiles"
         data-key="id"
         :paginator="true"
         :rows="10"
@@ -40,7 +40,10 @@
 
         <Column field="name" header="Название" sortable>
           <template #body="slotProps">
-            <p class="profilelink" @click="navigateToClient(slotProps.data.id)">
+            <p
+              class="profilelink"
+              @click="navigateToProfile(slotProps.data.id)"
+            >
               {{ slotProps.data.name }}
             </p>
           </template>
@@ -52,26 +55,25 @@
           bodyStyle="text-align: center"
         >
           <template #body="slotProps">
-            <!--
             <Button
-              v-tooltip.top="'Редактировать'"
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-primary mr-2"
+              v-tooltip.top="'Клонировать'"
+              icon="pi pi-link"
+              class="p-button-rounded p-button-warning mr-2"
             />
-            -->
 
             <Button
-              v-tooltip.top="'Просмотр профилей'"
+              v-tooltip.top="'Просмотреть'"
               icon="pi pi-eye"
               class="p-button-rounded p-button-success"
-              @click="navigateToClient(slotProps.data.id)"
+              @click="navigateToProfile(slotProps.data.id)"
             />
           </template>
         </Column>
       </DataTable>
     </div>
 
-    <CreateClientDialog
+    <CreateProfileDialog
+      :projectId="id"
       v-if="isShowCreateDialog"
       v-on:cancel="isShowCreateDialog = false"
     />
@@ -79,11 +81,11 @@
 </template>
 
 <script>
-import CreateClientDialog from "@/components/CreateClientDialog";
+import CreateProfileDialog from "@/components/CreateProfileDialog";
 
 export default {
   components: {
-    CreateClientDialog,
+    CreateProfileDialog,
   },
 
   data() {
@@ -93,33 +95,47 @@ export default {
     };
   },
 
+  props: {
+    id: {
+      default: 0,
+    },
+  },
+
   methods: {
     navigateToCreate() {
       this.isShowCreateDialog = true;
     },
 
-    navigateToClient(id) {
+    navigateToProfile(id) {
       this.$store.dispatch("route", {
-        name: "ClientProfileList",
-        params: { id: id },
+        name: "Profile",
+        params: {projectId: this.id, id: id },
       });
     },
   },
 
   computed: {
-    clients() {
-      return this.$store.getters.getClients;
+    project() {
+      return this.$store.getters.getProjects.find((el) => el.id == this.id);
     },
 
-    filteredClients() {
+    projectName() {
+      return this.project && this.project.name ? this.project.name : "";
+    },
+
+    profiles() {
+      return this.project && this.project.profiles ? this.project.profiles : [];
+    },
+
+    filteredProfiles() {
       if (this.filter.length) {
-        return this.clients.filter((el) => el.name.indexOf(this.filter) >= 0);
-      } else return this.clients;
+        return this.profiles.filter((el) => el.name.indexOf(this.filter) >= 0);
+      } else return this.profiles;
     },
 
-    noClientLabel() {
-      return this.$store.isClientLoaded
-        ? "У вас нет доступных проектов"
+    noProjectLabel() {
+      return this.project && this.profiles
+        ? "У вас нет доступных профилей"
         : "Загрузка...";
     },
   },

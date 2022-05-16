@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import userModule from '@/store/modules/user';
-import clientModule from '@/store/modules/clients';
+import projectModule from '@/store/modules/projects';
 import categoryModule from '@/store/modules/categories';
 import campaignModule from '@/store/modules/campaigns';
 import templateModule from '@/store/modules/templates';
@@ -14,7 +14,7 @@ const WHERE_SHOW_MENU = [
 export default createStore({
   modules: {
     user: userModule,
-    clients: clientModule,
+    projects: projectModule,
     categories: categoryModule,
     campaigns: campaignModule,
     templates: templateModule,

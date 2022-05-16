@@ -34,7 +34,7 @@ import AppFooter from "./AppFooter.vue";
 export default {
   created() {
     this.$store.dispatch("updateUserInfo");
-    this.$store.dispatch("loadClients");
+    this.$store.dispatch("loadProjects");
   },
 
   data() {

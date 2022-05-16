@@ -32,7 +32,7 @@
         label="Сохранить"
         icon="pi pi-save"
         class="p-button-success"
-        @click="addClient"
+        @click="addProject"
       />
     </template>
   </Dialog>
@@ -42,7 +42,7 @@
 <script>
 export default {
   methods: {
-    addClient() {
+    addProject() {
       this.submitted = true;
 
       if (!this.name) {
@@ -50,7 +50,7 @@ export default {
       }
 
       this.isProcessing = true;
-      this.$store.dispatch("createClient", this.name);
+      this.$store.dispatch("createProject", this.name);
     },
   },
 

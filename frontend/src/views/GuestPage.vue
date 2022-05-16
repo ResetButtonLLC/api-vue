@@ -30,7 +30,7 @@ export default {
   created() {
     if (this.isAuthorized) {
       this.$router.push({
-        name: "ClientList",
+        name: "ProjectList",
       });
     }
   },

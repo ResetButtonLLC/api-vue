@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  props: ["clientId"],
+  props: ["projectId"],
 
   methods: {
     addProfile() {
@@ -54,7 +54,7 @@ export default {
       this.isProcessing = true;
 
       this.$store.dispatch("createProfile", {
-        clientId: this.clientId,
+        projectId: this.projectId,
         name: this.name,
       });
     },

@@ -1,37 +1,37 @@
-import apiClients from "@/api/apiClients";
+import apiProjects from "@/api/apiProjects";
 import apiProfiles from "@/api/apiProfiles";
 
 export default {
     state: () => ({
-        clients: [],
-        isClientLoaded: false,
+        projects: [],
+        isProjectLoaded: false,
     }),
     mutations: {
-        setClients(state, clients) {
-            state.isClientLoaded = true;
-            state.clients = clients;
+        setProjects(state, projects) {
+            state.isProjectLoaded = true;
+            state.projects = projects;
         },
 
-        addClient(state, client) {
-            state.clients.push(client);
+        addProject(state, project) {
+            state.projects.push(project);
         },
 
         addProfile(state, profile) {
-            let client = state.clients.find((el) => el.id == profile.client_id);
+            let project = state.projects.find((el) => el.id == profile.project_id);
 
-            client.profiles.push(profile);
+            project.profiles.push(profile);
         }
     },
     actions: {
-        createClient(context, name) {
-            apiClients.createClient(name).then((result) => {
-                let client = result.data.data;
-                context.commit('addClient', client);
+        createProject(context, name) {
+            apiProjects.createProject(name).then((result) => {
+                let project = result.data.data;
+                context.commit('addProject', project);
 
                 context.dispatch('route', {
-                    name: 'ClientProfileList',
+                    name: 'ProjectProfileList',
                     params: {
-                        id: client.id
+                        id: project.id
                     }
                 });
             }).catch(() => {
@@ -39,16 +39,16 @@ export default {
             });
         },
 
-        loadClients(context) {
-            apiClients.getClients().then((result) => {
-                context.commit('setClients', result.data.data);
+        loadProjects(context) {
+            apiProjects.getProjects().then((result) => {
+                context.commit('setProjects', result.data.data);
             }).catch(() => {
                 context.dispatch('error', 'Не удалось загрузить список проектов');
             });
         },
 
-        createProfile(context, { clientId, name }) {
-            apiProfiles.createProfile(clientId, name).then((result) => {
+        createProfile(context, { projectId: projectId, name }) {
+            apiProfiles.createProfile(projectId, name).then((result) => {
                 let profile = result.data.data;
 
                 context.commit('addProfile', profile);
@@ -57,7 +57,7 @@ export default {
                     name: 'Profile',
                     params: {
                         id: profile.id,
-                        clientId: clientId
+                        projectId: projectId
                     }
                 });
 
@@ -69,22 +69,22 @@ export default {
     },
 
     getters: {
-        getClients(state) {
-            return state.clients;
+        getProjects(state) {
+            return state.projects;
         },
 
         getProfiles(state) {
             let result = [];
 
-            state.clients.forEach((el) => {
+            state.projects.forEach((el) => {
                 result = result.concat(el.profiles);
             });
 
             return result;
         },
 
-        isClientLoaded(state) {
-            return state.isClientLoaded;
+        isProjectLoaded(state) {
+            return state.isProjectLoaded;
         }
     }
 }

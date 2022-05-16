@@ -8,8 +8,8 @@ const routes = [
     },
     {
         path: '/',
-        name: 'ClientList',
-        component: () => import('@/views/pages/ClientList.vue'),
+        name: 'ProjectList',
+        component: () => import('@/views/pages/ProjectList.vue'),
     },
 
     {
@@ -20,14 +20,14 @@ const routes = [
     },
 
     {
-        path: '/client/:id',
-        name: 'ClientProfileList',
+        path: '/project/:id',
+        name: 'ProjectProfileList',
         props: true,
-        component: () => import('@/views/pages/ClientProfileList.vue'),
+        component: () => import('@/views/pages/ProjectProfileList.vue'),
     },
 
     {
-        path: '/client/:clientId/profile/:id',
+        path: '/project/:projectId/profile/:id',
         name: 'Profile',
         props: true,
         component: () => import('@/views/pages/Profile.vue'),
