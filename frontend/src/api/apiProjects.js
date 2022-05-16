@@ -1,7 +1,7 @@
 import apiService from "@/api/apiService";
 
 const getProjectsPath = '/api/projects';
-const createProjectPath = '/api/project/create';
+const createProjectPath = '/api/project';
 
 export default {
     getProjects() {

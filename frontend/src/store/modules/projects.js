@@ -1,4 +1,5 @@
 import apiProjects from "@/api/apiProjects";
+import apiProfiles from "@/api/apiProfiles";
 //import { result } from "lodash";
 
 function buildProfiles(items, projectId) {
@@ -35,7 +36,7 @@ function buildProjects(items) {
     });
 
     result.push({
-        label: 'Добавить клиента',
+        label: 'Добавить проект',
         icon: "pi pi-fw pi-plus",
         to: { name: "CreateProject" },
     });
@@ -75,7 +76,7 @@ export default {
                     }
                 });
             }).catch(() => {
-                context.dispatch('error', 'Не удалось создать клиента');
+                context.dispatch('error', 'Не удалось создать проект');
             });
         },
 
@@ -83,7 +84,7 @@ export default {
             apiProjects.getProjects().then((result) => {
                 context.commit('setProjects', result.data.data);
             }).catch(() => {
-                context.dispatch('error', 'Не удалось загрузить список клиентов');
+                context.dispatch('error', 'Не удалось загрузить список проектов');
             });
         },
 
@@ -111,7 +112,7 @@ export default {
     getters: {
         getProjectsForMenu(state) {
             return [{
-                label: "Клиенты",
+                label: "Проекты",
                 items: buildProjects(state.projects)
             }];
         },
