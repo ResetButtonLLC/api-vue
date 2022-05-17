@@ -56,7 +56,7 @@
             "@php artisan storage:link",
             "@php artisan migrate --force",
             "@php artisan optimize:clear",
-            "cd ./frontend && npm install",
+            "cd ./frontend && npm install --include=dev",
             "npm --prefix ./frontend run build"
         ],
         "deploy": [
@@ -64,7 +64,7 @@
             "@php artisan storage:link",
             "@php artisan migrate --force",
             "@php artisan optimize:clear",
-            "cd ./frontend && npm install",
+            "cd ./frontend && npm install --include=dev",
             "npm --prefix ./frontend run build"
         ]
     },
