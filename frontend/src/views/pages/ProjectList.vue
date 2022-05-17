@@ -40,7 +40,10 @@
 
         <Column field="name" header="Название" sortable>
           <template #body="slotProps">
-            <p class="profilelink" @click="navigateToProject(slotProps.data.id)">
+            <p
+              class="profilelink"
+              @click="navigateToProject(slotProps.data.id)"
+            >
               {{ slotProps.data.name }}
             </p>
           </template>
@@ -118,9 +121,9 @@ export default {
     },
 
     noProjectLabel() {
-      return this.$store.isProjectLoaded
-        ? "У вас нет доступных проектов"
-        : "Загрузка...";
+      return this.$store.getters.isProjectLoading
+        ? "Загрузка..."
+        : "У вас нет доступных проектов";
     },
   },
 };

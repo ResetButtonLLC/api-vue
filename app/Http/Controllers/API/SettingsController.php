@@ -76,6 +76,15 @@ class SettingsController extends Controller
 
     public function getKeywords(Request $request, Profile $profile)
     {
+        return [
+            'data' => [
+                'generate_algorithm' => 2, // 1 - simple, 2 - progressive
+                'split_after_comma' => true,
+                'prefix_before_brand' => true,
+                'brakets_for_keys' => true,
+                'delete_cyrillic_from_keys' => true
+            ]
+        ];
     }
 
     public function setKeywords(Request $request, Profile $profile)
@@ -85,6 +94,17 @@ class SettingsController extends Controller
 
     public function getAutoupdate(Request $request, Profile $profile)
     {
+        return [
+            'data' => [
+                'autoupdate' => true,
+                'min_count' => null,
+                'autoupdate_cleanup' => 7,
+                'times' => [
+                    ['time' => "10:00"],
+                    ['time' => "19:00"]
+                ],
+            ]
+        ];
     }
 
     public function setAutoupdate(Request $request, Profile $profile)

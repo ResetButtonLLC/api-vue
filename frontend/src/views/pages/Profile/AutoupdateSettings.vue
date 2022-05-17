@@ -2,6 +2,14 @@
   <div>
     <h4>Автообновление</h4>
 
+    <div v-if="isSettingsLoading">
+      <p>
+        <i class="pi pi-spin pi-spinner"></i>
+        Загрузка...
+      </p>
+    </div>
+
+    <div v-else>
     <p>
       <i class="pi pi-info-circle"></i> Автообновление не будет работать, т.к.
       для этого нужно указать ссылку источника
@@ -17,7 +25,7 @@
     </div>
 
     <div
-      v-for="(update, index) in profile.autoupdates"
+      v-for="(update, index) in profile.settings.times"
       class="group w-full my-1"
       :key="index"
     >
@@ -53,7 +61,7 @@
         <InputNumber
           class="w-full"
           id="min_count"
-          v-model="profile.min_count"
+          v-model="profile.settings.min_count"
           mode="decimal"
           @input="$emit('onChange')"
         />
@@ -97,28 +105,77 @@
         label="Сохранить изменения"
         icon="pi pi-save"
         class="mt-4 mb-4 p-button-success"
+        @click="saveChanges"
       ></Button>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
-const EMPTY_UDATE = {
-  day: 0,
+const EMPTY_UPDATE = {
   time: null,
 };
+
+import apiSettings from "@/api/apiSettings";
 
 export default {
   methods: {
     addUpdate() {
-      this.profile.autoupdates.push({ ...EMPTY_UDATE });
+      this.profile.settings.times.push({ ...EMPTY_UPDATE });
       this.$emit("onChange");
     },
 
     deleteUpdate(index) {
-      this.profile.autoupdates.splice(index, 1);
+      this.profile.settings.times.splice(index, 1);
       this.$emit("onChange");
     },
+
+    loadSettings() {
+      this.isSettingsLoading = true;
+      apiSettings
+        .getAutoupdateSettings(this.profile.id)
+        .then((result) => {
+          this.profile.settings = result.data.data;
+        })
+        .catch(() => {
+          this.$store.dispatch("error", "Не удалось загрузить настройки");
+        })
+        .finally(() => {
+          this.isSettingsLoading = false;
+        });
+    },
+
+    saveChanges() {
+      this.$toast.add({
+        severity: "info",
+        summary: "В процессе",
+        detail: "Отправляю запрос...",
+        life: 3000,
+      });
+
+      apiSettings
+        .setAutoupdateSettings(this.profile.id, this.profile.settings)
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Сохранено",
+            detail: "Настройки сохранены",
+            life: 3000,
+          });
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Ошибка",
+            detail: "Не удалось сохранить настройки",
+            life: 3000,
+          });
+        });
+
+      this.$emit("onSave");
+    },
+
   },
 
   props: {
@@ -131,11 +188,14 @@ export default {
   data() {
     return {
       profile: {},
+      isSettingsLoading: false,
     };
   },
 
   created() {
     this.profile = this.profileLink;
+    this.profile.settings = {};
+    this.loadSettings();
   },
 };
 </script>

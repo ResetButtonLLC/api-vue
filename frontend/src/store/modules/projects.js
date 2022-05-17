@@ -5,10 +5,16 @@ import apiProfiles from "@/api/apiProfiles";
 export default {
     state: () => ({
         projects: [],
+        isProjectLoading: false,
     }),
     mutations: {
         setProjects(state, projects) {
             state.projects = projects;
+        },
+
+        setProjectLoading(state,isLoading)
+        {
+            state.isProjectLoading = isLoading;
         },
 
         addProject(state, project) {
@@ -39,10 +45,14 @@ export default {
         },
 
         loadProjects(context) {
+            context.commit('setProjectLoading',true);
+
             apiProjects.getProjects().then((result) => {
                 context.commit('setProjects', result.data.data);
             }).catch(() => {
                 context.dispatch('error', 'Не удалось загрузить список проектов');
+            }).finally(()=>{
+                context.commit('setProjectLoading',false);
             });
         },
 
@@ -79,5 +89,10 @@ export default {
 
             return result;
         },
+
+        isProjectLoading(state)
+        {
+            return state.isProjectLoading;
+        }
     }
 }
