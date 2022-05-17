@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (AccessDeniedHttpException $e, $request) {
-            return response(null,403,['content-type' => 'application/json']);
+            return response()->noContent(403);
         });
 
     }

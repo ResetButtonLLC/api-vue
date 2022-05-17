@@ -9,7 +9,7 @@ class DeleteResponse implements Responsable
 
     public function toResponse($request)
     {
-        return response('', 204);
+        return response()->noContent(204);
     }
 
 }

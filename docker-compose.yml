@@ -37,6 +37,22 @@ services:
 #      - ./.docker/mysql/mysql-files:/var/lib/mysql-files
     networks:
       - network-gym
+      
+  postgres-gym:
+    image: postgres:alpine
+    container_name: postgres-gym
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER : ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      
+    ports:
+      - '5432:5432'
+#    volumes: 
+#      - ./.docker/postgres/db:/var/lib/postgresql/data 
+    networks:
+      - network-gym
 
   nginx-gym:
     image: nginx:alpine
