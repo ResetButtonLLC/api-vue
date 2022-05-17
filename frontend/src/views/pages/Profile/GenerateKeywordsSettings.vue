@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isSettingsLoading">
-      <p>
+      <p class="text-center">
         <i class="pi pi-spin pi-spinner"></i>
         Загрузка...
       </p>
@@ -11,53 +11,32 @@
       <div class="text-center">
         <h5>
           Алгоритм генерации
-          <i
-            class="pi pi-question-circle mr-2"
-            v-tooltip.bottom="
-              'Простой алгоритм - он очень простой, но иногда может пригодиться\n\nПрогрессивный - более продвинутый, его используют чаще'
-            "
-          ></i>
+          <i class="pi pi-question-circle mr-2" v-tooltip.bottom="
+            'Простой алгоритм - он очень простой, но иногда может пригодиться\n\nПрогрессивный - более продвинутый, его используют чаще'
+          "></i>
         </h5>
 
-        <SelectButton
-          v-model="profile.settings.generate_algorithm"
-          :options="generateAlgorithmList"
-          optionLabel="name"
-          optionValue="value"
-          @change="$emit('onChange')"
-        />
+        <SelectButton v-model="profile.settings.generate_algorithm" :options="generateAlgorithmList" optionLabel="name"
+          optionValue="value" @change="$emit('onChange')" />
       </div>
 
       <div class="infobox mt-4">
         <div class="switch">
-          <InputSwitch
-            id="split_after_comma"
-            v-model="profile.settings.split_after_comma"
-            @change="$emit('onChange')"
-          />
-          <label for="split_after_comma"
-            >Обрезать текст после запятой в теге NAME</label
-          >
+          <InputSwitch id="split_after_comma" v-model="profile.settings.split_after_comma"
+            @change="$emit('onChange')" />
+          <label for="split_after_comma">Обрезать текст после запятой в теге NAME</label>
         </div>
 
-        <i
-          class="pi pi-question-circle"
-          v-tooltip.left="
-            'Если в теге NAME будет присутствовать запятая - запятая и все последующие данные будут отброшены'
-          "
-        ></i>
+        <i class="pi pi-question-circle" v-tooltip.left="
+          'Если в теге NAME будет присутствовать запятая - запятая и все последующие данные будут отброшены'
+        "></i>
       </div>
 
       <div class="infobox mt-4">
         <div class="switch">
-          <InputSwitch
-            id="prefix_before_brand"
-            v-model="profile.settings.prefix_before_brand"
-            @change="$emit('onChange')"
-          />
-          <label for="prefix_before_brand"
-            >Префикс перед брендом для ключей</label
-          >
+          <InputSwitch id="prefix_before_brand" v-model="profile.settings.prefix_before_brand"
+            @change="$emit('onChange')" />
+          <label for="prefix_before_brand">Префикс перед брендом для ключей</label>
         </div>
 
         <i class="pi pi-question-circle" v-tooltip.left="'описание'"></i>
@@ -65,11 +44,7 @@
 
       <div class="infobox mt-4">
         <div class="switch">
-          <InputSwitch
-            id="brakets_for_keys"
-            v-model="profile.settings.brakets_for_keys"
-            @change="$emit('onChange')"
-          />
+          <InputSwitch id="brakets_for_keys" v-model="profile.settings.brakets_for_keys" @change="$emit('onChange')" />
           <label for="brakets_for_keys">Данные в скобках для ключей</label>
         </div>
 
@@ -78,31 +53,19 @@
 
       <div class="infobox mt-4">
         <div class="switch">
-          <InputSwitch
-            id="delete_cyrillic_from_keys"
-            v-model="profile.settings.delete_cyrillic_from_keys"
-            @change="$emit('onChange')"
-          />
-          <label for="delete_cyrillic_from_keys"
-            >Удалять кириллицу из ключей</label
-          >
+          <InputSwitch id="delete_cyrillic_from_keys" v-model="profile.settings.delete_cyrillic_from_keys"
+            @change="$emit('onChange')" />
+          <label for="delete_cyrillic_from_keys">Удалять кириллицу из ключей</label>
         </div>
 
-        <i
-          class="pi pi-question-circle"
-          v-tooltip.left="
-            'Слова состоящие из кирилличиских символов будут удалены. Бренд не удаляется.'
-          "
-        ></i>
+        <i class="pi pi-question-circle" v-tooltip.left="
+          'Слова состоящие из кирилличиских символов будут удалены. Бренд не удаляется.'
+        "></i>
       </div>
 
       <div class="savebtn">
-        <Button
-          class="mt-4 mb-2 p-button-success"
-          label="Сохранить изменения"
-          icon="pi pi-save"
-          @click="saveChanges"
-        ></Button>
+        <Button class="mt-4 mb-2 p-button-success" label="Сохранить изменения" icon="pi pi-save"
+          @click="saveChanges"></Button>
       </div>
     </div>
   </div>

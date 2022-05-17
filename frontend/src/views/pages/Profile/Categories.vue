@@ -2,22 +2,21 @@
   <div>
     <h4>Категории</h4>
 
-    <p v-if="isCategoriesLoading || isCampaignsLoading">Загрузка...</p>
-    <TableCategories
-      v-else
-      :categoriesLink="categories"
-      :campaignsLink="campaigns"
-      :key="categories"
-      @onChange="$emit('onChange')"
-    />
+    <div v-if="isCategoriesLoading || isCampaignsLoading">
+      <p class="text-center">
+        <i class="pi pi-spin pi-spinner"></i>
+        Загрузка...
+      </p>
+    </div>
 
-    <div class="savebtn">
-      <Button
-        label="Сохранить изменения"
-        icon="pi pi-save"
-        class="mt-2 mb-4 p-button-success"
-        @click="saveChanges"
-      ></Button>
+    <div v-else>
+      <TableCategories :categoriesLink="categories" :campaignsLink="campaigns" :key="categories"
+        @onChange="$emit('onChange')" />
+
+      <div class="savebtn">
+        <Button label="Сохранить изменения" icon="pi pi-save" class="mt-2 mb-4 p-button-success"
+          @click="saveChanges"></Button>
+      </div>
     </div>
   </div>
 </template>

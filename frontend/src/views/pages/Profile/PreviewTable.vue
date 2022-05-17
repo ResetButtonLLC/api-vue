@@ -1,15 +1,12 @@
 <template>
-  <DataTable
-    :value="previewList"
-    :paginator="true"
-    class="p-datatable-customers mt-2"
-    showGridlines
-    :rows="10"
-    responsiveLayout="scroll"
-    :loading="isLoading"
-  >
+  <DataTable :value="previewList" :paginator="true" class="p-datatable-customers mt-2" showGridlines :rows="10"
+    responsiveLayout="scroll" :loading="isLoading">
     <template #empty> В локальной базе ничего нет </template>
-    <template #loading> Загрузка... </template>
+    <template #loading>
+      <div class="text-center">
+        <i class="pi pi-spin pi-spinner"></i> Загрузка...
+      </div>
+    </template>
 
     <Column v-if="isShow('id')" field="id" header="ID">
       <template #body="slotProps">
@@ -29,11 +26,7 @@
       </template>
     </Column>
 
-    <Column
-      v-if="isShow('editstatus')"
-      field="editstatus"
-      header="Статус редактирования"
-    >
+    <Column v-if="isShow('editstatus')" field="editstatus" header="Статус редактирования">
       <template #body="slotProps">
         {{ slotProps.data.editstatus }}
       </template>
@@ -63,31 +56,19 @@
       </template>
     </Column>
 
-    <Column
-      v-if="isShow('adcount')"
-      field="adcount"
-      header="Количество объявлений"
-    >
+    <Column v-if="isShow('adcount')" field="adcount" header="Количество объявлений">
       <template #body="slotProps">
         {{ slotProps.data.adcount }}
       </template>
     </Column>
 
-    <Column
-      v-if="isShow('adcount-active')"
-      field="adcount-active"
-      header="Количество активных объявлений"
-    >
+    <Column v-if="isShow('adcount-active')" field="adcount-active" header="Количество активных объявлений">
       <template #body="slotProps">
         {{ slotProps.data.adcount_active }}
       </template>
     </Column>
 
-    <Column
-      v-if="isShow('adcount-paused')"
-      field="adcount-paused"
-      header="Количество объявлений в паузе"
-    >
+    <Column v-if="isShow('adcount-paused')" field="adcount-paused" header="Количество объявлений в паузе">
       <template #body="slotProps">
         {{ slotProps.data.adcount_paused }}
       </template>
@@ -99,11 +80,7 @@
       </template>
     </Column>
 
-    <Column
-      v-if="isShow('campaigngoogleid')"
-      field="campaigngoogleid"
-      header="ID кампании в Google"
-    >
+    <Column v-if="isShow('campaigngoogleid')" field="campaigngoogleid" header="ID кампании в Google">
       <template #body="slotProps">
         {{ slotProps.data.campaigngoogleid }}
       </template>
@@ -115,11 +92,7 @@
       </template>
     </Column>
 
-    <Column
-      v-if="isShow('groupgoogleid')"
-      field="groupgoogleid"
-      header="ID группы в Google"
-    >
+    <Column v-if="isShow('groupgoogleid')" field="groupgoogleid" header="ID группы в Google">
       <template #body="slotProps">
         {{ slotProps.data.groupgoogleid }}
       </template>
@@ -131,23 +104,15 @@
       </template>
     </Column>
 
-    <Column
-      v-for="headlineNumber in headlineSet"
-      :field="'headline' + headlineNumber"
-      :header="'Заголовок ' + headlineNumber"
-      :key="'headline' + headlineNumber"
-    >
+    <Column v-for="headlineNumber in headlineSet" :field="'headline' + headlineNumber"
+      :header="'Заголовок ' + headlineNumber" :key="'headline' + headlineNumber">
       <template #body="slotProps">
         {{ slotProps.data.headlines[headlineNumber].value ?? "" }}
       </template>
     </Column>
 
-    <Column
-      v-for="descriptionNumber in descriptionSet"
-      :field="'description' + descriptionNumber"
-      :header="'Описание ' + descriptionNumber"
-      :key="'description' + descriptionNumber"
-    >
+    <Column v-for="descriptionNumber in descriptionSet" :field="'description' + descriptionNumber"
+      :header="'Описание ' + descriptionNumber" :key="'description' + descriptionNumber">
       <template #body="slotProps">
         {{ slotProps.data.descriptions[descriptionNumber].value ?? "" }}
       </template>

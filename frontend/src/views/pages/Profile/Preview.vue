@@ -10,35 +10,26 @@
     </div>
 
     <div>
-      <FilterCreator
-        v-if="!isLoading"
-        :campaignList="campaigns"
-        :categoryList="categories"
-        :groupList="groups"
-        @addFilter="addFilter"
-      />
+      <FilterCreator v-if="!isLoading" :campaignList="campaigns" :categoryList="categories" :groupList="groups"
+        @addFilter="addFilter" />
 
-      <div v-else>Загрузка...</div>
+      <div v-else>
+        <p class="text-center">
+          <i class="pi pi-spin pi-spinner"></i>
+          Загрузка...
+        </p>
+      </div>
     </div>
 
     <div class="mt-4 panel">
-      <SelectButton
-        v-model="currentPreviewType"
-        :options="previewTypes"
-        optionLabel="name"
-        optionValue="value"
-        @change="updatePreview(value)"
-      />
+      <SelectButton v-model="currentPreviewType" :options="previewTypes" optionLabel="name" optionValue="value"
+        @change="updatePreview(value)" />
 
       <FilterTableFields :profileLink="profile" />
     </div>
 
-    <PreviewTable
-      :profileLink="profileLink"
-      :activeFieldList="activeFieldList"
-      :isLoading="isLoading"
-      :previewList="previewList"
-    />
+    <PreviewTable :profileLink="profileLink" :activeFieldList="activeFieldList" :isLoading="isLoading"
+      :previewList="previewList" />
   </div>
 </template>
 

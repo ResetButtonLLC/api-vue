@@ -3,16 +3,19 @@
     <div class="btnlist">
       <h2>Проект {{ projectName }}</h2>
 
-      <Button
-        label="Создать профиль"
-        icon="pi pi-plus"
-        class="p-button-success"
-        @click="navigateToCreate"
-      ></Button>
+      <Button label="Создать профиль" icon="pi pi-plus" class="p-button-success" @click="navigateToCreate"></Button>
     </div>
 
     <div v-if="!profiles.length">
-      <h2 class="text-center mt-4">{{ noProjectLabel }}</h2>
+      <h4 class="text-center mt-4">
+        <div v-if="project && profiles">
+          У вас нет доступных профилей
+        </div>
+
+        <div v-else>
+          <i class="pi pi-spin pi-spinner" style="font-size:1.4rem"></i> Загрузка...
+        </div>
+      </h4>
     </div>
 
     <div v-else>
@@ -21,62 +24,32 @@
         <label for="filter">Название проекта</label>
       </span>
 
-      <DataTable
-        ref="dt"
-        :value="filteredProfiles"
-        data-key="id"
-        :paginator="true"
-        :rows="10"
+      <DataTable ref="dt" :value="filteredProfiles" data-key="id" :paginator="true" :rows="10"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
-        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} проектов"
-      >
-        <Column
-          headerStyle="width: 4rem"
-          field="id"
-          header="ID"
-          sortable
-        ></Column>
+        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} проектов">
+        <Column headerStyle="width: 4rem" field="id" header="ID" sortable></Column>
 
         <Column field="name" header="Название" sortable>
           <template #body="slotProps">
-            <p
-              class="profilelink"
-              @click="navigateToProfile(slotProps.data.id)"
-            >
+            <p class="profilelink" @click="navigateToProfile(slotProps.data.id)">
               {{ slotProps.data.name }}
             </p>
           </template>
         </Column>
 
-        <Column
-          headerStyle="width: 10rem"
-          header="Действия"
-          bodyStyle="text-align: center"
-        >
+        <Column headerStyle="width: 10rem" header="Действия" bodyStyle="text-align: center">
           <template #body="slotProps">
-            <Button
-              v-tooltip.top="'Клонировать'"
-              icon="pi pi-link"
-              class="p-button-rounded p-button-warning mr-2"
-            />
+            <Button v-tooltip.top="'Клонировать'" icon="pi pi-link" class="p-button-rounded p-button-warning mr-2" />
 
-            <Button
-              v-tooltip.top="'Просмотреть'"
-              icon="pi pi-eye"
-              class="p-button-rounded p-button-success"
-              @click="navigateToProfile(slotProps.data.id)"
-            />
+            <Button v-tooltip.top="'Просмотреть'" icon="pi pi-eye" class="p-button-rounded p-button-success"
+              @click="navigateToProfile(slotProps.data.id)" />
           </template>
         </Column>
       </DataTable>
     </div>
 
-    <CreateProfileDialog
-      :projectId="id"
-      v-if="isShowCreateDialog"
-      v-on:cancel="isShowCreateDialog = false"
-    />
+    <CreateProfileDialog :projectId="id" v-if="isShowCreateDialog" v-on:cancel="isShowCreateDialog = false" />
   </div>
 </template>
 
@@ -109,7 +82,7 @@ export default {
     navigateToProfile(id) {
       this.$store.dispatch("route", {
         name: "Profile",
-        params: {projectId: this.id, id: id },
+        params: { projectId: this.id, id: id },
       });
     },
   },
@@ -131,12 +104,6 @@ export default {
       if (this.filter.length) {
         return this.profiles.filter((el) => el.name.indexOf(this.filter) >= 0);
       } else return this.profiles;
-    },
-
-    noProjectLabel() {
-      return this.project && this.profiles
-        ? "У вас нет доступных профилей"
-        : "Загрузка...";
     },
   },
 };

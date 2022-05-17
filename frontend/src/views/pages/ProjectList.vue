@@ -3,16 +3,19 @@
     <div class="btnlist">
       <h2>Список проектов</h2>
 
-      <Button
-        label="Создать проект"
-        icon="pi pi-plus"
-        class="p-button-success"
-        @click="navigateToCreate"
-      ></Button>
+      <Button label="Создать проект" icon="pi pi-plus" class="p-button-success" @click="navigateToCreate"></Button>
     </div>
 
     <div v-if="!projects.length">
-      <h2 class="text-center mt-4">{{ noProjectLabel }}</h2>
+      <h4 class="text-center mt-4">
+        <div v-if="isProjectLoading">
+          <i class="pi pi-spin pi-spinner" style="font-size:1.4rem"></i> Загрузка...
+        </div>
+
+        <div v-else>
+          У вас нет доступных проектов
+        </div>
+      </h4>
     </div>
 
     <div v-else>
@@ -21,39 +24,21 @@
         <label for="filter">Название проекта</label>
       </span>
 
-      <DataTable
-        ref="dt"
-        :value="filteredProjects"
-        data-key="id"
-        :paginator="true"
-        :rows="10"
+      <DataTable ref="dt" :value="filteredProjects" data-key="id" :paginator="true" :rows="10"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
-        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} проектов"
-      >
-        <Column
-          headerStyle="width: 4rem"
-          field="id"
-          header="ID"
-          sortable
-        ></Column>
+        currentPageReportTemplate="Показано от {first} до {last} из {totalRecords} проектов">
+        <Column headerStyle="width: 4rem" field="id" header="ID" sortable></Column>
 
         <Column field="name" header="Название" sortable>
           <template #body="slotProps">
-            <p
-              class="profilelink"
-              @click="navigateToProject(slotProps.data.id)"
-            >
+            <p class="profilelink" @click="navigateToProject(slotProps.data.id)">
               {{ slotProps.data.name }}
             </p>
           </template>
         </Column>
 
-        <Column
-          headerStyle="width: 10rem"
-          header="Действия"
-          bodyStyle="text-align: center"
-        >
+        <Column headerStyle="width: 10rem" header="Действия" bodyStyle="text-align: center">
           <template #body="slotProps">
             <!--
             <Button
@@ -63,21 +48,14 @@
             />
             -->
 
-            <Button
-              v-tooltip.top="'Просмотр профилей'"
-              icon="pi pi-eye"
-              class="p-button-rounded p-button-success"
-              @click="navigateToProject(slotProps.data.id)"
-            />
+            <Button v-tooltip.top="'Просмотр профилей'" icon="pi pi-eye" class="p-button-rounded p-button-success"
+              @click="navigateToProject(slotProps.data.id)" />
           </template>
         </Column>
       </DataTable>
     </div>
 
-    <CreateProjectDialog
-      v-if="isShowCreateDialog"
-      v-on:cancel="isShowCreateDialog = false"
-    />
+    <CreateProjectDialog v-if="isShowCreateDialog" v-on:cancel="isShowCreateDialog = false" />
   </div>
 </template>
 
@@ -120,11 +98,9 @@ export default {
       } else return this.projects;
     },
 
-    noProjectLabel() {
-      return this.$store.getters.isProjectLoading
-        ? "Загрузка..."
-        : "У вас нет доступных проектов";
-    },
+    isProjectLoading() {
+      return this.$store.getters.isProjectLoading;
+    }
   },
 };
 </script>
