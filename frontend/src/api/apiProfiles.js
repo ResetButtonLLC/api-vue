@@ -1,12 +1,18 @@
 import apiService from "@/api/apiService";
 
-const getProfilePath = '/api/profiles';
+const getProfilePath = '/api/profile/';
+const getProfilesPath = '/api/profiles';
 const createProfilePath = '/api/profile';
 const setSettingsPath = '/api/profile/{profileId}/settings';
 
 export default {
+
+    getProfile(profileId) {
+        return apiService.api.get(getProfilePath.replace('{profileId}', profileId));
+    },
+
     getProfiles() {
-        return apiService.api.get(getProfilePath);
+        return apiService.api.get(getProfilesPath);
     },
 
     createProfile(projectId, name) {

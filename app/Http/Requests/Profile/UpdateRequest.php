@@ -14,20 +14,21 @@ class UpdateRequest extends ApiRequest
     {
         return [
             'name' => [
-                'required',
                 'string',
                 'min:2',
                 'max:100',
                 Rule::unique($this->route('profile')->getTable())->ignore($this->route('profile'))
                 ],
-            //todo передавать с фронта только цифры
-            'google_id' =>  'required|integer|between:1000000000,9999999999',
-            'activity' =>  'required|boolean',
-            //todo передавать с точкой с фронта
+            //Общие настройки
+            'google_id' =>  'integer|between:1000000000,9999999999',
+            'activity' =>  'boolean',
+            //todo может на фронте передавать с точкой все?
             'bid' => [
-                'required',
                 'regex:/(\d+\.\d{1,2}|\d+)/'
                 ]
+            //Импорт и фильтрация
+
+
         ];
     }
 
