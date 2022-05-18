@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Profile\ProfileInProjectResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectResource extends JsonResource
@@ -11,7 +12,7 @@ class ProjectResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
-            'profiles'  => ProjectProfileResource::collection($this->profiles),
+            'profiles'  => ProfileInProjectResource::collection($this->profiles),
             'users'  => UserResource::collection($this->whenLoaded('users'))
         ];
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Profile;
 
 use App\Models\Profile;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProjectProfileResource extends JsonResource
+class ProfileInProjectResource extends JsonResource
 {
     public function toArray($request)
     {

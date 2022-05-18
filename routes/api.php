@@ -38,8 +38,10 @@ Route::middleware('auth:sanctum')->group(
         /** PROFILES */
         Route::post('/profile', [ProfileController::class, 'create'])->name('profile.create'); //todo check project access
         Route::middleware('can:profile.access,profile')->group(function () {
-            Route::get('/profile/{profile}', [ProfileController::class, 'view'])->name('profile.view');
-            Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+            Route::get('/profile/{profile}', [ProfileController::class, 'view'])->name('profile.view'); //todo старый метод, но он может быть еще нужен для summary по профилю
+            Route::get('/profile/{profile}/section/main', [ProfileController::class, 'viewSectionMain'])->name('profile.view.main'); //Настройки для секции профиля "Основные"
+            Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update'); //todo старый метод до разбиения на фрагменты
+            Route::patch('/profile/{profile}/section/main', [ProfileController::class, 'updateSectionMain'])->name('profile.update.main');
             Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
         });
 
