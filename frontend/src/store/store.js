@@ -8,7 +8,24 @@ import replacementModule from '@/store/modules/replacements';
 import router from '@/router'
 
 const WHERE_SHOW_MENU = [
-  'Profile'
+  'Profile',
+  'ProfilePreview',
+  'ProfileSettingsMain',
+  'ProfileImportAndFilters',
+  'ProfileCategories',
+  'ProfileGenerateAds',
+  'ProfileGenerateKeywords',
+  'ProfileAutoupdateSettings',
+  'ProfileStatistic',
+  'ProfileAutoupdateLogs',
+  'ProfileLogs'
+];
+
+const WHERE_SHOW_ADMINMENU = [
+  'AdminPanel',
+  'AdminPanelUsers',
+  'AdminPanelAdReplacements',
+  'AdminPanelKeywordReplacements'
 ];
 
 export default createStore({
@@ -42,6 +59,10 @@ export default createStore({
   getters: {
     isShowMenu() {
       return WHERE_SHOW_MENU.includes(router.currentRoute.value.name);
+    },
+
+    isShowAdminMenu() {
+      return WHERE_SHOW_ADMINMENU.includes(router.currentRoute.value.name);
     },
   }
 })

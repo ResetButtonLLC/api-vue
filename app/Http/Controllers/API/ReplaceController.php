@@ -76,4 +76,36 @@ class ReplaceController extends Controller
     {
         return response('ok', 200);
     }
+
+    public function setAdsGlobal(Request $request)
+    {
+        return response('ok', 200);
+    }
+
+    public function getAdsGlobal(Request $request)
+    {
+        return [
+            'data' => [
+                'brands' => "sample1\nsample2",
+                'replacement' => "sample3\nsample4"
+            ]
+        ];
+    }
+
+    public function setKeywordsGlobal(Request $request)
+    {
+        return response('ok', 200);
+    }
+
+    public function getKeywordsGlobal(Request $request)
+    {
+        return [
+            'data' => [
+                'brands' => "sample1\nsample2",
+                'replacement' => "sample3\nsample4",
+                'colors' => "sample5\nsample6",
+                'keys' => "sample7\nsample8"
+            ]
+        ];
+    }
 }

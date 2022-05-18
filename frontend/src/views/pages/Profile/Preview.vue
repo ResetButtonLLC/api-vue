@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <h4>Предпросмотр</h4>
 
     <div v-if="filterList.length" class="flex mb-2">
@@ -28,7 +28,7 @@
       <FilterTableFields :profileLink="profile" />
     </div>
 
-    <PreviewTable :profileLink="profileLink" :activeFieldList="activeFieldList" :isLoading="isLoading"
+    <PreviewTable :profileLink="profile" :activeFieldList="activeFieldList" :isLoading="isLoading"
       :previewList="previewList" />
   </div>
 </template>
@@ -48,12 +48,7 @@ export default {
     PreviewTable,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -81,7 +76,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId }
 
     this.$store.dispatch("getProfileCategories", this.profile.id);
     this.$store.dispatch("getProfileCampaigns", {

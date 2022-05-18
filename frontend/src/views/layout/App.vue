@@ -2,6 +2,11 @@
   <div :class="containerClass" v-if="!isLoginProcess">
     <AppTopBar @menu-toggle="onMenuToggle" />
 
+    <div class="layout-sidebar">
+      <AppMenu v-if="isShowMenu" @menuitem-click="onMenuItemClick" @hideMenu="$emit('hideMenu')" />
+      <AppAdminMenu v-if="isShowAdminMenu" @menuitem-click="onMenuItemClick" @hideMenu="$emit('hideMenu')" />
+    </div>
+
     <div class="layout-main-container">
       <div class="layout-main">
         <Toast />
@@ -11,11 +16,7 @@
     </div>
 
     <transition name="layout-mask">
-      <div
-        class="layout-mask p-component-overlay"
-        v-if="mobileMenuActive"
-        @click="hideMenu"
-      ></div>
+      <div class="layout-mask p-component-overlay" v-if="mobileMenuActive" @click="hideMenu"></div>
     </transition>
   </div>
 
@@ -30,6 +31,8 @@
 <script>
 import AppTopBar from "./AppTopbar.vue";
 import AppFooter from "./AppFooter.vue";
+import AppMenu from "./AppMenu.vue";
+import AppAdminMenu from "./AppAdminMenu.vue";
 
 export default {
   created() {
@@ -114,8 +117,16 @@ export default {
     },
   },
   computed: {
-    isCanToggleMenu() {
+    isShowMenu() {
       return this.$store.getters.isShowMenu;
+    },
+
+    isShowAdminMenu() {
+      return this.$store.getters.isShowAdminMenu;
+    },
+
+    isCanToggleMenu() {
+      return this.isShowMenu || this.isShowAdminMenu;
     },
 
     isLoginProcess() {
@@ -159,6 +170,8 @@ export default {
   components: {
     AppTopBar: AppTopBar,
     AppFooter: AppFooter,
+    AppMenu,
+    AppAdminMenu
   },
 };
 </script>
@@ -176,5 +189,38 @@ export default {
 
 .p-tooltip {
   max-width: 30rem;
+}
+</style>
+
+<style>
+.switch {
+  flex: 1;
+  display: flex;
+}
+
+.switch label {
+  align-self: center;
+  margin-left: 10px;
+}
+
+.savebtn {
+  display: flex;
+  justify-content: center;
+}
+
+.infobox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.infobox i {
+  font-size: 1.4rem;
+  color: var(--blue-400);
+}
+
+.infobox .p-float-label {
+  flex: 1;
+  margin-right: 10px;
 }
 </style>

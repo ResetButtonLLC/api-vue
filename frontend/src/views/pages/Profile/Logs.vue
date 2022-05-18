@@ -11,12 +11,7 @@
 
 <script>
 export default {
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -46,7 +41,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
   },
 
   methods: {},

@@ -82,7 +82,7 @@ export default {
     navigateToProfile(id) {
       this.$store.dispatch("route", {
         name: "Profile",
-        params: { projectId: this.id, id: id },
+        params: { profileId: id },
       });
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <h4>Импорт и фильтрация</h4>
 
     <div v-if="isSettingsLoading">
@@ -81,12 +81,7 @@ export default {
     Rules,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -96,7 +91,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
 
     this.profile.settings = {};
     this.profile.settings.feed = {};

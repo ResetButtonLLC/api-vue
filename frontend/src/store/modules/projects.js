@@ -1,6 +1,5 @@
 import apiProjects from "@/api/apiProjects";
 import apiProfiles from "@/api/apiProfiles";
-//import { result } from "lodash";
 
 export default {
     state: () => ({
@@ -12,8 +11,7 @@ export default {
             state.projects = projects;
         },
 
-        setProjectLoading(state,isLoading)
-        {
+        setProjectLoading(state, isLoading) {
             state.isProjectLoading = isLoading;
         },
 
@@ -45,14 +43,14 @@ export default {
         },
 
         loadProjects(context) {
-            context.commit('setProjectLoading',true);
+            context.commit('setProjectLoading', true);
 
             apiProjects.getProjects().then((result) => {
                 context.commit('setProjects', result.data.data);
             }).catch(() => {
                 context.dispatch('error', 'Не удалось загрузить список проектов');
-            }).finally(()=>{
-                context.commit('setProjectLoading',false);
+            }).finally(() => {
+                context.commit('setProjectLoading', false);
             });
         },
 
@@ -65,8 +63,7 @@ export default {
                 context.dispatch('route', {
                     name: 'Profile',
                     params: {
-                        id: profile.id,
-                        projectId: profile.project_id
+                        profileId: profile.id
                     }
                 });
             }).catch(() => {
@@ -80,6 +77,30 @@ export default {
             return state.projects;
         },
 
+        getProjectFromProfileId: (state) => (id) => {
+            let result = null;
+            state.projects.forEach((project) => {
+                if (project.profiles.find((profile) => profile.id == id)) {
+                    result = project;
+                }
+            });
+
+            return result;
+        },
+
+        getProfileFromId: (state) => (id) => {
+            let result = null;
+            state.projects.forEach((project) => {
+                project.profiles.forEach((profile) => {
+                    if (profile.id == id) {
+                        result = profile;
+                    }
+                });
+            });
+
+            return result;
+        },
+
         getProfiles(state) {
             let result = [];
 
@@ -90,8 +111,7 @@ export default {
             return result;
         },
 
-        isProjectLoading(state)
-        {
+        isProjectLoading(state) {
             return state.isProjectLoading;
         }
     }

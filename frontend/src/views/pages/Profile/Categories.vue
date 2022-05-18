@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <h4>Категории</h4>
 
     <div v-if="isCategoriesLoading || isCampaignsLoading">
@@ -30,12 +30,7 @@ export default {
     TableCategories,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -44,7 +39,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
 
     this.$store.dispatch("getProfileCategories", this.profile.id);
     this.$store.dispatch("getProfileCampaigns", {

@@ -14,6 +14,11 @@ export const SET_KEYWORD_COLORS_PATH = '/api/replacements/{profileId}/keywords/c
 export const GET_KEYWORD_KEYS_PATH = '/api/replacements/{profileId}/keywords/keys/get'
 export const SET_KEYWORD_KEYS_PATH = '/api/replacements/{profileId}/keywords/keys/set'
 
+const GET_GLOBAL_AD_PATH = '/api/replacements/ads'
+const SET_GLOBAL_AD_PATH = '/api/replacements/ads'
+const GET_GLOBAL_KEYWORD_PATH = '/api/replacements/keywords'
+const SET_GLOBAL_KEYWORD_PATH = '/api/replacements/keywords'
+
 export default {
     getReplacement(path, profileId) {
         return apiService.api.get(path.replace('{profileId}', profileId));
@@ -21,5 +26,21 @@ export default {
 
     setReplacement(path, profileId, isUseGlobal, profileText) {
         return apiService.api.post(path.replace('{profileId}', profileId), { isUseGlobal: isUseGlobal, profileText: profileText });
-    }
+    },
+
+    getGlobalAdReplacements() {
+        return apiService.api.get(GET_GLOBAL_AD_PATH);
+    },
+
+    setGlobalAdReplacements(data) {
+        return apiService.api.post(SET_GLOBAL_AD_PATH, data);
+    },
+
+    getGlobalKeywordReplacements() {
+        return apiService.api.get(GET_GLOBAL_KEYWORD_PATH);
+    },
+
+    setGlobalKeywordReplacements(data) {
+        return apiService.api.post(SET_GLOBAL_KEYWORD_PATH, data);
+    },
 }

@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(
             Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
             Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
         });
-        
+
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
         Route::post('/profile/{profile}/settings', [ProfileController::class, 'settings']);
@@ -79,6 +79,11 @@ Route::middleware('auth:sanctum')->group(
         Route::post('/feed/{profile}/set', [FeedController::class, 'set']);
 
         /** REPLACEMENTS */
+        Route::get('/replacements/ads', [ReplaceController::class, 'getAdsGlobal']);
+        Route::post('/replacements/ads', [ReplaceController::class, 'setAdsGlobal']);
+        Route::get('/replacements/keywords', [ReplaceController::class, 'getKeywordsGlobal']);
+        Route::post('/replacements/keywords', [ReplaceController::class, 'setKeywordsGlobal']);
+
         Route::get('/replacements/{profile}/ads/brands/get', [ReplaceController::class, 'getAdBrands']);
         Route::post('/replacements/{profile}/ads/brands/set', [ReplaceController::class, 'setAdBrands']);
         Route::get('/replacements/{profile}/ads/replaces/get', [ReplaceController::class, 'getAdReplaces']);

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <h4>Основное</h4>
 
     <div v-if="isSettingsLoading">
@@ -71,12 +71,7 @@ export default {
     ImportCampaignDialog,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -91,7 +86,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
 
     if (this.profile.settings === undefined) {
       this.profile.settings = {};

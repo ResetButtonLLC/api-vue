@@ -21,10 +21,7 @@
             <p>Успешно</p>
           </div>
 
-          <div
-            class="group no"
-            v-if="!slotProps.data.result && slotProps.data.end"
-          >
+          <div class="group no" v-if="!slotProps.data.result && slotProps.data.end">
             <i class="pi pi-times-circle"> </i>
             <p>Ошибка</p>
           </div>
@@ -37,12 +34,7 @@
 
 <script>
 export default {
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -76,7 +68,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
 
     if (this.profile.settings === undefined) {
       this.profile.settings = {};
