@@ -1,7 +1,7 @@
 import apiService from "@/api/apiService";
 
 const getProfilePath = '/api/profiles';
-const createProfilePath = '/api/profile/create';
+const createProfilePath = '/api/profile';
 const setSettingsPath = '/api/profile/{profileId}/settings';
 
 export default {

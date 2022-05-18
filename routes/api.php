@@ -42,14 +42,14 @@ Route::middleware('auth:sanctum')->group(
             Route::patch('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
             Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
         });
-        
+
+        //todo refactor
+
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
         Route::post('/profile/{profile}/settings', [ProfileController::class, 'settings']);
 
         /** SETTINGS */
-        Route::get('/settings/profile/{profileId}/get', [SettingsController::class, 'getProfile']);
-        Route::post('/settings/profile/{profileId}/set', [SettingsController::class, 'setProfile']);
         Route::get('/settings/import/{profileId}/get', [SettingsController::class, 'getImport']);
         Route::post('/settings/import/{profileId}/set', [SettingsController::class, 'setImport']);
         Route::get('/settings/ads/{profileId}/get', [SettingsController::class, 'getAds']);

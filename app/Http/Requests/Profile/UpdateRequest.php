@@ -19,6 +19,14 @@ class UpdateRequest extends ApiRequest
                 'min:2',
                 'max:100',
                 Rule::unique($this->route('profile')->getTable())->ignore($this->route('profile'))
+                ],
+            //todo передавать с фронта только цифры
+            'google_id' =>  'required|integer|between:1000000000,9999999999',
+            'activity' =>  'required|boolean',
+            //todo передавать с точкой с фронта
+            'bid' => [
+                'required',
+                'regex:/(\d+\.\d{1,2}|\d+)/'
                 ]
         ];
     }

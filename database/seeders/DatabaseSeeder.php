@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(20)->create();
         Project::factory(10)
-            ->has(Profile::factory()->count(3))
+            ->has(Profile::factory()->count(3)->withRandomBid())
             ->afterCreating(function (Project $project) {
                 $project->users()->sync(User::select('id')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray());
             })
