@@ -17,7 +17,7 @@ class UpdateMainRequest  extends ApiRequest
                 'max:100',
                 Rule::unique($this->route('profile')->getTable())->ignore($this->route('profile'))
             ],
-            'google_id' =>  'required|integer|between:1000000000,9999999999',
+            'google_ads_account_id' =>  'required|integer|between:1000000000,9999999999',
             'activity' =>  'required|boolean',
             //todo сейчас с фронта передает то с точкой, то без, а валидация numeric не совсем то что нужно
             'bid' => [

@@ -20,7 +20,7 @@ class UpdateRequest extends ApiRequest
                 Rule::unique($this->route('profile')->getTable())->ignore($this->route('profile'))
                 ],
             //Общие настройки
-            'google_id' =>  'integer|between:1000000000,9999999999',
+            'google_ads_account_id' =>  'integer|between:1000000000,9999999999',
             'activity' =>  'boolean',
             //todo может на фронте передавать с точкой все?
             'bid' => [

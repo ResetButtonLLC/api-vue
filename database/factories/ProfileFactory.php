@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\GoogleAdsAccount;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Project;
 
@@ -22,7 +23,7 @@ class ProfileFactory extends Factory
 
         return [
             // 'project_id' не генерим, он обязательно должен быть передан
-            'google_id' => $this->faker->numberBetween(1000000000,9999999999),
+            'google_ads_account_id' => null,
             'name' => $name,
             'activity' => false,
             'bid' => 0,
@@ -41,5 +42,17 @@ class ProfileFactory extends Factory
             ];
         });
     }
+
+    public function withExistingGoogleAdsAccount()
+    {
+        $id = GoogleAdsAccount::inRandomOrder()->first()->id;
+
+        return $this->state(function (array $attributes)  use ($id) {
+            return [
+                'google_ads_account_id' => $id,
+            ];
+        });
+    }
+
 
 }

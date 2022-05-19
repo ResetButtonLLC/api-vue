@@ -15,7 +15,7 @@ class ProfileResource extends JsonResource
             'id'            => $profile->id,
             'name'          => $profile->name,
             'project_id'     => $profile->project_id,
-            'google_id'     => $profile->google_id,
+            'google_ads_account_id'     => $profile->google_ads_account_id,
             'activity' => $profile->activity,
             'bid' => $profile->bid,
             //

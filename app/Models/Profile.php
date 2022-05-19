@@ -13,7 +13,7 @@ class Profile extends Model
     protected $fillable = [
         'project_id',
         'name',
-        'google_id',
+        'google_ads_account_id',
         'activity',
         'bid'
 
@@ -29,6 +29,11 @@ class Profile extends Model
     public function project()
     {
         return $this->hasOne(Project::class, 'id', 'project_id');
+    }
+
+    public function googelAdsAccount()
+    {
+        return $this->hasOne(GoogleAdsAccount::class, 'id', 'google_ads_account_id');
     }
 
     public function isFileFeed()

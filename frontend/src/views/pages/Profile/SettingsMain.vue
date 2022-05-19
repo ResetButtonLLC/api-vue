@@ -24,11 +24,11 @@
         <InputText
           class="w-full"
           type="text"
-          id="google_id"
-          v-model="profile.settings.google_id"
+          id="google_ads_account_id"
+          v-model="profile.settings.google_ads_account_id"
           @change="$emit('onChange')"
         />
-        <label for="google_id">Google Ads ID</label>
+        <label for="google_ads_account_id">Google Ads ID</label>
       </span>
 
       <span class="p-float-label mt-4">
