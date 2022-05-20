@@ -28,8 +28,8 @@
       <FilterTableFields :profileLink="profile" />
     </div>
 
-    <PreviewTable :profileLink="profile" :activeFieldList="activeFieldList" :isLoading="isLoading"
-      :previewList="previewList" />
+    <PreviewTable v-if="!isLoading" class="mt-4" :columnList="columnListForPreviewTable" :dataList="dataList"
+      @hideColumn="hideColumn" @changeValue="changeValue" />
   </div>
 </template>
 
@@ -39,7 +39,7 @@ import apiPreview from "@/api/apiPreview";
 import filterConst from "@/const/filter";
 import FilterCreator from "@/components/FilterCreator";
 import FilterTableFields from "@/components/FilterTableFields";
-import PreviewTable from "./PreviewTable";
+import PreviewTable from "@/components/PreviewTable";
 
 export default {
   components: {
@@ -52,6 +52,8 @@ export default {
 
   data() {
     return {
+      dataList: [{ id: 1, googleid: 123123 }, { id: 2, googleid: 1231232 }, { id: 3, googleid: 5555 }, { id: 4, googleid: 666662 }],
+
       profile: {},
       filterList: [],
       previewList: [],
@@ -88,6 +90,11 @@ export default {
   },
 
   methods: {
+    hideColumn(value) {
+      console.log('hide: ' + value);
+      this.profile.previewActiveFields = this.profile.previewActiveFields.filter((el) => el != value);
+    },
+
     updatePreview(newPage = 1) {
       this.currentPage = newPage;
       this.isPreviewLoading = true;
@@ -123,6 +130,10 @@ export default {
     toText(filter) {
       return filterConst.filterToText(filter);
     },
+
+    changeValue(elementIndex, value, newValue) {
+      this.dataList[elementIndex][value] = newValue;
+    }
   },
 
   computed: {
@@ -140,6 +151,14 @@ export default {
         default:
           return [];
       }
+    },
+
+    columnListForPreviewTable() {
+      if (this.profile.previewActiveFields === undefined) {
+        return [];
+      }
+
+      return this.activeFieldList.filter((el) => this.profile.previewActiveFields.indexOf(el.value) !== -1);
     },
 
     activeFilterList() {

@@ -1,3 +1,11 @@
+// TYPE
+export const TYPE_UNDEFINED = 0;
+export const TYPE_BOOLEAN = 1;
+export const TYPE_STRING = 2;
+export const TYPE_PIN = 3;
+export const TYPE_KEY_TYPE = 4;
+export const TYPE_STATUS = 5;
+
 //VALUES
 export const VALUE_NONE = 0;
 export const VALUE_BOOLEAN = 1;
@@ -12,6 +20,7 @@ export const VALUE_AD_EDIT_STATUS = 256;
 export const VALUE_LIST_CAMPAIGN = 512;
 export const VALUE_LIST_GROUP = 1024;
 export const VALUE_LIST_CATEGORIES = 2048;
+export const VALUE_PIN = 4096;
 
 /*
 Фильтр отправляется на сервер в формате:
@@ -501,60 +510,577 @@ export const OPERATORS_GROUP_LIST = [
     OPERATOR_GROUP_LIST_NOT_EMPTY
 ];
 
+// Pin
+export const OPERATOR_PIN_EQUAL = {
+    name: 'Равно',
+    value: 'kt=',
+    serverValue: 'EQUALS',
+    type: [VALUE_PIN],
+    default: [null, null],
+    allowNull: false
+};
+export const OPERATOR_PIN_NOT_EQUAL = {
+    name: 'Не равно',
+    value: 'kt!=',
+    serverValue: 'NOT_EQUALS',
+    type: [VALUE_PIN],
+    default: [null, null],
+    allowNull: false
+};
+export const OPERATORS_PIN = [
+    OPERATOR_PIN_EQUAL,
+    OPERATOR_PIN_NOT_EQUAL
+];
+
 // FIELDS
-export const FIELD_HEADLINE1 = { name: 'Заголовок 1', alias: "headline 1", value: 'headline1', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE2 = { name: 'Заголовок 2', alias: "headline 2", value: 'headline2', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE3 = { name: 'Заголовок 3', alias: "headline 3", value: 'headline3', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE4 = { name: 'Заголовок 4', alias: "headline 4", value: 'headline4', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE5 = { name: 'Заголовок 5', alias: "headline 5", value: 'headline5', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE6 = { name: 'Заголовок 6', alias: "headline 6", value: 'headline6', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE7 = { name: 'Заголовок 7', alias: "headline 7", value: 'headline7', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE8 = { name: 'Заголовок 8', alias: "headline 8", value: 'headline8', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE9 = { name: 'Заголовок 9', alias: "headline 9", value: 'headline9', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE10 = { name: 'Заголовок 10', alias: "headline 10", value: 'headline10', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE11 = { name: 'Заголовок 11', alias: "headline 11", value: 'headline11', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE12 = { name: 'Заголовок 12', alias: "headline 12", value: 'headline12', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE13 = { name: 'Заголовок 13', alias: "headline 13", value: 'headline13', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE14 = { name: 'Заголовок 14', alias: "headline 14", value: 'headline14', operators: OPERATORS_STRING };
-export const FIELD_HEADLINE15 = { name: 'Заголовок 15', alias: "headline 15", value: 'headline15', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE1 = {
+    name: 'Заголовок 1',
+    alias: "headline 1",
+    value: 'headline1',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_DESCRIPTION1 = { name: 'Описание 1', alias: "description 1", value: 'description1', operators: OPERATORS_STRING };
-export const FIELD_DESCRIPTION2 = { name: 'Описание 2', alias: "description 2", value: 'description2', operators: OPERATORS_STRING };
-export const FIELD_DESCRIPTION3 = { name: 'Описание 3', alias: "description 3", value: 'description3', operators: OPERATORS_STRING };
-export const FIELD_DESCRIPTION4 = { name: 'Описание 4', alias: "description 4", value: 'description4', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE2 = {
+    name: 'Заголовок 2',
+    alias: "headline 2",
+    value: 'headline2',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_PATH1 = { name: 'Путь1', alias: "path1", value: 'path1', operators: OPERATORS_STRING };
-export const FIELD_PATH2 = { name: 'Путь2', alias: "path2", value: 'path2', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE3 = {
+    name: 'Заголовок 3',
+    alias: "headline 3",
+    value: 'headline3',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_URL = { name: 'URL', alias: "адрес сайта", value: 'url', operators: OPERATORS_STRING };
+export const FIELD_HEADLINE4 = {
+    name: 'Заголовок 4',
+    alias: "headline 4",
+    value: 'headline4',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_PRICE = { name: 'Цена', alias: "price", value: 'price', operators: OPERATORS_INTEGER };
+export const FIELD_HEADLINE5 = {
+    name: 'Заголовок 5',
+    alias: "headline 5",
+    value: 'headline5',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_ID = { name: 'ID', alias: "айди", value: 'id', operators: OPERATORS_INTEGER };
-export const FIELD_GOOGLE_ID = { name: 'Google ID', alias: "гугл айди", value: 'googleid', operators: OPERATORS_STRING };
-export const FIELD_STATUS = { name: 'Статус', alias: "status", value: 'status', operators: OPERATORS_BOOLEAN };
-export const FIELD_AD_EDIT_STATUS = { name: 'Статус редактирования', alias: "ad edit status", value: 'editstatus', operators: OPERATORS_AD_EDIT_STATUS };
+export const FIELD_HEADLINE6 = {
+    name: 'Заголовок 6',
+    alias: "headline 6",
+    value: 'headline6',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_CATEGORY = { name: 'Категория', alias: "category", value: 'category', operators: OPERATORS_CATEGORY_LIST };
+export const FIELD_HEADLINE7 = {
+    name: 'Заголовок 7',
+    alias: "headline 7",
+    value: 'headline7',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_AD_COUNT = { name: 'Количество объявлений', alias: "ad count", value: 'adcount', operators: OPERATORS_INTEGER };
-export const FIELD_AD_COUNT_ACTIVE = { name: 'Количество активных объявлений', alias: "ad count active", value: 'adcount-active', operators: OPERATORS_INTEGER };
-export const FIELD_AD_COUNT_PAUSED = { name: 'Количество объявлений в паузе', alias: "ad count paused", value: 'adcount-paused', operators: OPERATORS_INTEGER };
+export const FIELD_HEADLINE8 = {
+    name: 'Заголовок 8',
+    alias: "headline 8",
+    value: 'headline8',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_GROUP = { name: 'Группа', alias: "group", value: 'group', operators: OPERATORS_GROUP_LIST };
-export const FIELD_GROUP_ID = { name: 'ID группы', alias: "айди группы", value: 'groupid', operators: OPERATORS_INTEGER };
-export const FIELD_GROUP_GOOGLE_ID = { name: 'ID группы в Google', alias: "гугл айди группы", value: 'groupgoogleid', operators: OPERATORS_INTEGER };
+export const FIELD_HEADLINE9 = {
+    name: 'Заголовок 9',
+    alias: "headline 9",
+    value: 'headline9',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_CAMPAIGN = { name: 'Кампания', alias: "campaign", value: 'campaign', operators: OPERATORS_CAMPAIGN_LIST };
-export const FIELD_CAMPAIGN_ID = { name: 'ID кампании', alias: "айди кампании", value: 'campaignid', operators: OPERATORS_INTEGER };
-export const FIELD_CAMPAIGN_GOOGLE_ID = { name: 'ID кампании в Google', alias: "айди кампании в гугл", value: 'campaigngoogleid', operators: OPERATORS_INTEGER };
+export const FIELD_HEADLINE10 = {
+    name: 'Заголовок 10',
+    alias: "headline 10",
+    value: 'headline10',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_KEY_TYPE = { name: 'Тип ключа', alias: "key type", value: 'keytype', operators: OPERATORS_KEY_TYPE };
-export const FIELD_KEYWORD = { name: 'Ключевое слово', alias: "keyword", value: 'keyword', operators: OPERATORS_STRING };
-export const FIELD_PARAM1 = { name: 'param1', alias: "param1", value: 'param1', operators: OPERATORS_INTEGER };
+export const FIELD_HEADLINE11 = {
+    name: 'Заголовок 11',
+    alias: "headline 11",
+    value: 'headline11',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
 
-export const FIELD_CREATION_DATE = { name: 'Дата создания', alias: "created at", value: 'created_at', operators: OPERATORS_DATE };
-export const FIELD_UPDATE_DATE = { name: 'Дата обновления', alias: "updated at", value: 'updated_at', operators: OPERATORS_DATE };
+export const FIELD_HEADLINE12 = {
+    name: 'Заголовок 12',
+    alias: "headline 12",
+    value: 'headline12',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_HEADLINE13 = {
+    name: 'Заголовок 13',
+    alias: "headline 13",
+    value: 'headline13',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_HEADLINE14 = {
+    name: 'Заголовок 14',
+    alias: "headline 14",
+    value: 'headline14',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_HEADLINE15 = {
+    name: 'Заголовок 15',
+    alias: "headline 15",
+    value: 'headline15',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_DESCRIPTION1 = {
+    name: 'Описание 1',
+    alias: "description 1",
+    value: 'description1',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_DESCRIPTION2 = {
+    name: 'Описание 2',
+    alias: "description 2",
+    value: 'description2',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_DESCRIPTION3 = {
+    name: 'Описание 3',
+    alias: "description 3",
+    value: 'description3',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_DESCRIPTION4 = {
+    name: 'Описание 4',
+    alias: "description 4",
+    value: 'description4',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_HEADLINE1_PIN = {
+    name: 'Позиция заголовка 1',
+    alias: "headline position pin 1",
+    value: 'headline1_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE2_PIN = {
+    name: 'Позиция заголовка 2',
+    alias: "headline position pin 2",
+    value: 'headline2_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE3_PIN = {
+    name: 'Позиция заголовка 3',
+    alias: "headline position pin 3",
+    value: 'headline3_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE4_PIN = {
+    name: 'Позиция заголовка 4',
+    alias: "headline position pin 4",
+    value: 'headline4_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE5_PIN = {
+    name: 'Позиция заголовка 5',
+    alias: "headline position pin 5",
+    value: 'headline5_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE6_PIN = {
+    name: 'Позиция заголовка 6',
+    alias: "headline position pin 6",
+    value: 'headline6_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE7_PIN = {
+    name: 'Позиция заголовка 7',
+    alias: "headline position pin 7",
+    value: 'headline7_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE8_PIN = {
+    name: 'Позиция заголовка 8',
+    alias: "headline position pin 8",
+    value: 'headline8_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE9_PIN = {
+    name: 'Позиция заголовка 9',
+    alias: "headline position pin 9",
+    value: 'headline9_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE10_PIN = {
+    name: 'Позиция заголовка 10',
+    alias: "headline position pin 10",
+    value: 'headline10_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE11_PIN = {
+    name: 'Позиция заголовка 11',
+    alias: "headline position pin 11",
+    value: 'headline11_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE12_PIN = {
+    name: 'Позиция заголовка 12',
+    alias: "headline position pin 12",
+    value: 'headline12_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE13_PIN = {
+    name: 'Позиция заголовка 13',
+    alias: "headline position pin 13",
+    value: 'headline13_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE14_PIN = {
+    name: 'Позиция заголовка 14',
+    alias: "headline position pin 14",
+    value: 'headline14_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_HEADLINE15_PIN = {
+    name: 'Позиция заголовка 15',
+    alias: "headline position pin 15",
+    value: 'headline15_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_DESCRIPTION1_PIN = {
+    name: 'Позиция описания 1',
+    alias: "description 1",
+    value: 'description1_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_DESCRIPTION2_PIN = {
+    name: 'Позиция описания 2',
+    alias: "description 2",
+    value: 'description2_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_DESCRIPTION3_PIN = {
+    name: 'Позиция описания 3',
+    alias: "description 3",
+    value: 'description3_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_DESCRIPTION4_PIN = {
+    name: 'Позиция описания 4',
+    alias: "description 4",
+    value: 'description4_pin',
+    operators: OPERATORS_PIN,
+    editable: true,
+    type: TYPE_PIN
+};
+
+export const FIELD_PATH1 = {
+    name: 'Путь1',
+    alias: "path1",
+    value: 'path1',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_PATH2 = {
+    name: 'Путь2',
+    alias: "path2",
+    value: 'path2',
+    operators: OPERATORS_STRING,
+    editable: true,
+    type: TYPE_STRING
+};
+
+export const FIELD_URL = {
+    name: 'URL',
+    alias: "адрес сайта",
+    value: 'url',
+    operators: OPERATORS_STRING,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_PRICE = {
+    name: 'Цена',
+    alias: "price",
+    value: 'price',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_ID = {
+    name: 'ID',
+    alias: "айди",
+    value: 'id',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_GOOGLE_ID = {
+    name: 'Google ID',
+    alias: "гугл айди",
+    value: 'googleid',
+    operators: OPERATORS_STRING,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_STATUS = {
+    name: 'Статус',
+    alias: "status",
+    value: 'status',
+    operators: OPERATORS_BOOLEAN,
+    editable: false,
+    type: TYPE_BOOLEAN
+};
+
+export const FIELD_AD_EDIT_STATUS = {
+    name: 'Статус редактирования',
+    alias: "ad edit status",
+    value: 'editstatus',
+    operators: OPERATORS_AD_EDIT_STATUS,
+    editable: false,
+    type: TYPE_STATUS
+};
+
+export const FIELD_CATEGORY = {
+    name: 'Категория',
+    alias: "category",
+    value: 'category',
+    operators: OPERATORS_CATEGORY_LIST,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_AD_COUNT = {
+    name: 'Количество объявлений',
+    alias: "ad count",
+    value: 'adcount',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_AD_COUNT_ACTIVE = {
+    name: 'Количество активных объявлений',
+    alias: "ad count active",
+    value: 'adcount-active',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_AD_COUNT_PAUSED = {
+    name: 'Количество объявлений в паузе',
+    alias: "ad count paused",
+    value: 'adcount-paused',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_GROUP = {
+    name: 'Группа',
+    alias: "group",
+    value: 'group',
+    operators: OPERATORS_GROUP_LIST,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_GROUP_ID = {
+    name: 'ID группы',
+    alias: "айди группы",
+    value: 'groupid',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_GROUP_GOOGLE_ID = {
+    name: 'ID группы в Google',
+    alias: "гугл айди группы",
+    value: 'groupgoogleid',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_CAMPAIGN = {
+    name: 'Кампания',
+    alias: "campaign",
+    value: 'campaign',
+    operators: OPERATORS_CAMPAIGN_LIST,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_CAMPAIGN_ID = {
+    name: 'ID кампании',
+    alias: "айди кампании",
+    value: 'campaignid',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_CAMPAIGN_GOOGLE_ID = {
+    name: 'ID кампании в Google',
+    alias: "айди кампании в гугл",
+    value: 'campaigngoogleid',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_KEY_TYPE = {
+    name: 'Тип ключа',
+    alias: "key type",
+    value: 'keytype',
+    operators: OPERATORS_KEY_TYPE,
+    editable: true,
+    type: TYPE_KEY_TYPE
+};
+
+export const FIELD_KEYWORD = {
+    name: 'Ключевое слово',
+    alias: "keyword",
+    value: 'keyword',
+    operators: OPERATORS_STRING,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_PARAM1 = {
+    name: 'param1',
+    alias: "param1",
+    value: 'param1',
+    operators: OPERATORS_INTEGER,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_CREATION_DATE = {
+    name: 'Дата создания',
+    alias: "created at",
+    value: 'created_at',
+    operators: OPERATORS_DATE,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
+
+export const FIELD_UPDATE_DATE = {
+    name: 'Дата обновления',
+    alias: "updated at",
+    value: 'updated_at',
+    operators: OPERATORS_DATE,
+    editable: false,
+    type: TYPE_UNDEFINED
+};
 
 function fieldList() {
     return [
@@ -589,6 +1115,25 @@ function fieldList() {
         FIELD_DESCRIPTION2,
         FIELD_DESCRIPTION3,
         FIELD_DESCRIPTION4,
+        FIELD_HEADLINE1_PIN,
+        FIELD_HEADLINE2_PIN,
+        FIELD_HEADLINE3_PIN,
+        FIELD_HEADLINE4_PIN,
+        FIELD_HEADLINE5_PIN,
+        FIELD_HEADLINE6_PIN,
+        FIELD_HEADLINE7_PIN,
+        FIELD_HEADLINE8_PIN,
+        FIELD_HEADLINE9_PIN,
+        FIELD_HEADLINE10_PIN,
+        FIELD_HEADLINE11_PIN,
+        FIELD_HEADLINE12_PIN,
+        FIELD_HEADLINE13_PIN,
+        FIELD_HEADLINE14_PIN,
+        FIELD_HEADLINE15_PIN,
+        FIELD_DESCRIPTION1_PIN,
+        FIELD_DESCRIPTION2_PIN,
+        FIELD_DESCRIPTION3_PIN,
+        FIELD_DESCRIPTION4_PIN,
         FIELD_PATH1,
         FIELD_PATH2,
         FIELD_URL,
@@ -654,6 +1199,25 @@ function fieldListForAds() {
         FIELD_DESCRIPTION2,
         FIELD_DESCRIPTION3,
         FIELD_DESCRIPTION4,
+        FIELD_HEADLINE1_PIN,
+        FIELD_HEADLINE2_PIN,
+        FIELD_HEADLINE3_PIN,
+        FIELD_HEADLINE4_PIN,
+        FIELD_HEADLINE5_PIN,
+        FIELD_HEADLINE6_PIN,
+        FIELD_HEADLINE7_PIN,
+        FIELD_HEADLINE8_PIN,
+        FIELD_HEADLINE9_PIN,
+        FIELD_HEADLINE10_PIN,
+        FIELD_HEADLINE11_PIN,
+        FIELD_HEADLINE12_PIN,
+        FIELD_HEADLINE13_PIN,
+        FIELD_HEADLINE14_PIN,
+        FIELD_HEADLINE15_PIN,
+        FIELD_DESCRIPTION1_PIN,
+        FIELD_DESCRIPTION2_PIN,
+        FIELD_DESCRIPTION3_PIN,
+        FIELD_DESCRIPTION4_PIN,
         FIELD_PATH1,
         FIELD_PATH2,
         FIELD_CREATION_DATE,

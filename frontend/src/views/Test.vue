@@ -1,13 +1,16 @@
 <template>
-  <Rules :objectLink="object" />
+  <div>
+    <PreviewTable></PreviewTable>
+  </div>
+
 </template>
 
 <script>
-import Rules from "@/components/Rules";
+import PreviewTable from "@/components/PreviewTable";
 
 export default {
   components: {
-    Rules,
+    PreviewTable,
   },
 
   data() {

@@ -1,9 +1,9 @@
-export const AD_STATUS1 = { name: 'Статус 1', value: 'status1' };
-export const AD_STATUS2 = { name: 'Статус 2', value: 'status2' };
-export const AD_STATUS3 = { name: 'Статус 3', value: 'status3' };
-export const AD_STATUS4 = { name: 'Статус 4', value: 'status4' };
+export const AD_PUBLISHED = { name: 'Опубликовано', value: 'published' };
+export const AD_NOT_PUBLISHED = { name: 'Не опубликовано', value: '!published' };
+export const AD_CHANGED = { name: 'Изменено в локальной базе', value: 'changed' };
+export const AD_ERROR = { name: 'Ошибка', value: 'error' };
 
-export const AD_STATUS_ALL = [AD_STATUS1, AD_STATUS2, AD_STATUS3, AD_STATUS4];
+export const AD_STATUS_ALL = [AD_PUBLISHED, AD_NOT_PUBLISHED, AD_CHANGED, AD_ERROR];
 
 export default {
     list() {
