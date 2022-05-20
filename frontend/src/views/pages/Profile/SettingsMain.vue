@@ -25,7 +25,7 @@
           class="w-full"
           type="text"
           id="google_ads_account_id"
-          v-model="profile.settings.google_ads_account_id"
+          v-model="profile.settings.google_ads_account.id"
           @change="$emit('onChange')"
         />
         <label for="google_ads_account_id">Google Ads ID</label>

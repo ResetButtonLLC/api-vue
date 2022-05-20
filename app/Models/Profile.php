@@ -31,7 +31,7 @@ class Profile extends Model
         return $this->hasOne(Project::class, 'id', 'project_id');
     }
 
-    public function googelAdsAccount()
+    public function googleAdsAccount()
     {
         return $this->hasOne(GoogleAdsAccount::class, 'id', 'google_ads_account_id');
     }

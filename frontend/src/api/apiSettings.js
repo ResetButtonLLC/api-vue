@@ -1,7 +1,7 @@
 import apiService from "@/api/apiService";
 
-const getMainSettingsPath = '/api/profile/{profileId}';
-const setMainSettingsPath = '/api/profile/{profileId}';
+const getMainSettingsPath = '/api/profile/{profileId}/section/main';
+const setMainSettingsPath = '/api/profile/{profileId}/section/main';
 const getImportSettingsPath = '/api/settings/import/{profileId}/get';
 const setImportSettingsPath = '/api/settings/import/{profileId}/set';
 const getGenerateAdsSettingsPath = '/api/settings/ads/{profileId}/get';

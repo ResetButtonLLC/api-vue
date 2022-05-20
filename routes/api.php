@@ -45,6 +45,11 @@ Route::middleware('auth:sanctum')->group(
             Route::delete('/profile/{profile}', [ProfileController::class, 'delete'])->name('profile.delete');
         });
 
+        /* Google Ads Account */
+        Route::get('/google-ads/accounts', [\App\Http\Controllers\API\GoogleAdsAccountController::class, 'index'])->name('google.ads-accounts.index'); //
+        Route::get('/google-ads/account/{google_ads_account}', [\App\Http\Controllers\API\GoogleAdsAccountController::class, 'view'])->name('google.ads-account.view'); //
+
+
         //todo refactor
 
         Route::get('/profiles', [ProfileController::class, 'index']);

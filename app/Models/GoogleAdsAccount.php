@@ -10,4 +10,9 @@ class GoogleAdsAccount extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function campaigns()
+    {
+        return $this->hasMany(GoogleAdsAccountCampaign::class, 'google_ads_account_id', 'id');
+    }
 }

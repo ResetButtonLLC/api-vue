@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             GoogleAdsAccountSeeder::class,
+            GoogleAdsAccountCampaignSeeder::class,
             ProjectAndProfileSeeder::class,
             //Standalone binders
                 UsersToProjectsBinder::class,
