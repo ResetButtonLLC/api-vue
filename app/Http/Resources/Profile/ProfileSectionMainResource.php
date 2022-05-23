@@ -12,13 +12,15 @@ class ProfileSectionMainResource extends JsonResource
     {
         /** @var Profile $profile */
         $profile = $this->resource;
+        $profile->load('googleAdsAccount.campaigns');
         return [
             'id'            => $profile->id,
             'name'          => $profile->name,
             'project_id'     => $profile->project_id,
             'google_ads_account'     => [
                 'id' => $profile->google_ads_account_id,
-                'campaigns' => GoogleAdsAccountCampaignResource::collection($profile->load('googleAdsAccount.campaigns')->googleAdsAccount->campaigns)
+                'updated_at' => $profile->googleAdsAccount->updated_at,
+                'campaigns' => GoogleAdsAccountCampaignResource::collection($profile->googleAdsAccount->campaigns)
             ],
             'activity' => $profile->activity,
             'bid' => $profile->bid

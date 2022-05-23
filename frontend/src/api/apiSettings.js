@@ -1,5 +1,6 @@
 import apiService from "@/api/apiService";
 
+const getGoogleAdsAccountsPath = '/api/google-ads/accounts';
 const getMainSettingsPath = '/api/profile/{profileId}/section/main';
 const setMainSettingsPath = '/api/profile/{profileId}/section/main';
 const getImportSettingsPath = '/api/settings/import/{profileId}/get';
@@ -12,6 +13,10 @@ const getAutoupdateSettingsPath = '/api/settings/autoupdate/{profileId}/get';
 const setAutoupdateSettingsPath = '/api/settings/autoupdate/{profileId}/set';
 
 export default {
+    getGoogleAdsAccounts() {
+        return apiService.api.get(getGoogleAdsAccountsPath);
+    },
+
     getMainSettings(profileId) {
         return apiService.api.get(getMainSettingsPath.replace('{profileId}', profileId));
     },
