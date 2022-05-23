@@ -1,6 +1,11 @@
 <template>
   <div>
-    <p v-if="isTemplatesLoading || isCategoriesLoading">Загрузка...</p>
+    <div v-if="isTemplatesLoading || isCategoriesLoading">
+      <p class="text-center">
+        <i class="pi pi-spin pi-spinner"></i>
+        Загрузка...
+      </p>
+    </div>
 
     <div v-else>
       <h5>Информация по умным шаблонам</h5>
@@ -20,113 +25,57 @@
         <li>Умные шаблоны можно сортировать перетаскиванием</li>
       </ul>
 
-      <Button
-        label="Создать шаблон"
-        icon="pi pi-plus"
-        class="p-button-success mb-2"
-        @click="openCreateDialog"
-      />
+      <Button label="Создать шаблон" icon="pi pi-plus" class="p-button-success mb-2" @click="openCreateDialog" />
 
-      <div
-        v-for="(tab, tabIndex) in templateList"
-        :key="tab"
-        class="card"
-        @drop="endDragFilter($event, tabIndex)"
-        @dragover.prevent
-        @dragenter.prevent
-      >
-        <div
-          draggable="true"
-          @dragstart="startDragFilter($event, tabIndex)"
-          @dragover.prevent
-          @dragenter.prevent
-        >
+      <div v-for="(tab, tabIndex) in templateList" :key="tab" class="card" @drop="endDragFilter($event, tabIndex)"
+        @dragover.prevent @dragenter.prevent>
+        <div draggable="true" @dragstart="startDragFilter($event, tabIndex)" @dragover.prevent @dragenter.prevent>
           <div class="header row2">
             <span>{{ tab.name ? tab.name : "[без названия]" }}</span>
 
             <span>
-              <i
-                v-tooltip.left="'Клонировать'"
-                class="pi pi-link p-button p-button-warning mr-2"
-                @click="cloneTemplate(tab)"
-              ></i>
+              <i v-tooltip.left="'Клонировать'" class="pi pi-link p-button p-button-warning mr-2"
+                @click="cloneTemplate(tab)"></i>
 
-              <i
-                v-tooltip.left="'Редактировать'"
-                class="pi pi-pencil p-button p-button-info mr-2"
-                @click="openEditDialog(tabIndex)"
-              ></i>
+              <i v-tooltip.left="'Редактировать'" class="pi pi-pencil p-button p-button-info mr-2"
+                @click="openEditDialog(tabIndex)"></i>
 
-              <i
-                v-tooltip.left="'Удалить'"
-                class="pi pi-times-circle p-button p-button-danger"
-                @click="tryDelete(tabIndex)"
-              ></i>
+              <i v-tooltip.left="'Удалить'" class="pi pi-times-circle p-button p-button-danger"
+                @click="tryDelete(tabIndex)"></i>
             </span>
           </div>
 
           <div class="row2">
             <TemplatePreview style="flex: 1" :templateLink="tab" />
 
-            <Rules
-              style="flex: 1; text-align: center"
-              :objectLink="tab"
-              conditionHelpText="Применяем шаблон к товарам соответствующим условиям"
-            />
+            <Rules style="flex: 1; text-align: center" :objectLink="tab"
+              conditionHelpText="Применяем шаблон к товарам соответствующим условиям" />
           </div>
         </div>
       </div>
 
       <div class="savebtn">
-        <Button
-          class="mt-4 mb-2 p-button-success"
-          label="Сохранить изменения"
-          icon="pi pi-save"
-          @click="saveChanges"
-        ></Button>
+        <Button class="mt-4 mb-2 p-button-success" label="Сохранить изменения" icon="pi pi-save"
+          @click="saveChanges"></Button>
       </div>
     </div>
 
-    <Dialog
-      v-if="isShowCreateDialog"
-      :visible="true"
-      :style="{ maxWidth: '100%', width: '750px' }"
-      header="Создание шаблона"
-      :modal="true"
-      class="p-fluid"
-      :maximizable="true"
-      @update:visible="isShowCreateDialog = false"
-    >
+    <Dialog v-if="isShowCreateDialog" :visible="true" :style="{ maxWidth: '100%', width: '750px' }"
+      header="Создание шаблона" :modal="true" class="p-fluid" :maximizable="true"
+      @update:visible="isShowCreateDialog = false">
       <Template :templateLink="currentTemplate" :isGlobal="false" />
 
       <template #footer>
-        <Button
-          label="Сохранить"
-          icon="pi pi-save"
-          class="p-button-success"
-          @click="saveTemplate"
-        />
+        <Button label="Сохранить" icon="pi pi-save" class="p-button-success" @click="saveTemplate" />
       </template>
     </Dialog>
 
-    <Dialog
-      v-if="isShowDeleteDialog"
-      :visible="true"
-      :style="{ width: '450px' }"
-      header="Подтвердите удаление"
-      :modal="true"
-      class="p-fluid"
-      @update:visible="isShowDeleteDialog = false"
-    >
+    <Dialog v-if="isShowDeleteDialog" :visible="true" :style="{ width: '450px' }" header="Подтвердите удаление"
+      :modal="true" class="p-fluid" @update:visible="isShowDeleteDialog = false">
       <p>Удалить шаблон?</p>
 
       <template #footer>
-        <Button
-          label="Удалить"
-          icon="pi pi-trash"
-          class="p-button-danger"
-          @click="confirmDelete"
-        />
+        <Button label="Удалить" icon="pi pi-trash" class="p-button-danger" @click="confirmDelete" />
       </template>
     </Dialog>
   </div>

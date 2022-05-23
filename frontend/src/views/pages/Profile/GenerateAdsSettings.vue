@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isSettingsLoading">
-      <p>
+      <p class="text-center">
         <i class="pi pi-spin pi-spinner"></i>
         Загрузка...
       </p>
@@ -10,65 +10,37 @@
     <div v-else>
       <div class="infobox">
         <div class="switch">
-          <InputSwitch
-            id="no_category_in_model"
-            v-model="profile.settings.no_category_in_model"
-            @change="$emit('onChange')"
-          />
-          <label for="no_category_in_model"
-            >Вырезать название категории из названия модели</label
-          >
+          <InputSwitch id="no_category_in_model" v-model="profile.settings.no_category_in_model"
+            @change="$emit('onChange')" />
+          <label for="no_category_in_model">Вырезать название категории из названия модели</label>
         </div>
 
-        <i
-          class="pi pi-question-circle"
-          v-tooltip.left="
-            'Если в названии модели будет найдено название категории - оно будет вырезано'
-          "
-        ></i>
+        <i class="pi pi-question-circle" v-tooltip.left="
+          'Если в названии модели будет найдено название категории - оно будет вырезано'
+        "></i>
       </div>
 
       <div class="infobox mt-4">
         <div class="switch">
-          <InputSwitch
-            id="no_cyrillic"
-            v-model="profile.settings.no_cyrillic"
-            @change="$emit('onChange')"
-          />
-          <label for="no_cyrillic"
-            >Убрать кириллицу из тега [NAME] в объявлении</label
-          >
+          <InputSwitch id="no_cyrillic" v-model="profile.settings.no_cyrillic" @change="$emit('onChange')" />
+          <label for="no_cyrillic">Убрать кириллицу из тега [NAME] в объявлении</label>
         </div>
 
-        <i
-          class="pi pi-question-circle"
-          v-tooltip.left="'Из названия будет вырезанна вся кириллица'"
-        ></i>
+        <i class="pi pi-question-circle" v-tooltip.left="'Из названия будет вырезанна вся кириллица'"></i>
       </div>
 
       <div class="infobox mt-4">
         <div class="switch">
-          <InputSwitch
-            id="format_price"
-            v-model="profile.settings.format_price"
-            @change="$emit('onChange')"
-          />
+          <InputSwitch id="format_price" v-model="profile.settings.format_price" @change="$emit('onChange')" />
           <label for="format_price">Использовать форматирование цены</label>
         </div>
 
-        <i
-          class="pi pi-question-circle"
-          v-tooltip.left="'Через каждые 3 символа будет вставлен пробел'"
-        ></i>
+        <i class="pi pi-question-circle" v-tooltip.left="'Через каждые 3 символа будет вставлен пробел'"></i>
       </div>
 
       <div class="savebtn">
-        <Button
-          class="mt-4 mb-2 p-button-success"
-          label="Сохранить изменения"
-          icon="pi pi-save"
-          @click="saveChanges"
-        ></Button>
+        <Button class="mt-4 mb-2 p-button-success" label="Сохранить изменения" icon="pi pi-save"
+          @click="saveChanges"></Button>
       </div>
     </div>
   </div>

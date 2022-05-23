@@ -2,18 +2,10 @@
   <div>
     <TabView scrollable>
       <TabPanel header="Шаблоны">
-        <ProfileTemplateGlobal
-          :profileLink="profile"
-          @onChange="onChanges"
-          @onSave="onSaveChanges"
-        />
+        <ProfileTemplateGlobal :profileLink="profile" @onChange="onChanges" @onSave="onSaveChanges" />
       </TabPanel>
       <TabPanel header="Умные шаблоны">
-        <ProfileTemplateSmart
-          :profileLink="profile"
-          @onChange="onChanges"
-          @onSave="onSaveChanges"
-        />
+        <ProfileTemplateSmart :profileLink="profile" @onChange="onChanges" @onSave="onSaveChanges" />
       </TabPanel>
 
       <TabPanel header="Генерация">
@@ -21,23 +13,13 @@
       </TabPanel>
 
       <TabPanel header="Бренды">
-        <ReplacementList
-          header="Использовать список брендов"
-          :getPath="getBrandsPath"
-          :setPath="setBrandsPath"
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <ReplacementList header="Использовать список брендов" :getPath="getBrandsPath" :setPath="setBrandsPath"
+          :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
 
       <TabPanel header="Замены">
-        <ReplacementList
-          header="Использовать список замен"
-          :getPath="getReplacesPath"
-          :setPath="setReplacesPath"
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <ReplacementList header="Использовать список замен" :getPath="getReplacesPath" :setPath="setReplacesPath"
+          :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
     </TabView>
   </div>
@@ -64,12 +46,7 @@ export default {
     ReplacementList,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -78,7 +55,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
   },
 
   methods: {
@@ -92,9 +69,9 @@ export default {
       console.log(profileText);
     },
 
-    onChanges() {},
+    onChanges() { },
 
-    onSaveChanges() {},
+    onSaveChanges() { },
   },
 
   computed: {

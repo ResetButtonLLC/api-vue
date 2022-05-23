@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <h4>Предпросмотр</h4>
 
     <div v-if="filterList.length" class="flex mb-2">
@@ -10,35 +10,26 @@
     </div>
 
     <div>
-      <FilterCreator
-        v-if="!isLoading"
-        :campaignList="campaigns"
-        :categoryList="categories"
-        :groupList="groups"
-        @addFilter="addFilter"
-      />
+      <FilterCreator v-if="!isLoading" :campaignList="campaigns" :categoryList="categories" :groupList="groups"
+        @addFilter="addFilter" />
 
-      <div v-else>Загрузка...</div>
+      <div v-else>
+        <p class="text-center">
+          <i class="pi pi-spin pi-spinner"></i>
+          Загрузка...
+        </p>
+      </div>
     </div>
 
     <div class="mt-4 panel">
-      <SelectButton
-        v-model="currentPreviewType"
-        :options="previewTypes"
-        optionLabel="name"
-        optionValue="value"
-        @change="updatePreview(value)"
-      />
+      <SelectButton v-model="currentPreviewType" :options="previewTypes" optionLabel="name" optionValue="value"
+        @change="updatePreview(value)" />
 
       <FilterTableFields :profileLink="profile" />
     </div>
 
-    <PreviewTable
-      :profileLink="profileLink"
-      :activeFieldList="activeFieldList"
-      :isLoading="isLoading"
-      :previewList="previewList"
-    />
+    <PreviewTable v-if="!isLoading" class="mt-4" :columnList="columnListForPreviewTable" :dataList="dataList"
+      @hideColumn="hideColumn" @changeValue="changeValue" />
   </div>
 </template>
 
@@ -48,7 +39,7 @@ import apiPreview from "@/api/apiPreview";
 import filterConst from "@/const/filter";
 import FilterCreator from "@/components/FilterCreator";
 import FilterTableFields from "@/components/FilterTableFields";
-import PreviewTable from "./PreviewTable";
+import PreviewTable from "@/components/PreviewTable";
 
 export default {
   components: {
@@ -57,15 +48,12 @@ export default {
     PreviewTable,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
+      dataList: [{ id: 1, googleid: 123123 }, { id: 2, googleid: 1231232 }, { id: 3, googleid: 5555 }, { id: 4, googleid: 666662 }],
+
       profile: {},
       filterList: [],
       previewList: [],
@@ -90,7 +78,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId }
 
     this.$store.dispatch("getProfileCategories", this.profile.id);
     this.$store.dispatch("getProfileCampaigns", {
@@ -102,6 +90,11 @@ export default {
   },
 
   methods: {
+    hideColumn(value) {
+      console.log('hide: ' + value);
+      this.profile.previewActiveFields = this.profile.previewActiveFields.filter((el) => el != value);
+    },
+
     updatePreview(newPage = 1) {
       this.currentPage = newPage;
       this.isPreviewLoading = true;
@@ -137,6 +130,10 @@ export default {
     toText(filter) {
       return filterConst.filterToText(filter);
     },
+
+    changeValue(elementIndex, value, newValue) {
+      this.dataList[elementIndex][value] = newValue;
+    }
   },
 
   computed: {
@@ -154,6 +151,14 @@ export default {
         default:
           return [];
       }
+    },
+
+    columnListForPreviewTable() {
+      if (this.profile.previewActiveFields === undefined) {
+        return [];
+      }
+
+      return this.activeFieldList.filter((el) => this.profile.previewActiveFields.indexOf(el.value) !== -1);
     },
 
     activeFilterList() {

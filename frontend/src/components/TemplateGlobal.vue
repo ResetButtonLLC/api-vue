@@ -1,27 +1,20 @@
 <template>
   <div>
-    <p v-if="isTemplatesLoading">Загрузка...</p>
+    <div v-if="isTemplatesLoading">
+      <p class="text-center">
+        <i class="pi pi-spin pi-spinner"></i>
+        Загрузка...
+      </p>
+    </div>
 
     <div v-else>
       <TabView v-model:activeIndex="activeIndex" @tab-click="addTab" scrollable>
-        <TabPanel
-          v-for="(tab, tabIndex) in templateList"
-          :key="tab"
-          :header="tabIndex + 1"
-        >
-          <Template
-            @onChange="$emit('onChange')"
-            :templateLink="tab"
-            :isGlobal="true"
-          />
+        <TabPanel v-for="(tab, tabIndex) in templateList" :key="tab" :header="tabIndex + 1">
+          <Template @onChange="$emit('onChange')" :templateLink="tab" :isGlobal="true" />
 
           <div class="mt-4 text-center">
-            <Button
-              label="Удалить шаблон"
-              icon="pi pi-trash"
-              class="mt-4 p-button-danger"
-              @click="tryDelete(tabIndex)"
-            ></Button>
+            <Button label="Удалить шаблон" icon="pi pi-trash" class="mt-4 p-button-danger"
+              @click="tryDelete(tabIndex)"></Button>
           </div>
         </TabPanel>
 
@@ -30,42 +23,22 @@
         </TabPanel>
 
         <TabPanel header="Default">
-          <Template
-            @onChange="$emit('onChange')"
-            :templateLink="profile.defaultTemplate"
-            :isGlobal="true"
-          />
+          <Template @onChange="$emit('onChange')" :templateLink="profile.defaultTemplate" :isGlobal="true" />
         </TabPanel>
       </TabView>
 
       <div class="savebtn">
-        <Button
-          class="mt-4 mb-2 p-button-success"
-          label="Сохранить изменения"
-          icon="pi pi-save"
-          @click="saveChanges"
-        ></Button>
+        <Button class="mt-4 mb-2 p-button-success" label="Сохранить изменения" icon="pi pi-save"
+          @click="saveChanges"></Button>
       </div>
     </div>
 
-    <Dialog
-      v-if="isShowDeleteDialog"
-      :visible="true"
-      :style="{ width: '450px' }"
-      header="Подтвердите удаление"
-      :modal="true"
-      class="p-fluid"
-      @update:visible="isShowDeleteDialog = false"
-    >
+    <Dialog v-if="isShowDeleteDialog" :visible="true" :style="{ width: '450px' }" header="Подтвердите удаление"
+      :modal="true" class="p-fluid" @update:visible="isShowDeleteDialog = false">
       <p>Удалить шаблон?</p>
 
       <template #footer>
-        <Button
-          label="Удалить"
-          icon="pi pi-trash"
-          class="p-button-danger"
-          @click="confirmDelete"
-        />
+        <Button label="Удалить" icon="pi pi-trash" class="p-button-danger" @click="confirmDelete" />
       </template>
     </Dialog>
   </div>

@@ -51,12 +51,13 @@ Route::middleware('auth:sanctum')->group(
 
 
         //todo refactor
-
         Route::get('/profiles', [ProfileController::class, 'index']);
         Route::post('/profile/create', [ProfileController::class, 'create']);
         Route::post('/profile/{profile}/settings', [ProfileController::class, 'settings']);
 
         /** SETTINGS */
+        Route::get('/settings/profile/{profileId}/get', [SettingsController::class, 'getProfile']);
+        Route::post('/settings/profile/{profileId}/set', [SettingsController::class, 'setProfile']);
         Route::get('/settings/import/{profileId}/get', [SettingsController::class, 'getImport']);
         Route::post('/settings/import/{profileId}/set', [SettingsController::class, 'setImport']);
         Route::get('/settings/ads/{profileId}/get', [SettingsController::class, 'getAds']);
@@ -86,6 +87,11 @@ Route::middleware('auth:sanctum')->group(
         Route::post('/feed/{profile}/set', [FeedController::class, 'set']);
 
         /** REPLACEMENTS */
+        Route::get('/replacements/ads', [ReplaceController::class, 'getAdsGlobal']);
+        Route::post('/replacements/ads', [ReplaceController::class, 'setAdsGlobal']);
+        Route::get('/replacements/keywords', [ReplaceController::class, 'getKeywordsGlobal']);
+        Route::post('/replacements/keywords', [ReplaceController::class, 'setKeywordsGlobal']);
+
         Route::get('/replacements/{profile}/ads/brands/get', [ReplaceController::class, 'getAdBrands']);
         Route::post('/replacements/{profile}/ads/brands/set', [ReplaceController::class, 'setAdBrands']);
         Route::get('/replacements/{profile}/ads/replaces/get', [ReplaceController::class, 'getAdReplaces']);

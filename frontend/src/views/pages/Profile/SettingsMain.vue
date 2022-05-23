@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="card">
     <h4>Основное</h4>
 
     <div v-if="isSettingsLoading">
-      <p>
+      <p class="text-center">
         <i class="pi pi-spin pi-spinner"></i>
         Загрузка...
       </p>
@@ -11,38 +11,19 @@
 
     <div v-else>
       <div class="text-center">
-        <SelectButton
-          v-model="profile.settings.activity"
-          :options="activityList"
-          optionLabel="name"
-          optionValue="value"
-          @change="$emit('onChange')"
-        />
+        <SelectButton v-model="profile.settings.activity" :options="activityList" optionLabel="name" optionValue="value"
+          @change="$emit('onChange')" />
       </div>
 
       <span class="p-float-label mt-5">
-        <InputText
-          class="w-full"
-          type="text"
-          id="google_ads_account_id"
-          v-model="profile.settings.google_ads_account.id"
-          @change="$emit('onChange')"
-        />
-        <label for="google_ads_account_id">Google Ads ID</label>
+        <InputText class="w-full" type="text" id="google_id" v-model="profile.settings.google_ads_account.id"
+          @change="$emit('onChange')" />
+        <label for="google_id">Google Ads ID</label>
       </span>
 
       <span class="p-float-label mt-4">
-        <InputNumber
-          class="w-full"
-          id="bid"
-          v-model="profile.settings.bid"
-          mode="decimal"
-          locale="ua-UA"
-          :minFractionDigits="2"
-          :maxFractionDigits="2"
-          :step="0.01"
-          @input="$emit('onChange')"
-        />
+        <InputNumber class="w-full" id="bid" v-model="profile.settings.bid" mode="decimal" locale="ua-UA"
+          :minFractionDigits="2" :maxFractionDigits="2" :step="0.01" @input="$emit('onChange')" />
         <!-- suffix="₴" -->
 
         <label for="bid">Ставка</label>
@@ -51,46 +32,31 @@
 
     <h4>Кампании</h4>
 
-    <p v-if="isNoCampaigns">
+    <p v-if="isNoCampaigns && !isCampaignsLoading">
       <i class="pi pi-info-circle"></i> Нет загруженных данных о кампаниях
     </p>
 
-    <Button
-      label="Импортировать кампании"
-      icon="pi pi-cloud-download"
-      class="mt-2 mb-4"
-      @click="showImportDialog"
-    ></Button>
-
-    <p v-if="isCampaignsLoading">
+    <p class="text-center" v-if="isCampaignsLoading">
       <i class="pi pi-spin pi-spinner"></i> Загрузка...
     </p>
 
-    <DataTable
-      v-else
-      :value="campaignList"
-      :scrollable="true"
-      scrollHeight="flex"
-    >
-      <Column field="name" :sortable="true" header="Название"></Column>
-      <Column field="googleId" :sortable="true" header="Google ID"></Column>
-    </DataTable>
+    <div v-else>
+      <Button label="Импортировать кампании" icon="pi pi-cloud-download" class="mt-2 mb-4"
+        @click="showImportDialog"></Button>
 
-    <ImportCampaignDialog
-      @cancel="hideImportDialog"
-      @import="importCampaigns"
-      :importedCampaigns="campaignList"
-      :profileId="profile.id"
-      v-if="isShowImportDialog"
-    />
+      <DataTable :value="campaignList" :scrollable="true" scrollHeight="flex">
+        <Column field="name" :sortable="true" header="Название"></Column>
+        <Column field="googleId" :sortable="true" header="Google ID"></Column>
+      </DataTable>
+
+    </div>
+
+    <ImportCampaignDialog @cancel="hideImportDialog" @import="importCampaigns" :importedCampaigns="campaignList"
+      :profileId="profile.id" v-if="isShowImportDialog" />
 
     <div class="savebtn" v-if="!isCampaignsLoading && !isSettingsLoading">
-      <Button
-        label="Сохранить изменения"
-        icon="pi pi-save"
-        class="mt-4 mb-4 p-button-success"
-        @click="saveChanges"
-      ></Button>
+      <Button label="Сохранить изменения" icon="pi pi-save" class="mt-4 mb-4 p-button-success"
+        @click="saveChanges"></Button>
     </div>
   </div>
 </template>
@@ -105,12 +71,7 @@ export default {
     ImportCampaignDialog,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -125,7 +86,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
 
     if (this.profile.settings === undefined) {
       this.profile.settings = {};

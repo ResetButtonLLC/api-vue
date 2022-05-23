@@ -2,50 +2,27 @@
   <div>
     <TabView scrollable>
       <TabPanel header="Генерация">
-        <GenerateKeywordsSettings
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <GenerateKeywordsSettings :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
 
       <TabPanel header="Бренды">
-        <ReplacementList
-          header="Использовать список брендов"
-          :getPath="getBrandsPath"
-          :setPath="setBrandsPath"
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <ReplacementList header="Использовать список брендов" :getPath="getBrandsPath" :setPath="setBrandsPath"
+          :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
 
       <TabPanel header="Замены">
-        <ReplacementList
-          header="Использовать список замен"
-          :getPath="getReplacesPath"
-          :setPath="setReplacesPath"
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <ReplacementList header="Использовать список замен" :getPath="getReplacesPath" :setPath="setReplacesPath"
+          :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
 
       <TabPanel header="Цвета">
-        <ReplacementList
-          header="Использовать цвета"
-          :getPath="getKeysPath"
-          :setPath="setKeysPath"
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <ReplacementList header="Использовать цвета" :getPath="getKeysPath" :setPath="setKeysPath"
+          :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
 
       <TabPanel header="Кривые кеи">
-        <ReplacementList
-          header="Использовать кривые кеи"
-          :getPath="getKeysPath"
-          :setPath="setKeysPath"
-          :profileLink="profile"
-          @onChange="onChanges"
-        />
+        <ReplacementList header="Использовать кривые кеи" :getPath="getKeysPath" :setPath="setKeysPath"
+          :profileLink="profile" @onChange="onChanges" />
       </TabPanel>
     </TabView>
   </div>
@@ -72,12 +49,7 @@ export default {
     ReplacementList,
   },
 
-  props: {
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
@@ -86,7 +58,7 @@ export default {
   },
 
   created() {
-    this.profile = this.profileLink;
+    this.profile = { id: this.profileId };
   },
 
   methods: {
@@ -100,9 +72,9 @@ export default {
       console.log(profileText);
     },
 
-    onChanges() {},
+    onChanges() { },
 
-    onSaveChanges() {},
+    onSaveChanges() { },
   },
 
   computed: {

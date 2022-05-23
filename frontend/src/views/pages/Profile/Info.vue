@@ -6,14 +6,14 @@
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
           <span class="block text-500 font-medium mb-3">Проект</span>
-          <div class="text-900 font-medium text-xl">{{ project.name }}</div>
+          <div class="text-900 font-medium text-xl">{{ projectName }}</div>
         </div>
       </div>
 
       <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
           <span class="block text-500 font-medium mb-3">Профиль</span>
-          <div class="text-900 font-medium text-xl">{{ profile.name }}</div>
+          <div class="text-900 font-medium text-xl">{{ profileName }}</div>
         </div>
       </div>
 
@@ -36,28 +36,33 @@
 
 <script>
 export default {
-  props: {
-      projectLink: {
-      type: Object,
-      required: true,
-    },
-
-    profileLink: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['profileId'],
 
   data() {
     return {
-      project: {},
-      profile: {},
+
     };
   },
 
+  computed: {
+    project() {
+      return this.$store.getters.getProjectFromProfileId(this.profileId);
+    },
+
+    projectName() {
+      return (this.project && this.project.name) ? this.project.name : 'Загрузка...';
+    },
+
+    profile() {
+      return this.$store.getters.getProfileFromId(this.profileId);
+    },
+
+    profileName() {
+      return (this.profile && this.profile.name) ? this.profile.name : 'Загрузка...';
+    },
+  },
+
   created() {
-    this.project = this.projectLink;
-    this.profile = this.profileLink;
   },
 
   methods: {},
