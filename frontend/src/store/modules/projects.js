@@ -1,55 +1,20 @@
 import apiProjects from "@/api/apiProjects";
+import apiProfiles from "@/api/apiProfiles";
+//NEW
 //import { result } from "lodash";
-
-function buildProfiles(items, projectId) {
-    let result = [];
-
-    items.forEach((el) => {
-        result.push({
-            id: el.id,
-            label: el.name,
-            icon: "pi pi-fw pi-tag",
-            to: { name: "Profile", params: { id: el.id } },
-        });
-    });
-
-    result.push({
-        label: 'Добавить профиль',
-        icon: "pi pi-fw pi-plus",
-        to: { name: "CreateProfile", params: { projectId: projectId } },
-    });
-
-    return result;
-}
-
-function buildProjects(items) {
-    let result = [];
-
-    items.forEach((el) => {
-        result.push({
-            id: el.id,
-            label: el.name,
-            icon: "pi pi-fw pi-tags",
-            items: buildProfiles(el.profiles, el.id)
-        });
-    });
-
-    result.push({
-        label: 'Добавить клиента',
-        icon: "pi pi-fw pi-plus",
-        to: { name: "CreateProject" },
-    });
-
-    return result;
-}
 
 export default {
     state: () => ({
         projects: [],
+        isProjectLoading: false,
     }),
     mutations: {
         setProjects(state, projects) {
             state.projects = projects;
+        },
+
+        setProjectLoading(state, isLoading) {
+            state.isProjectLoading = isLoading;
         },
 
         addProject(state, project) {
@@ -69,21 +34,25 @@ export default {
                 context.commit('addProject', project);
 
                 context.dispatch('route', {
-                    name: 'CreateProfile',
+                    name: 'ProjectProfileList',
                     params: {
-                        projectId: project.id
+                        id: project.id
                     }
                 });
             }).catch(() => {
-                context.dispatch('error', 'Не удалось создать клиента');
+                context.dispatch('error', 'Не удалось создать проект');
             });
         },
 
         loadProjects(context) {
+            context.commit('setProjectLoading', true);
+
             apiProjects.getProjects().then((result) => {
                 context.commit('setProjects', result.data.data);
             }).catch(() => {
-                context.dispatch('error', 'Не удалось загрузить список клиентов');
+                context.dispatch('error', 'Не удалось загрузить список проектов');
+            }).finally(() => {
+                context.commit('setProjectLoading', false);
             });
         },
 
@@ -96,12 +65,9 @@ export default {
                 context.dispatch('route', {
                     name: 'Profile',
                     params: {
-                        id: profile.id,
-                        projectId: projectId
+                        profileId: profile.id
                     }
                 });
-
-
             }).catch(() => {
                 context.dispatch('error', 'Не удалось создать профиль');
             });
@@ -109,15 +75,32 @@ export default {
     },
 
     getters: {
-        getProjectsForMenu(state) {
-            return [{
-                label: "Клиенты",
-                items: buildProjects(state.projects)
-            }];
-        },
-
         getProjects(state) {
             return state.projects;
+        },
+
+        getProjectFromProfileId: (state) => (id) => {
+            let result = null;
+            state.projects.forEach((project) => {
+                if (project.profiles.find((profile) => profile.id == id)) {
+                    result = project;
+                }
+            });
+
+            return result;
+        },
+
+        getProfileFromId: (state) => (id) => {
+            let result = null;
+            state.projects.forEach((project) => {
+                project.profiles.forEach((profile) => {
+                    if (profile.id == id) {
+                        result = profile;
+                    }
+                });
+            });
+
+            return result;
         },
 
         getProfiles(state) {
@@ -129,5 +112,9 @@ export default {
 
             return result;
         },
+
+        isProjectLoading(state) {
+            return state.isProjectLoading;
+        }
     }
 }

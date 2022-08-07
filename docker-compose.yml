@@ -17,27 +17,27 @@ services:
     networks:
       - network-gym
 
-  db-gym:
-    image: mysql:8.0
-    container_name: db-gym
-    restart: unless-stopped
-    command: '--secure-file-priv=NULL --bind-address=0.0.0.0'
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
-      - ./.docker/mysql/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+#  db-gym:
+#    image: mysql:8.0
+#    container_name: db-gym
+#    restart: unless-stopped
+#    command: '--secure-file-priv=NULL --bind-address=0.0.0.0'
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: ${DB_DATABASE}
+#      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+#      MYSQL_PASSWORD: ${DB_PASSWORD}
+#      MYSQL_USER: ${DB_USERNAME}
+#      SERVICE_TAGS: dev
+#      SERVICE_NAME: mysql
+#    volumes:
+#      - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
+#      - ./.docker/mysql/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
 #      - ./.docker/mysql/mysql-files:/var/lib/mysql-files
-    networks:
-      - network-gym
-      
+#   networks:
+#     - network-gym
+
   postgres-gym:
     image: postgres:alpine
     container_name: postgres-gym
@@ -46,11 +46,11 @@ services:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER : ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      
+
     ports:
       - '5432:5432'
-#    volumes: 
-#      - ./.docker/postgres/db:/var/lib/postgresql/data 
+#    volumes:
+#      - ./.docker/postgres/db:/var/lib/postgresql/data
     networks:
       - network-gym
 
@@ -80,6 +80,7 @@ services:
           - NODE_ENV=production
       volumes:
           - ./frontend:/home/node/app
+          - ./public:/home/node/public
       tty: true
 
 networks:

@@ -1,23 +1,22 @@
 <template>
-  <div :class="containerClass" @click="onWrapperClick" v-if="!isLoginProcess">
+  <div :class="containerClass" v-if="!isLoginProcess">
     <AppTopBar @menu-toggle="onMenuToggle" />
-    <div class="layout-sidebar" @click="onSidebarClick">
-      <AppMenu :model="projectsForMenu" @menuitem-click="onMenuItemClick" />
+
+    <div class="layout-sidebar">
+      <AppMenu v-if="isShowMenu" @menuitem-click="onMenuItemClick" @hideMenu="$emit('hideMenu')" />
+      <AppAdminMenu v-if="isShowAdminMenu" @menuitem-click="onMenuItemClick" @hideMenu="$emit('hideMenu')" />
     </div>
 
     <div class="layout-main-container">
       <div class="layout-main">
         <Toast />
-        <router-view :key="$route.fullPath" />
+        <router-view :key="$route.fullPath" @hideMenu="hideMenu" />
       </div>
       <AppFooter />
     </div>
 
     <transition name="layout-mask">
-      <div
-        class="layout-mask p-component-overlay"
-        v-if="mobileMenuActive"
-      ></div>
+      <div class="layout-mask p-component-overlay" v-if="mobileMenuActive" @click="hideMenu"></div>
     </transition>
   </div>
 
@@ -31,8 +30,9 @@
 
 <script>
 import AppTopBar from "./AppTopbar.vue";
-import AppMenu from "./AppMenu.vue";
 import AppFooter from "./AppFooter.vue";
+import AppMenu from "./AppMenu.vue";
+import AppAdminMenu from "./AppAdminMenu.vue";
 
 export default {
   created() {
@@ -55,13 +55,9 @@ export default {
     },
   },
   methods: {
-    onWrapperClick() {
-      if (!this.menuClick) {
-        this.overlayMenuActive = false;
-        this.mobileMenuActive = false;
-      }
-
-      this.menuClick = false;
+    hideMenu() {
+      this.overlayMenuActive = false;
+      this.mobileMenuActive = false;
     },
     onMenuToggle() {
       this.menuClick = true;
@@ -83,9 +79,7 @@ export default {
 
       event.preventDefault();
     },
-    onSidebarClick() {
-      this.menuClick = true;
-    },
+
     onMenuItemClick(event) {
       if (event.item && !event.item.items) {
         this.overlayMenuActive = false;
@@ -123,8 +117,16 @@ export default {
     },
   },
   computed: {
-    projectsForMenu() {
-      return this.$store.getters.getProjectsForMenu;
+    isShowMenu() {
+      return this.$store.getters.isShowMenu;
+    },
+
+    isShowAdminMenu() {
+      return this.$store.getters.isShowAdminMenu;
+    },
+
+    isCanToggleMenu() {
+      return this.isShowMenu || this.isShowAdminMenu;
     },
 
     isLoginProcess() {
@@ -143,6 +145,7 @@ export default {
           "layout-static": this.layoutMode === "static",
           "layout-static-sidebar-inactive":
             !this.isAuthorized ||
+            !this.isCanToggleMenu ||
             (this.staticMenuInactive && this.layoutMode === "static"),
           "layout-overlay-sidebar-active":
             this.overlayMenuActive && this.layoutMode === "overlay",
@@ -166,8 +169,9 @@ export default {
   },
   components: {
     AppTopBar: AppTopBar,
-    AppMenu: AppMenu,
     AppFooter: AppFooter,
+    AppMenu,
+    AppAdminMenu
   },
 };
 </script>
@@ -181,5 +185,72 @@ export default {
   justify-content: center;
   height: 100vh;
   align-items: center;
+}
+
+.p-tooltip {
+  max-width: 30rem;
+}
+</style>
+
+<style>
+.switch {
+  flex: 1;
+  display: flex;
+}
+
+.switch label {
+  align-self: center;
+  margin-left: 10px;
+}
+
+.savebtn {
+  display: flex;
+  justify-content: center;
+}
+
+.infobox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.infobox i {
+  font-size: 1.4rem;
+  color: var(--blue-400);
+}
+
+.infobox .p-float-label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+#right-click-menu {
+  background: #fafafa;
+  border: 1px solid #bdbdbd;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 250px;
+  z-index: 999999;
+}
+
+#right-click-menu li {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+  padding: 5px 35px;
+  cursor: pointer;
+}
+
+#right-click-menu li:last-child {
+  border-bottom: none;
+}
+
+#right-click-menu li:hover {
+  background: #1e88e5;
+  color: #fafafa;
 }
 </style>

@@ -20,10 +20,11 @@ class FeedParser
         $this->typeChecker = $typeChecker;
     }
 
-    public function process($filename, array $patterns = [])
+    public function process($filename, array $customFieldsPattern = [], $isUseCSVNumberPattern = false)
     {
         $feedType = $this->typeChecker->getType($filename);
-        $this->parser = $this->initParser($feedType, $patterns);
+
+        $this->parser = $this->initParser($feedType, $customFieldsPattern, $isUseCSVNumberPattern);
 
         foreach ($this->parser->process($filename) as $product) {
             if ($product) {
@@ -37,22 +38,26 @@ class FeedParser
         return $this->parser->getUniqueElementsList();
     }
 
-    protected function initParser($feedType, array $patterns = [])
+    protected function initParser($feedType, $customFieldsPattern, $isUseCSVNumberPattern)
     {
         switch ($feedType) {
             case TypeChecker::TYPE_XML_YANDEX:
-                $converter = new YandexXML($patterns);
+                $converter = new YandexXML();
+                $converter->setCustomFieldsPattern($customFieldsPattern);
+
                 return new ParserXML($converter);
 
             case TypeChecker::TYPE_XML_GOOGLE:
-                $converter = new GoogleXML($patterns);
+                $converter = new GoogleXML();
+                $converter->setCustomFieldsPattern($customFieldsPattern);
+
                 return new ParserXML($converter);
 
             case TypeChecker::TYPE_CSV:
-                $useNumberFields = $patterns[ParserCSV::NUMBER_PARAM_SETTING] ?? false;
+                $converter = new ConverterCSV();
+                $converter->setCustomFieldsPattern($customFieldsPattern);
 
-                $converter = new ConverterCSV($patterns);
-                return new ParserCSV($converter, $useNumberFields);
+                return new ParserCSV($converter, $isUseCSVNumberPattern);
 
             default:
                 throw new \Exception("Unknown feed type");

@@ -1,17 +1,26 @@
 <template>
   <div>
-    <p>
-      {{ id }}
-    </p>
-
-    <p>
-      {{ text }}
-    </p>
+    <PreviewTable></PreviewTable>
   </div>
+
 </template>
 
 <script>
+import PreviewTable from "@/components/PreviewTable";
+
 export default {
-  props: ["id", "text"],
+  components: {
+    PreviewTable,
+  },
+
+  data() {
+    return {
+      object: {},
+    };
+  },
+
+  methods: {},
+
+  computed: {},
 };
 </script>

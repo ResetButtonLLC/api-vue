@@ -14,6 +14,7 @@ class Vendor extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'campaign_id',
         'category_id',
         'name',
         'is_active',

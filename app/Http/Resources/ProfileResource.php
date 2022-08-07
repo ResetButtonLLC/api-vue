@@ -15,13 +15,17 @@ class ProfileResource extends JsonResource
             'id'            => $profile->id,
             'name'          => $profile->name,
             'project_id'     => $profile->project_id,
-            'google_id'     => $profile->google_id,
-            'feed_url'      => $profile->feed_url ?? '',
+            'google_ads_account_id'     => $profile->google_ads_account_id,
+            'activity' => $profile->activity,
+            'bid' => $profile->bid,
+            //
             'feed_type'     => $profile->feed_type,
             'template'      => $profile->template ?? [],
             'settings'      => $profile->settings ?? [],
             'replacement'   => $profile->replacement ?? [],
             'autoupdates'   => $profile->autoupdates ?? [],
+
+
         ];
     }
 }

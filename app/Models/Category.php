@@ -16,7 +16,8 @@ class Category extends Model
     protected $fillable = [
         'name',
         'is_active',
-        'is_exist'
+        'is_exist',
+        'campaign_id'
     ];
 
     public function vendors()

@@ -3,62 +3,40 @@
     <router-link to="/">
       <img alt="Logo" src="@/assets/images/logo.png" />
     </router-link>
-    <button
-      v-if="isAuthorized"
-      class="p-link layout-menu-button layout-topbar-button"
-      @click="onMenuToggle"
-    >
+    <button v-if="isAuthorized && isCanToggleMenu" class="p-link layout-menu-button layout-topbar-button"
+      @click="onMenuToggle">
       <i class="pi pi-bars"></i>
     </button>
 
-    <button
-      class="p-link layout-topbar-menu-button layout-topbar-button"
-      v-styleclass="{
-        selector: '@next',
-        enterClass: 'hidden',
-        enterActiveClass: 'scalein',
-        leaveToClass: 'hidden',
-        leaveActiveClass: 'fadeout',
-        hideOnOutsideClick: true,
-      }"
-    >
+    <button class="p-link layout-topbar-menu-button layout-topbar-button" v-styleclass="{
+      selector: '@next',
+      enterClass: 'hidden',
+      enterActiveClass: 'scalein',
+      leaveToClass: 'hidden',
+      leaveActiveClass: 'fadeout',
+      hideOnOutsideClick: true,
+    }">
       <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <ul
-      v-if="isAuthorized"
-      class="layout-topbar-menu hidden lg:flex origin-top"
-    >
+    <ul v-if="isAuthorized" class="layout-topbar-menu hidden lg:flex origin-top">
+
+      <li class="mr-4" @click="toAdminpanel">
+        <i class="pi pi-id-card p-text-secondary mr-2"></i> <span class="p-text-secondary">Админ. панель</span>
+      </li>
+
+
       <li class="mr-4" @click="toggleNotificationTable">
-        <i
-          v-if="userNotificationCount"
-          class="pi pi-bell p-text-secondary"
-          v-badge.danger="userNotificationCount"
-        ></i>
+        <i v-if="userNotificationCount" class="pi pi-bell p-text-secondary" v-badge.danger="userNotificationCount"></i>
         <i v-else class="pi pi-bell p-text-secondary"></i>
 
-        <OverlayPanel
-          ref="notifypanel"
-          appendTo="body"
-          :showCloseIcon="true"
-          id="overlay_panel"
-          class="mt-4"
-          style="width: 450px"
-        >
-          <DataTable
-            v-if="userNotificationCount"
-            :value="userNotifications"
-            :paginator="true"
-            :rows="5"
-          >
+        <OverlayPanel ref="notifypanel" appendTo="body" :showCloseIcon="true" class="mt-4" style="width: 450px">
+          <DataTable v-if="userNotificationCount" :value="userNotifications" :paginator="true" :rows="5">
             <Column field="time" header="Время" :sortable="true"></Column>
             <Column field="description" header="Сообщение"></Column>
             <Column headerStyle="width: 4rem">
               <template #body="slotProps">
-                <Button
-                  class="p-button-rounded p-button-danger"
-                  @click="hideNotification(slotProps.data.id)"
-                >
+                <Button class="p-button-rounded p-button-danger" @click="hideNotification(slotProps.data.id)">
                   <span class="pi pi-times p-button-icon"></span>
                 </Button>
               </template>
@@ -112,18 +90,41 @@ export default {
       this.$refs.notifypanel.toggle(event);
     },
 
+    toAdminpanel() {
+      this.$store.dispatch('route', {
+        name: "AdminPanel",
+        params: {},
+      });
+    },
+
     toggleMenu(event) {
       this.$refs.menu.toggle(event);
     },
 
     onMenuToggle(event) {
-      this.$emit("menu-toggle", event);
+      if (this.isCanToggleMenu) {
+        this.$emit("menu-toggle", event);
+      } else {
+        event.preventDefault();
+      }
     },
     onTopbarMenuToggle(event) {
       this.$emit("topbar-menu-toggle", event);
     },
   },
   computed: {
+    isShowMenu() {
+      return this.$store.getters.isShowMenu;
+    },
+
+    isShowAdminMenu() {
+      return this.$store.getters.isShowAdminMenu;
+    },
+
+    isCanToggleMenu() {
+      return this.isShowMenu || this.isShowAdminMenu;
+    },
+
     isAuthorized() {
       return this.$store.getters.isAuthorized;
     },

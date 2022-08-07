@@ -1,27 +1,6 @@
 <template>
-  <!--
   <div class="layout-menu-container">
-    <router-link class="link" to="/"
-      ><i class="pi pi-fw pi-home"></i> Главная страница
-    </router-link>
-
-    <router-link
-      v-for="route in projectList"
-      :key="route.id"
-      class="link"
-      :to="{ name: 'FeedList', params: { id: route.id } }"
-      ><i class="pi pi-fw pi-folder"></i> {{ route.name }}
-    </router-link>
-  </div>
-  -->
-
-  <div class="layout-menu-container">
-    <AppSubmenu
-      :items="model"
-      class="layout-menu"
-      :root="true"
-      @menuitem-click="onMenuItemClick"
-    />
+    <AppSubmenu :items="menuItems" class="layout-menu" :root="true" @menuitem-click="onMenuItemClick" />
   </div>
 </template>
 
@@ -30,30 +9,141 @@ import AppSubmenu from "./AppSubmenu";
 
 export default {
   data() {
-    return {};
+    return {
+    };
   },
 
-  props: {
-    model: Array,
-  },
   methods: {
     onMenuItemClick(event) {
-      this.$emit("menuitem-click", event);
-    },
-    bannerImage() {
-      return this.$appState.darkTheme
-        ? "images/banner-primeblocks-dark.png"
-        : "images/banner-primeblocks.png";
+      if (event.item.id) {
+        this.$emit("menuitem-click", event);
+        this.$emit("hideMenu");
+      }
     },
   },
+
   computed: {
-    projectList() {
-      return this.$store.getters.getProjectList;
+    profileId() {
+      return this.$router.currentRoute.value.params.profileId ?? 0;
     },
 
-    darkTheme() {
-      return this.$appState.darkTheme;
-    },
+    menuItems() {
+      return [
+        {
+          label: "Профиль",
+          items: [
+            {
+              label: "Информация",
+              icon: "pi pi-fw pi-info-circle",
+              to: {
+                name: 'Profile',
+                params: { profileId: this.profileId },
+              }
+            },
+
+            {
+              label: "Настройки",
+              icon: "pi pi-fw pi-cog",
+              items: [
+                {
+                  label: "Общие",
+                  icon: "pi pi-fw pi-globe",
+                  to: {
+                    name: 'ProfileSettingsMain',
+                    params: { profileId: this.profileId },
+                  }
+                },
+
+                {
+                  label: "Импорт и фильтрация",
+                  icon: "pi pi-fw pi-sitemap",
+                  to: {
+                    name: 'ProfileImportAndFilters',
+                    params: { profileId: this.profileId },
+                  }
+                },
+
+                {
+                  label: "Категории",
+                  icon: "pi pi-fw pi-qrcode",
+                  to: {
+                    name: 'ProfileCategories',
+                    params: { profileId: this.profileId },
+                  }
+                },
+
+                {
+                  label: "Генерация объявлений",
+                  icon: "pi pi-fw pi-briefcase",
+                  to: {
+                    name: 'ProfileGenerateAds',
+                    params: { profileId: this.profileId },
+                  }
+                },
+
+                {
+                  label: "Генерация ключевых слов",
+                  icon: "pi pi-fw pi-book",
+                  to: {
+                    name: 'ProfileGenerateKeywords',
+                    params: { profileId: this.profileId },
+                  }
+                },
+
+                {
+                  label: "Автообновления",
+                  icon: "pi pi-fw pi-cloud-upload",
+                  to: {
+                    name: 'ProfileAutoupdateSettings',
+                    params: { profileId: this.profileId },
+                  }
+                },
+              ],
+            },
+
+            {
+              label: "Локальная база",
+              icon: "pi pi-fw pi-database",
+              to: {
+                name: 'ProfilePreview',
+                params: { profileId: this.profileId },
+              }
+            },
+          ],
+        },
+        {
+          label: "Информация",
+          items: [
+            {
+              label: "Статистика",
+              icon: "pi pi-fw pi-chart-bar",
+              to: {
+                name: 'ProfileStatistic',
+                params: { profileId: this.profileId },
+              }
+            },
+
+            {
+              label: "История автообновлений",
+              icon: "pi pi-fw pi-calendar",
+              to: {
+                name: 'ProfileAutoupdateLogs',
+                params: { profileId: this.profileId },
+              }
+            },
+
+            {
+              label: "Логи",
+              icon: "pi pi-fw pi-envelope",
+              to: {
+                name: 'ProfileLogs',
+                params: { profileId: this.profileId },
+              }
+            },
+          ],
+        },
+      ];
+    }
   },
 
   components: {
@@ -61,26 +151,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.link {
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  color: #000;
-  transition: color 0.2s;
-  border-radius: 12px;
-  transition: background-color 0.15s;
-  padding: 1rem 0.8rem;
-}
-
-.link:hover {
-  background-color: rgb(231, 231, 231);
-  border-radius: 12px;
-}
-
-.link i {
-  margin-right: 10px;
-}
-</style>
